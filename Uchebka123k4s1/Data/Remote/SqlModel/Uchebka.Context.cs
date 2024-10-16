@@ -47,8 +47,14 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Supplier> Supplier { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<UserImage> UserImage { get; set; }
+        public virtual DbSet<UserAddress> UserAddress { get; set; }
+        public virtual DbSet<UserDegree> UserDegree { get; set; }
+        public virtual DbSet<UserOperation> UserOperation { get; set; }
+        public virtual DbSet<UserPossibility> UserPossibility { get; set; }
+        public virtual DbSet<UserQualification> UserQualification { get; set; }
+        public virtual DbSet<UserSkill> UserSkill { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserFullName> UserFullName { get; set; }
-        public virtual DbSet<UserImage> UserImage { get; set; }
     }
 }

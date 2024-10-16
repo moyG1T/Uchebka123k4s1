@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище Uchebka123k4s1SQLModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище Uchebka123k4s1SQLModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Description">
           <Key>
             <PropertyRef Name="Id" />
@@ -207,6 +207,22 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="RoleId" Type="int" />
         </EntityType>
+        <EntityType Name="UserAddress">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserDegree">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
         <EntityType Name="UserFullName">
           <Key>
             <PropertyRef Name="Id" />
@@ -215,6 +231,7 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
           <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="Age" Type="int" />
           <Property Name="UserId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="UserImage">
@@ -225,6 +242,37 @@
           <Property Name="ImagePath" Type="nvarchar" MaxLength="200" />
           <Property Name="ImageBin" Type="varbinary(max)" />
           <Property Name="Timestamp" Type="datetime" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserOperation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserPossibility">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="OperId" Type="int" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserQualification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserSkill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
           <Property Name="UserId" Type="int" />
         </EntityType>
         <Association Name="FK_Description_Material">
@@ -491,6 +539,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserAddress_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserAddress" Type="Self.UserAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserAddress">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDegree_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserDegree" Type="Self.UserDegree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserDegree">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserFullName_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="UserFullName" Type="Self.UserFullName" Multiplicity="*" />
@@ -511,6 +583,54 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserImage">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPossibility_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserPossibility" Type="Self.UserPossibility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPossibility">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPossibility_UserOperation">
+          <End Role="UserOperation" Type="Self.UserOperation" Multiplicity="0..1" />
+          <End Role="UserPossibility" Type="Self.UserPossibility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserOperation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPossibility">
+              <PropertyRef Name="OperId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserQualification_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserQualification" Type="Self.UserQualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserQualification">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSkill_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserSkill" Type="Self.UserSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSkill">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -539,8 +659,14 @@
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAddress" EntityType="Self.UserAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDegree" EntityType="Self.UserDegree" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserFullName" EntityType="Self.UserFullName" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserImage" EntityType="Self.UserImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserOperation" EntityType="Self.UserOperation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPossibility" EntityType="Self.UserPossibility" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserQualification" EntityType="Self.UserQualification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSkill" EntityType="Self.UserSkill" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Description_Material" Association="Self.FK_Description_Material">
             <End Role="Material" EntitySet="Material" />
             <End Role="Description" EntitySet="Description" />
@@ -629,6 +755,14 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserAddress_User" Association="Self.FK_UserAddress_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserAddress" EntitySet="UserAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDegree_User" Association="Self.FK_UserDegree_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserDegree" EntitySet="UserDegree" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserFullName_User" Association="Self.FK_UserFullName_User">
             <End Role="User" EntitySet="User" />
             <End Role="UserFullName" EntitySet="UserFullName" />
@@ -637,9 +771,24 @@
             <End Role="User" EntitySet="User" />
             <End Role="UserImage" EntitySet="UserImage" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserPossibility_User" Association="Self.FK_UserPossibility_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPossibility" EntitySet="UserPossibility" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPossibility_UserOperation" Association="Self.FK_UserPossibility_UserOperation">
+            <End Role="UserOperation" EntitySet="UserOperation" />
+            <End Role="UserPossibility" EntitySet="UserPossibility" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserQualification_User" Association="Self.FK_UserQualification_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserQualification" EntitySet="UserQualification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSkill_User" Association="Self.FK_UserSkill_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserSkill" EntitySet="UserSkill" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Uchebka123k4s1SQLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -856,7 +1005,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Uchebka123k4s1SQLModel.FK_User_Role" FromRole="Role" ToRole="User" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -879,29 +1028,6 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RoleId" Type="Int32" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
-          <NavigationProperty Name="UserFullName" Relationship="Self.FK_UserFullName_User" FromRole="User" ToRole="UserFullName" />
-          <NavigationProperty Name="UserImage" Relationship="Self.FK_UserImage_User" FromRole="User" ToRole="UserImage" />
-        </EntityType>
-        <EntityType Name="UserFullName">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_UserFullName_User" FromRole="UserFullName" ToRole="User" />
-        </EntityType>
         <EntityType Name="UserImage">
           <Key>
             <PropertyRef Name="Id" />
@@ -911,7 +1037,7 @@
           <Property Name="ImageBin" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Timestamp" Type="DateTime" Precision="3" />
           <Property Name="UserId" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="Self.FK_UserImage_User" FromRole="UserImage" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Uchebka123k4s1SQLModel.FK_UserImage_User" FromRole="UserImage" ToRole="User" />
         </EntityType>
         <Association Name="FK_Description_Material">
           <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
@@ -1165,42 +1291,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserFullName_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="UserFullName" Type="Self.UserFullName" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserFullName">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserImage_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="UserImage" Type="Self.UserImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserImage">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="HomeEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Description" EntityType="Self.Description" />
           <EntitySet Name="Equipment" EntityType="Self.Equipment" />
@@ -1224,8 +1314,6 @@
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <EntitySet Name="UserFullName" EntityType="Self.UserFullName" />
           <EntitySet Name="UserImage" EntityType="Self.UserImage" />
           <AssociationSet Name="FK_Description_Material" Association="Self.FK_Description_Material">
             <End Role="Material" EntitySet="Material" />
@@ -1311,19 +1399,242 @@
             <End Role="Product" EntitySet="Product" />
             <End Role="ProductOperation" EntitySet="ProductOperation" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+          <EntitySet Name="UserAddress" EntityType="Uchebka123k4s1SQLModel.UserAddress" />
+          <EntitySet Name="UserDegree" EntityType="Uchebka123k4s1SQLModel.UserDegree" />
+          <EntitySet Name="UserOperation" EntityType="Uchebka123k4s1SQLModel.UserOperation" />
+          <EntitySet Name="UserPossibility" EntityType="Uchebka123k4s1SQLModel.UserPossibility" />
+          <EntitySet Name="UserQualification" EntityType="Uchebka123k4s1SQLModel.UserQualification" />
+          <EntitySet Name="UserSkill" EntityType="Uchebka123k4s1SQLModel.UserSkill" />
+          <AssociationSet Name="FK_UserPossibility_UserOperation" Association="Uchebka123k4s1SQLModel.FK_UserPossibility_UserOperation">
+            <End Role="UserOperation" EntitySet="UserOperation" />
+            <End Role="UserPossibility" EntitySet="UserPossibility" />
+          </AssociationSet>
+          <EntitySet Name="User" EntityType="Uchebka123k4s1SQLModel.User" />
+          <EntitySet Name="UserFullName" EntityType="Uchebka123k4s1SQLModel.UserFullName" />
+          <AssociationSet Name="FK_User_Role" Association="Uchebka123k4s1SQLModel.FK_User_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserFullName_User" Association="Self.FK_UserFullName_User">
+          <AssociationSet Name="FK_UserAddress_User" Association="Uchebka123k4s1SQLModel.FK_UserAddress_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserAddress" EntitySet="UserAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDegree_User" Association="Uchebka123k4s1SQLModel.FK_UserDegree_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserDegree" EntitySet="UserDegree" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserFullName_User" Association="Uchebka123k4s1SQLModel.FK_UserFullName_User">
             <End Role="User" EntitySet="User" />
             <End Role="UserFullName" EntitySet="UserFullName" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserImage_User" Association="Self.FK_UserImage_User">
+          <AssociationSet Name="FK_UserImage_User" Association="Uchebka123k4s1SQLModel.FK_UserImage_User">
             <End Role="User" EntitySet="User" />
             <End Role="UserImage" EntitySet="UserImage" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserPossibility_User" Association="Uchebka123k4s1SQLModel.FK_UserPossibility_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPossibility" EntitySet="UserPossibility" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserQualification_User" Association="Uchebka123k4s1SQLModel.FK_UserQualification_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserQualification" EntitySet="UserQualification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSkill_User" Association="Uchebka123k4s1SQLModel.FK_UserSkill_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserSkill" EntitySet="UserSkill" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="UserAddress">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Uchebka123k4s1SQLModel.FK_UserAddress_User" FromRole="UserAddress" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserDegree">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Uchebka123k4s1SQLModel.FK_UserDegree_User" FromRole="UserDegree" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserOperation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserPossibility" Relationship="Uchebka123k4s1SQLModel.FK_UserPossibility_UserOperation" FromRole="UserOperation" ToRole="UserPossibility" />
+        </EntityType>
+        <EntityType Name="UserPossibility">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="OperId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="UserOperation" Relationship="Uchebka123k4s1SQLModel.FK_UserPossibility_UserOperation" FromRole="UserPossibility" ToRole="UserOperation" />
+          <NavigationProperty Name="User" Relationship="Uchebka123k4s1SQLModel.FK_UserPossibility_User" FromRole="UserPossibility" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserQualification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Uchebka123k4s1SQLModel.FK_UserQualification_User" FromRole="UserQualification" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserSkill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Uchebka123k4s1SQLModel.FK_UserSkill_User" FromRole="UserSkill" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_UserPossibility_UserOperation">
+          <End Type="Uchebka123k4s1SQLModel.UserOperation" Role="UserOperation" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.UserPossibility" Role="UserPossibility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserOperation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPossibility">
+              <PropertyRef Name="OperId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="Uchebka123k4s1SQLModel.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="UserAddress" Relationship="Uchebka123k4s1SQLModel.FK_UserAddress_User" FromRole="User" ToRole="UserAddress" />
+          <NavigationProperty Name="UserDegree" Relationship="Uchebka123k4s1SQLModel.FK_UserDegree_User" FromRole="User" ToRole="UserDegree" />
+          <NavigationProperty Name="UserFullName" Relationship="Uchebka123k4s1SQLModel.FK_UserFullName_User" FromRole="User" ToRole="UserFullName" />
+          <NavigationProperty Name="UserImage" Relationship="Uchebka123k4s1SQLModel.FK_UserImage_User" FromRole="User" ToRole="UserImage" />
+          <NavigationProperty Name="UserPossibility" Relationship="Uchebka123k4s1SQLModel.FK_UserPossibility_User" FromRole="User" ToRole="UserPossibility" />
+          <NavigationProperty Name="UserQualification" Relationship="Uchebka123k4s1SQLModel.FK_UserQualification_User" FromRole="User" ToRole="UserQualification" />
+          <NavigationProperty Name="UserSkill" Relationship="Uchebka123k4s1SQLModel.FK_UserSkill_User" FromRole="User" ToRole="UserSkill" />
+        </EntityType>
+        <EntityType Name="UserFullName">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Uchebka123k4s1SQLModel.FK_UserFullName_User" FromRole="UserFullName" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_User_Role">
+          <End Type="Uchebka123k4s1SQLModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAddress_User">
+          <End Type="Uchebka123k4s1SQLModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.UserAddress" Role="UserAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserAddress">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDegree_User">
+          <End Type="Uchebka123k4s1SQLModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.UserDegree" Role="UserDegree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserDegree">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserFullName_User">
+          <End Type="Uchebka123k4s1SQLModel.User" Role="User" Multiplicity="1" />
+          <End Type="Uchebka123k4s1SQLModel.UserFullName" Role="UserFullName" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserFullName">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserImage_User">
+          <End Type="Uchebka123k4s1SQLModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.UserImage" Role="UserImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserImage">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPossibility_User">
+          <End Type="Uchebka123k4s1SQLModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.UserPossibility" Role="UserPossibility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPossibility">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserQualification_User">
+          <End Type="Uchebka123k4s1SQLModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.UserQualification" Role="UserQualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserQualification">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSkill_User">
+          <End Type="Uchebka123k4s1SQLModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.UserSkill" Role="UserSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSkill">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1543,27 +1854,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserFullName">
-            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.UserFullName">
-              <MappingFragment StoreEntitySet="UserFullName">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserImage">
             <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.UserImage">
               <MappingFragment StoreEntitySet="UserImage">
@@ -1572,6 +1862,81 @@
                 <ScalarProperty Name="ImageBin" ColumnName="ImageBin" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAddress">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.UserAddress">
+              <MappingFragment StoreEntitySet="UserAddress">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDegree">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.UserDegree">
+              <MappingFragment StoreEntitySet="UserDegree">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserOperation">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.UserOperation">
+              <MappingFragment StoreEntitySet="UserOperation">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPossibility">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.UserPossibility">
+              <MappingFragment StoreEntitySet="UserPossibility">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="OperId" ColumnName="OperId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserQualification">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.UserQualification">
+              <MappingFragment StoreEntitySet="UserQualification">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSkill">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.UserSkill">
+              <MappingFragment StoreEntitySet="UserSkill">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserFullName">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.UserFullName">
+              <MappingFragment StoreEntitySet="UserFullName">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

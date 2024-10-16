@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="be47abf794454199a23a0b2abb969aef" Name="Diagram1">
+      <Diagram DiagramId="be47abf794454199a23a0b2abb969aef" Name="Diagram1" ZoomLevel="95">
         <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.Description" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.Equipment" Width="1.5" PointX="6.25" PointY="20.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.EquipmentDesc" Width="1.5" PointX="8.5" PointY="21" IsExpanded="true" />
@@ -27,8 +27,6 @@
         <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.Role" Width="1.5" PointX="10.75" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.Supplier" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.User" Width="1.5" PointX="13" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.UserFullName" Width="1.5" PointX="15.25" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.UserImage" Width="1.5" PointX="15.25" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_Description_Material" ManuallyRouted="false" />
         <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_Equipment_EquipmentType" ManuallyRouted="false" />
@@ -51,9 +49,23 @@
         <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_ProductHardware_Product" ManuallyRouted="false" />
         <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_ProductMaterial_Product" ManuallyRouted="false" />
         <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_ProductOperation_Product" ManuallyRouted="false" />
-        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_User_Role" ManuallyRouted="false" />
-        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_UserFullName_User" ManuallyRouted="false" />
-        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_UserImage_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.UserAddress" Width="1.5" PointX="15.25" PointY="18.125" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.UserDegree" Width="1.5" PointX="15.25" PointY="13.125" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.UserOperation" Width="1.5" PointX="16" PointY="8.125" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.UserPossibility" Width="1.5" PointX="18.25" PointY="3.875" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.UserQualification" Width="1.5" PointX="15.25" PointY="15.625" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.UserSkill" Width="1.5" PointX="15.25" PointY="10.625" />
+        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_UserPossibility_UserOperation" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.User" Width="1.5" PointX="13" PointY="0.75" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.UserFullName" Width="1.5" PointX="15.25" PointY="2.5" />
+        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_User_Role" />
+        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_UserAddress_User" />
+        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_UserDegree_User" />
+        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_UserFullName_User" />
+        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_UserImage_User" />
+        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_UserPossibility_User" />
+        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_UserQualification_User" />
+        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_UserSkill_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

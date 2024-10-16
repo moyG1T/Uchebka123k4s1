@@ -36,6 +36,7 @@ namespace Uchebka123k4s1
             {
                 return new MainViewModel(
                     CreateLoginNavService(p),
+                    CreateWorkerRecordNavService(p),
                     p.GetRequiredService<IEntryService>(),
                     p.GetRequiredService<DbService>(),
                     p.GetRequiredService<MainNavContext>());
@@ -59,7 +60,8 @@ namespace Uchebka123k4s1
             services.AddTransient<RegistrationViewModel>(p =>
             {
                 return new RegistrationViewModel(
-                    CreateClientNavService(p)
+                    CreateClientNavService(p),
+                    p.GetRequiredService<DbService>()
                     );
             });
             services.AddTransient<WorkerRecordViewModel>();

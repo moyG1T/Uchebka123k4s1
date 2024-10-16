@@ -79,6 +79,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\Remote\Partial\User.cs" />
+    <Compile Include="Data\Remote\SqlModel\User.cs">
+      <DependentUpon>Uchebka.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\UserAddress.cs">
+      <DependentUpon>Uchebka.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\UserDegree.cs">
+      <DependentUpon>Uchebka.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\UserOperation.cs">
+      <DependentUpon>Uchebka.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\UserPossibility.cs">
+      <DependentUpon>Uchebka.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\UserQualification.cs">
+      <DependentUpon>Uchebka.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\UserSkill.cs">
+      <DependentUpon>Uchebka.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\Commands\CommandBase.cs" />
     <Compile Include="Domain\Commands\GoBackCommand.cs" />
     <Compile Include="Domain\Commands\NavigateCommand.cs" />
@@ -184,9 +206,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Uchebka.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\User.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Remote\SqlModel\UserFullName.cs">
       <DependentUpon>Uchebka.tt</DependentUpon>

@@ -28,7 +28,11 @@ namespace Uchebka123k4s1.ViewModels
         public string PasswordText
         {
             get => _passwordText;
-            set { _passwordText = value; OnPropertyChanged(); }
+            set
+            {
+                _passwordText = value;
+                OnPropertyChanged();
+            }
         }
 
         private string _error;
@@ -59,8 +63,8 @@ namespace Uchebka123k4s1.ViewModels
         public ICommand RememberMeCommand { get; }
 
         public LoginViewModel(
-            INavService registraionNavService, 
-            INavService workerRecordNavService, 
+            INavService registraionNavService,
+            INavService workerRecordNavService,
             IEntryService entryService,
             DbService dbService)
         {
@@ -86,7 +90,7 @@ namespace Uchebka123k4s1.ViewModels
             var user = await _dbService
                 .db
                 .User
-                .FirstOrDefaultAsync(u => u.Login == LoginText && u.Password == PasswordText);
+                .FirstOrDefaultAsync(u => u.Login == LoginText && u.Password == _passwordText);
 
             if (user is null)
             {

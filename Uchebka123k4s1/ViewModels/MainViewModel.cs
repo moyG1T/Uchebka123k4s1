@@ -13,15 +13,22 @@ namespace Uchebka123k4s1.ViewModels
     public class MainViewModel : ViewModel
     {
         private readonly INavService _loginNavService;
+        private readonly INavService _workerNavService;
         private readonly IEntryService _entryService;
         private readonly DbService _dbService;
         private readonly MainNavContext _mainNavContext;
 
         public ViewModel CurrentViewModel => _mainNavContext.CurrentViewModel;
 
-        public MainViewModel(INavService loginNavService, IEntryService entryService, DbService dbService, MainNavContext mainNavContext)
+        public MainViewModel(
+            INavService loginNavService, 
+            INavService workerNavService,
+            IEntryService entryService,
+            DbService dbService,
+            MainNavContext mainNavContext)
         {
             _loginNavService = loginNavService;
+            _workerNavService = workerNavService;
             _entryService = entryService;
             _dbService = dbService;
             _mainNavContext = mainNavContext;
@@ -52,6 +59,9 @@ namespace Uchebka123k4s1.ViewModels
                         switch (user.RoleId)
                         {
                             case 1:
+                                break;
+                            case 5:
+                                _workerNavService.Navigate();
                                 break;
                             default:
                                 break;

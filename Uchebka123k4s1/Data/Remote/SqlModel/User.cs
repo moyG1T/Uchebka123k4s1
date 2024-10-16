@@ -17,8 +17,14 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.UserAddress = new HashSet<UserAddress>();
             this.UserFullName = new HashSet<UserFullName>();
+            this.UserAddress = new HashSet<UserAddress>();
+            this.UserDegree = new HashSet<UserDegree>();
             this.UserImage = new HashSet<UserImage>();
+            this.UserPossibility = new HashSet<UserPossibility>();
+            this.UserQualification = new HashSet<UserQualification>();
+            this.UserSkill = new HashSet<UserSkill>();
         }
     
         public int Id { get; set; }
@@ -28,8 +34,18 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
     
         public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserAddress> UserAddress { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserDegree> UserDegree { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserFullName> UserFullName { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserImage> UserImage { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserPossibility> UserPossibility { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserQualification> UserQualification { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserSkill> UserSkill { get; set; }
     }
 }
