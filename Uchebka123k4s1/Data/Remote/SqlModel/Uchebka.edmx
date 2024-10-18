@@ -88,7 +88,6 @@
           <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
           <Property Name="UnitId" Type="int" />
-          <Property Name="Amount" Type="int" />
           <Property Name="SupplierId" Type="int" />
           <Property Name="TypeId" Type="int" />
           <Property Name="Cost" Type="int" />
@@ -274,6 +273,23 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
           <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="Warehouse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WarehouseContent">
+          <Key>
+            <PropertyRef Name="WarehouseId" />
+            <PropertyRef Name="MaterialId" />
+          </Key>
+          <Property Name="WarehouseId" Type="int" Nullable="false" />
+          <Property Name="MaterialId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Count" Type="int" />
         </EntityType>
         <Association Name="FK_Description_Material">
           <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
@@ -635,6 +651,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WarehouseContent_Material">
+          <End Role="Material" Type="Self.Material" Multiplicity="1" />
+          <End Role="WarehouseContent" Type="Self.WarehouseContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WarehouseContent">
+              <PropertyRef Name="MaterialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WarehouseContent_Warehouse">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+          <End Role="WarehouseContent" Type="Self.WarehouseContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WarehouseContent">
+              <PropertyRef Name="WarehouseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище Uchebka123k4s1SQLModelContainer">
           <EntitySet Name="Description" EntityType="Self.Description" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Equipment" EntityType="Self.Equipment" Schema="dbo" store:Type="Tables" />
@@ -667,6 +707,8 @@
           <EntitySet Name="UserPossibility" EntityType="Self.UserPossibility" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserQualification" EntityType="Self.UserQualification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserSkill" EntityType="Self.UserSkill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WarehouseContent" EntityType="Self.WarehouseContent" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Description_Material" Association="Self.FK_Description_Material">
             <End Role="Material" EntitySet="Material" />
             <End Role="Description" EntitySet="Description" />
@@ -787,6 +829,14 @@
             <End Role="User" EntitySet="User" />
             <End Role="UserSkill" EntitySet="UserSkill" />
           </AssociationSet>
+          <AssociationSet Name="FK_WarehouseContent_Material" Association="Self.FK_WarehouseContent_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="WarehouseContent" EntitySet="WarehouseContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WarehouseContent_Warehouse" Association="Self.FK_WarehouseContent_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="WarehouseContent" EntitySet="WarehouseContent" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -799,7 +849,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Subtitle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="MaterialId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Material" Relationship="Self.FK_Description_Material" FromRole="Description" ToRole="Material" />
+          <NavigationProperty Name="Material" Relationship="Uchebka123k4s1SQLModel.FK_Description_Material" FromRole="Description" ToRole="Material" />
         </EntityType>
         <EntityType Name="Equipment">
           <Key>
@@ -836,7 +886,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaterialId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Material" Relationship="Self.FK_Gost_Material" FromRole="Gost" ToRole="Material" />
+          <NavigationProperty Name="Material" Relationship="Uchebka123k4s1SQLModel.FK_Gost_Material" FromRole="Gost" ToRole="Material" />
         </EntityType>
         <EntityType Name="Hardware">
           <Key>
@@ -883,26 +933,6 @@
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Hardware" Relationship="Self.FK_Hardware_HardwareUnit" FromRole="HardwareUnit" ToRole="Hardware" />
         </EntityType>
-        <EntityType Name="Material">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UnitId" Type="Int32" />
-          <Property Name="Amount" Type="Int32" />
-          <Property Name="SupplierId" Type="Int32" />
-          <Property Name="TypeId" Type="Int32" />
-          <Property Name="Cost" Type="Int32" />
-          <NavigationProperty Name="Description" Relationship="Self.FK_Description_Material" FromRole="Material" ToRole="Description" />
-          <NavigationProperty Name="Gost" Relationship="Self.FK_Gost_Material" FromRole="Material" ToRole="Gost" />
-          <NavigationProperty Name="MaterialType" Relationship="Self.FK_Material_MaterialType" FromRole="Material" ToRole="MaterialType" />
-          <NavigationProperty Name="MaterialUnit" Relationship="Self.FK_Material_MaterialUnit" FromRole="Material" ToRole="MaterialUnit" />
-          <NavigationProperty Name="MaterialImage" Relationship="Self.FK_MaterialImage_Material" FromRole="Material" ToRole="MaterialImage" />
-          <NavigationProperty Name="MaterialLength" Relationship="Self.FK_MaterialLength_Material" FromRole="Material" ToRole="MaterialLength" />
-          <NavigationProperty Name="ProductMaterial" Relationship="Self.FK_ProductMaterial_Material" FromRole="Material" ToRole="ProductMaterial" />
-          <NavigationProperty Name="Supplier" Relationship="Uchebka123k4s1SQLModel.FK_Material_Supplier" FromRole="Material" ToRole="Supplier" />
-        </EntityType>
         <EntityType Name="MaterialImage">
           <Key>
             <PropertyRef Name="Id" />
@@ -912,7 +942,7 @@
           <Property Name="ImageBin" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Timestamp" Type="DateTime" Precision="3" />
           <Property Name="MaterialId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Material" Relationship="Self.FK_MaterialImage_Material" FromRole="MaterialImage" ToRole="Material" />
+          <NavigationProperty Name="Material" Relationship="Uchebka123k4s1SQLModel.FK_MaterialImage_Material" FromRole="MaterialImage" ToRole="Material" />
         </EntityType>
         <EntityType Name="MaterialLength">
           <Key>
@@ -921,7 +951,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Value" Type="Decimal" Precision="5" Scale="2" />
           <Property Name="MaterialId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Material" Relationship="Self.FK_MaterialLength_Material" FromRole="MaterialLength" ToRole="Material" />
+          <NavigationProperty Name="Material" Relationship="Uchebka123k4s1SQLModel.FK_MaterialLength_Material" FromRole="MaterialLength" ToRole="Material" />
         </EntityType>
         <EntityType Name="MaterialType">
           <Key>
@@ -929,7 +959,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Material" Relationship="Self.FK_Material_MaterialType" FromRole="MaterialType" ToRole="Material" />
+          <NavigationProperty Name="Material" Relationship="Uchebka123k4s1SQLModel.FK_Material_MaterialType" FromRole="MaterialType" ToRole="Material" />
         </EntityType>
         <EntityType Name="MaterialUnit">
           <Key>
@@ -937,7 +967,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Material" Relationship="Self.FK_Material_MaterialUnit" FromRole="MaterialUnit" ToRole="Material" />
+          <NavigationProperty Name="Material" Relationship="Uchebka123k4s1SQLModel.FK_Material_MaterialUnit" FromRole="MaterialUnit" ToRole="Material" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -982,8 +1012,8 @@
           <Property Name="ProductId" Type="Int32" />
           <Property Name="MaterialId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Amount" Type="Int32" />
-          <NavigationProperty Name="Material" Relationship="Self.FK_ProductMaterial_Material" FromRole="ProductMaterial" ToRole="Material" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductMaterial_Product" FromRole="ProductMaterial" ToRole="Product" />
+          <NavigationProperty Name="Material" Relationship="Uchebka123k4s1SQLModel.FK_ProductMaterial_Material" FromRole="ProductMaterial" ToRole="Material" />
         </EntityType>
         <EntityType Name="ProductOperation">
           <Key>
@@ -1028,18 +1058,6 @@
           <Property Name="UserId" Type="Int32" />
           <NavigationProperty Name="User" Relationship="Uchebka123k4s1SQLModel.FK_UserImage_User" FromRole="UserImage" ToRole="User" />
         </EntityType>
-        <Association Name="FK_Description_Material">
-          <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
-          <End Role="Description" Type="Self.Description" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Material">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Description">
-              <PropertyRef Name="MaterialId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Equipment_EquipmentType">
           <End Role="EquipmentType" Type="Self.EquipmentType" Multiplicity="0..1" />
           <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
@@ -1073,18 +1091,6 @@
             </Principal>
             <Dependent Role="ProductOperation">
               <PropertyRef Name="TypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Gost_Material">
-          <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
-          <End Role="Gost" Type="Self.Gost" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Material">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Gost">
-              <PropertyRef Name="MaterialId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1133,66 +1139,6 @@
             </Principal>
             <Dependent Role="ProductHardware">
               <PropertyRef Name="HardwareId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Material_MaterialType">
-          <End Role="MaterialType" Type="Self.MaterialType" Multiplicity="0..1" />
-          <End Role="Material" Type="Self.Material" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaterialType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Material">
-              <PropertyRef Name="TypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Material_MaterialUnit">
-          <End Role="MaterialUnit" Type="Self.MaterialUnit" Multiplicity="0..1" />
-          <End Role="Material" Type="Self.Material" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MaterialUnit">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Material">
-              <PropertyRef Name="UnitId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MaterialImage_Material">
-          <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
-          <End Role="MaterialImage" Type="Self.MaterialImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Material">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MaterialImage">
-              <PropertyRef Name="MaterialId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MaterialLength_Material">
-          <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
-          <End Role="MaterialLength" Type="Self.MaterialLength" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Material">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MaterialLength">
-              <PropertyRef Name="MaterialId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductMaterial_Material">
-          <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
-          <End Role="ProductMaterial" Type="Self.ProductMaterial" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Material">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductMaterial">
-              <PropertyRef Name="MaterialId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1266,7 +1212,6 @@
           <EntitySet Name="HardwareImage" EntityType="Self.HardwareImage" />
           <EntitySet Name="HardwareType" EntityType="Self.HardwareType" />
           <EntitySet Name="HardwareUnit" EntityType="Self.HardwareUnit" />
-          <EntitySet Name="Material" EntityType="Self.Material" />
           <EntitySet Name="MaterialImage" EntityType="Self.MaterialImage" />
           <EntitySet Name="MaterialLength" EntityType="Self.MaterialLength" />
           <EntitySet Name="MaterialType" EntityType="Self.MaterialType" />
@@ -1279,10 +1224,6 @@
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="UserImage" EntityType="Self.UserImage" />
-          <AssociationSet Name="FK_Description_Material" Association="Self.FK_Description_Material">
-            <End Role="Material" EntitySet="Material" />
-            <End Role="Description" EntitySet="Description" />
-          </AssociationSet>
           <AssociationSet Name="FK_Equipment_EquipmentType" Association="Self.FK_Equipment_EquipmentType">
             <End Role="EquipmentType" EntitySet="EquipmentType" />
             <End Role="Equipment" EntitySet="Equipment" />
@@ -1294,10 +1235,6 @@
           <AssociationSet Name="FK_ProductOperation_EquipmentType" Association="Self.FK_ProductOperation_EquipmentType">
             <End Role="EquipmentType" EntitySet="EquipmentType" />
             <End Role="ProductOperation" EntitySet="ProductOperation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gost_Material" Association="Self.FK_Gost_Material">
-            <End Role="Material" EntitySet="Material" />
-            <End Role="Gost" EntitySet="Gost" />
           </AssociationSet>
           <AssociationSet Name="FK_Hardware_HardwareType" Association="Self.FK_Hardware_HardwareType">
             <End Role="HardwareType" EntitySet="HardwareType" />
@@ -1314,26 +1251,6 @@
           <AssociationSet Name="FK_ProductHardware_Hardware" Association="Self.FK_ProductHardware_Hardware">
             <End Role="Hardware" EntitySet="Hardware" />
             <End Role="ProductHardware" EntitySet="ProductHardware" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Material_MaterialType" Association="Self.FK_Material_MaterialType">
-            <End Role="MaterialType" EntitySet="MaterialType" />
-            <End Role="Material" EntitySet="Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Material_MaterialUnit" Association="Self.FK_Material_MaterialUnit">
-            <End Role="MaterialUnit" EntitySet="MaterialUnit" />
-            <End Role="Material" EntitySet="Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MaterialImage_Material" Association="Self.FK_MaterialImage_Material">
-            <End Role="Material" EntitySet="Material" />
-            <End Role="MaterialImage" EntitySet="MaterialImage" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MaterialLength_Material" Association="Self.FK_MaterialLength_Material">
-            <End Role="Material" EntitySet="Material" />
-            <End Role="MaterialLength" EntitySet="MaterialLength" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductMaterial_Material" Association="Self.FK_ProductMaterial_Material">
-            <End Role="Material" EntitySet="Material" />
-            <End Role="ProductMaterial" EntitySet="ProductMaterial" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductContent_Product" Association="Self.FK_ProductContent_Product">
             <End Role="Product" EntitySet="Product" />
@@ -1404,9 +1321,48 @@
             <End Role="Supplier" EntitySet="Supplier" />
             <End Role="Hardware" EntitySet="Hardware" />
           </AssociationSet>
+          <EntitySet Name="WarehouseContent" EntityType="Uchebka123k4s1SQLModel.WarehouseContent" />
+          <EntitySet Name="Material" EntityType="Uchebka123k4s1SQLModel.Material" />
+          <AssociationSet Name="FK_Description_Material" Association="Uchebka123k4s1SQLModel.FK_Description_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="Description" EntitySet="Description" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gost_Material" Association="Uchebka123k4s1SQLModel.FK_Gost_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="Gost" EntitySet="Gost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Material_MaterialType" Association="Uchebka123k4s1SQLModel.FK_Material_MaterialType">
+            <End Role="MaterialType" EntitySet="MaterialType" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Material_MaterialUnit" Association="Uchebka123k4s1SQLModel.FK_Material_MaterialUnit">
+            <End Role="MaterialUnit" EntitySet="MaterialUnit" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
           <AssociationSet Name="FK_Material_Supplier" Association="Uchebka123k4s1SQLModel.FK_Material_Supplier">
             <End Role="Supplier" EntitySet="Supplier" />
             <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialImage_Material" Association="Uchebka123k4s1SQLModel.FK_MaterialImage_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="MaterialImage" EntitySet="MaterialImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialLength_Material" Association="Uchebka123k4s1SQLModel.FK_MaterialLength_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="MaterialLength" EntitySet="MaterialLength" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductMaterial_Material" Association="Uchebka123k4s1SQLModel.FK_ProductMaterial_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="ProductMaterial" EntitySet="ProductMaterial" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WarehouseContent_Material" Association="Uchebka123k4s1SQLModel.FK_WarehouseContent_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="WarehouseContent" EntitySet="WarehouseContent" />
+          </AssociationSet>
+          <EntitySet Name="Warehouse" EntityType="Uchebka123k4s1SQLModel.Warehouse" />
+          <AssociationSet Name="FK_WarehouseContent_Warehouse" Association="Uchebka123k4s1SQLModel.FK_WarehouseContent_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="WarehouseContent" EntitySet="WarehouseContent" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="UserAddress">
@@ -1623,6 +1579,85 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="WarehouseContent">
+          <Key>
+            <PropertyRef Name="WarehouseId" />
+            <PropertyRef Name="MaterialId" />
+          </Key>
+          <Property Name="WarehouseId" Type="Int32" Nullable="false" />
+          <Property Name="MaterialId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+          <NavigationProperty Name="Material" Relationship="Uchebka123k4s1SQLModel.FK_WarehouseContent_Material" FromRole="WarehouseContent" ToRole="Material" />
+          <NavigationProperty Name="Warehouse" Relationship="Uchebka123k4s1SQLModel.FK_WarehouseContent_Warehouse" FromRole="WarehouseContent" ToRole="Warehouse" />
+        </EntityType>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UnitId" Type="Int32" />
+          <Property Name="SupplierId" Type="Int32" />
+          <Property Name="TypeId" Type="Int32" />
+          <Property Name="Cost" Type="Int32" />
+          <NavigationProperty Name="Description" Relationship="Uchebka123k4s1SQLModel.FK_Description_Material" FromRole="Material" ToRole="Description" />
+          <NavigationProperty Name="Gost" Relationship="Uchebka123k4s1SQLModel.FK_Gost_Material" FromRole="Material" ToRole="Gost" />
+          <NavigationProperty Name="MaterialType" Relationship="Uchebka123k4s1SQLModel.FK_Material_MaterialType" FromRole="Material" ToRole="MaterialType" />
+          <NavigationProperty Name="MaterialUnit" Relationship="Uchebka123k4s1SQLModel.FK_Material_MaterialUnit" FromRole="Material" ToRole="MaterialUnit" />
+          <NavigationProperty Name="Supplier" Relationship="Uchebka123k4s1SQLModel.FK_Material_Supplier" FromRole="Material" ToRole="Supplier" />
+          <NavigationProperty Name="MaterialImage" Relationship="Uchebka123k4s1SQLModel.FK_MaterialImage_Material" FromRole="Material" ToRole="MaterialImage" />
+          <NavigationProperty Name="MaterialLength" Relationship="Uchebka123k4s1SQLModel.FK_MaterialLength_Material" FromRole="Material" ToRole="MaterialLength" />
+          <NavigationProperty Name="ProductMaterial" Relationship="Uchebka123k4s1SQLModel.FK_ProductMaterial_Material" FromRole="Material" ToRole="ProductMaterial" />
+          <NavigationProperty Name="WarehouseContent" Relationship="Uchebka123k4s1SQLModel.FK_WarehouseContent_Material" FromRole="Material" ToRole="WarehouseContent" />
+        </EntityType>
+        <Association Name="FK_Description_Material">
+          <End Type="Uchebka123k4s1SQLModel.Material" Role="Material" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.Description" Role="Description" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Description">
+              <PropertyRef Name="MaterialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gost_Material">
+          <End Type="Uchebka123k4s1SQLModel.Material" Role="Material" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.Gost" Role="Gost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Gost">
+              <PropertyRef Name="MaterialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Material_MaterialType">
+          <End Type="Uchebka123k4s1SQLModel.MaterialType" Role="MaterialType" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.Material" Role="Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Material_MaterialUnit">
+          <End Type="Uchebka123k4s1SQLModel.MaterialUnit" Role="MaterialUnit" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.Material" Role="Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialUnit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Material_Supplier">
           <End Type="Uchebka123k4s1SQLModel.Supplier" Role="Supplier" Multiplicity="0..1" />
           <End Type="Uchebka123k4s1SQLModel.Material" Role="Material" Multiplicity="*" />
@@ -1632,6 +1667,75 @@
             </Principal>
             <Dependent Role="Material">
               <PropertyRef Name="SupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialImage_Material">
+          <End Type="Uchebka123k4s1SQLModel.Material" Role="Material" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.MaterialImage" Role="MaterialImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialImage">
+              <PropertyRef Name="MaterialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialLength_Material">
+          <End Type="Uchebka123k4s1SQLModel.Material" Role="Material" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.MaterialLength" Role="MaterialLength" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialLength">
+              <PropertyRef Name="MaterialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductMaterial_Material">
+          <End Type="Uchebka123k4s1SQLModel.Material" Role="Material" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.ProductMaterial" Role="ProductMaterial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductMaterial">
+              <PropertyRef Name="MaterialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WarehouseContent_Material">
+          <End Type="Uchebka123k4s1SQLModel.Material" Role="Material" Multiplicity="1" />
+          <End Type="Uchebka123k4s1SQLModel.WarehouseContent" Role="WarehouseContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WarehouseContent">
+              <PropertyRef Name="MaterialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Warehouse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="WarehouseContent" Relationship="Uchebka123k4s1SQLModel.FK_WarehouseContent_Warehouse" FromRole="Warehouse" ToRole="WarehouseContent" />
+        </EntityType>
+        <Association Name="FK_WarehouseContent_Warehouse">
+          <End Type="Uchebka123k4s1SQLModel.Warehouse" Role="Warehouse" Multiplicity="1" />
+          <End Type="Uchebka123k4s1SQLModel.WarehouseContent" Role="WarehouseContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WarehouseContent">
+              <PropertyRef Name="WarehouseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1723,19 +1827,6 @@
               <MappingFragment StoreEntitySet="HardwareUnit">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Material">
-            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.Material">
-              <MappingFragment StoreEntitySet="Material">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
-                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1934,6 +2025,36 @@
             <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.Supplier">
               <MappingFragment StoreEntitySet="Supplier">
                 <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WarehouseContent">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.WarehouseContent">
+              <MappingFragment StoreEntitySet="WarehouseContent">
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+                <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Material">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.Material">
+              <MappingFragment StoreEntitySet="Material">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Warehouse">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.Warehouse">
+              <MappingFragment StoreEntitySet="Warehouse">
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

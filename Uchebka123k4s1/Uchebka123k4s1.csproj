@@ -104,6 +104,12 @@
     <Compile Include="Data\Remote\SqlModel\UserSkill.cs">
       <DependentUpon>Uchebka.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\Remote\SqlModel\Warehouse.cs">
+      <DependentUpon>Uchebka.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\WarehouseContent.cs">
+      <DependentUpon>Uchebka.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\Commands\CommandBase.cs" />
     <Compile Include="Domain\Commands\GoBackCommand.cs" />
     <Compile Include="Domain\Commands\NavigateAndDisposeCommand.cs" />
@@ -111,9 +117,17 @@
     <Compile Include="Domain\Utilities\ObservableObject.cs" />
     <Compile Include="ViewModels\AddWorkerViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
+    <Compile Include="ViewModels\DirectorPanelViewModel.cs" />
+    <Compile Include="ViewModels\MaterialListViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="Views\AddWorkerView.xaml.cs">
       <DependentUpon>AddWorkerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DirectorPanelView.xaml.cs">
+      <DependentUpon>DirectorPanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MaterialListView.xaml.cs">
+      <DependentUpon>MaterialListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RegistrationView.xaml.cs">
       <DependentUpon>RegistrationView.xaml</DependentUpon>
@@ -122,6 +136,10 @@
       <DependentUpon>WorkerRecordView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AddWorkerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DirectorPanelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -242,6 +260,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\MaterialListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RegistrationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

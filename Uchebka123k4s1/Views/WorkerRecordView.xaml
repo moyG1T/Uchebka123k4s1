@@ -78,8 +78,12 @@
 
         <Border Background="{StaticResource Blue}"/>
         <TextBlock Text="Учет работников" HorizontalAlignment="Center" Foreground="White"/>
+        <Button Command="{Binding GoBackCommand}" Content="Назад"
+                HorizontalAlignment="Left"
+                Style="{StaticResource TextButton}"/>
         <Button Command="{Binding LogoutCommand}"
                 Content="Выйти"
+                HorizontalAlignment="Right"
                 Background="{StaticResource Peach}"
                 Style="{StaticResource TextButton}"/>
 

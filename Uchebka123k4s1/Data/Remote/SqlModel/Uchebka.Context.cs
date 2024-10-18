@@ -34,7 +34,6 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public virtual DbSet<HardwareImage> HardwareImage { get; set; }
         public virtual DbSet<HardwareType> HardwareType { get; set; }
         public virtual DbSet<HardwareUnit> HardwareUnit { get; set; }
-        public virtual DbSet<Material> Material { get; set; }
         public virtual DbSet<MaterialImage> MaterialImage { get; set; }
         public virtual DbSet<MaterialLength> MaterialLength { get; set; }
         public virtual DbSet<MaterialType> MaterialType { get; set; }
@@ -45,7 +44,6 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public virtual DbSet<ProductMaterial> ProductMaterial { get; set; }
         public virtual DbSet<ProductOperation> ProductOperation { get; set; }
         public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<Supplier> Supplier { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<UserImage> UserImage { get; set; }
         public virtual DbSet<UserAddress> UserAddress { get; set; }
@@ -56,5 +54,9 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public virtual DbSet<UserSkill> UserSkill { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserFullName> UserFullName { get; set; }
+        public virtual DbSet<Supplier> Supplier { get; set; }
+        public virtual DbSet<WarehouseContent> WarehouseContent { get; set; }
+        public virtual DbSet<Material> Material { get; set; }
+        public virtual DbSet<Warehouse> Warehouse { get; set; }
     }
 }

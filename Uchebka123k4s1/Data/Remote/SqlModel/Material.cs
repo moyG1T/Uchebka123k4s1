@@ -22,12 +22,12 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
             this.MaterialImage = new HashSet<MaterialImage>();
             this.MaterialLength = new HashSet<MaterialLength>();
             this.ProductMaterial = new HashSet<ProductMaterial>();
+            this.WarehouseContent = new HashSet<WarehouseContent>();
         }
     
         public string Id { get; set; }
         public string Title { get; set; }
         public Nullable<int> UnitId { get; set; }
-        public Nullable<int> Amount { get; set; }
         public Nullable<int> SupplierId { get; set; }
         public Nullable<int> TypeId { get; set; }
         public Nullable<int> Cost { get; set; }
@@ -45,5 +45,7 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public virtual ICollection<MaterialLength> MaterialLength { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductMaterial> ProductMaterial { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WarehouseContent> WarehouseContent { get; set; }
     }
 }

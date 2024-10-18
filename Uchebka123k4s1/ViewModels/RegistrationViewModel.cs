@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Uchebka123k4s1.Data.Local.IServices;
 using Uchebka123k4s1.Data.Remote.SqlModel;
 using Uchebka123k4s1.Data.Services;
 using Uchebka123k4s1.Domain.Commands;
+using Uchebka123k4s1.Domain.Contexts;
 using Uchebka123k4s1.Domain.IServices;
 using Uchebka123k4s1.Domain.Utilities;
 
@@ -51,6 +54,9 @@ namespace Uchebka123k4s1.ViewModels
         public bool LoginButtonAbility => !IsLoading;
 
         private bool _rememberMe;
+        private readonly INavService _clientNavService;
+        private readonly UserContext _userContext;
+        private readonly IEntryService _entryService;
         private readonly DbService _dbService;
 
         public bool RememberMe
@@ -59,11 +65,18 @@ namespace Uchebka123k4s1.ViewModels
             set { _rememberMe = value; OnPropertyChanged(); }
         }
 
-        public RegistrationViewModel(INavService clientNavService, DbService dbService)
+        public RegistrationViewModel(
+            INavService clientNavService,
+            UserContext userContext,
+            IEntryService entryService, 
+            DbService dbService)
         {
+            _clientNavService = clientNavService;
+            _userContext = userContext;
+            _entryService = entryService;
             _dbService = dbService;
 
-            GoBackCommand = new GoBackCommand(clientNavService);
+            GoBackCommand = new GoBackCommand(_clientNavService);
             ConfirmCommand = new RelayAsyncCommand(RegistrateUser);
         }
 
@@ -118,8 +131,24 @@ namespace Uchebka123k4s1.ViewModels
                 RoleId = 5,
             };
 
-            _dbService.db.User.Add(user);
-            await _dbService.db.SaveChangesAsync();
+            if (await _dbService.db.User.FirstOrDefaultAsync(u => u.Login == user.Login) is null)
+            {
+                _dbService.db.User.Add(user);
+                await _dbService.db.SaveChangesAsync();
+
+                if (RememberMe)
+                {
+                    _entryService.Write(user.Id.ToString());
+                }
+
+                _userContext.User = user;
+
+                _clientNavService.NavigateAndDispose();
+            }
+            else
+            {
+                Error = "Такой пользователь уже существует";
+            }
         }
 
         public override void Dispose()

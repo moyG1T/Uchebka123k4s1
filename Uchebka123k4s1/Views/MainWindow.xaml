@@ -25,11 +25,17 @@
         <DataTemplate DataType="{x:Type vm:ClientViewModel}">
             <v:WorkerRecordView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DirectorPanelViewModel}">
+            <v:DirectorPanelView/>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:WorkerRecordViewModel}">
             <v:WorkerRecordView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:AddWorkerViewModel}">
             <v:AddWorkerView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MaterialListViewModel}">
+            <v:MaterialListView/>
         </DataTemplate>
     </Window.Resources>
     

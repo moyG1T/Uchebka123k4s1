@@ -34,11 +34,13 @@ namespace Uchebka123k4s1.ViewModels
         }
 
         public ICommand LogoutCommand { get; }
+        public ICommand GoBackCommand { get; }
         public ICommand AddWorkerCommand { get; }
         public ICommand RemoveWorkerCommand { get; }
 
         public WorkerRecordViewModel(
-            INavService exitNavService, 
+            INavService logout, 
+            INavService goBack, 
             INavService addWorkerNavService, 
             UserContext userContext, 
             DbService dbService)
@@ -46,7 +48,8 @@ namespace Uchebka123k4s1.ViewModels
             _userContext = userContext;
             _dbService = dbService;
 
-            LogoutCommand = new NavigateAndDisposeCommand(exitNavService);
+            LogoutCommand = new NavigateAndDisposeCommand(logout);
+            GoBackCommand = new GoBackCommand(goBack);
             AddWorkerCommand = new NavigateCommand(addWorkerNavService);
             RemoveWorkerCommand = new RelayAsyncCommand(RemoveWorker);
 

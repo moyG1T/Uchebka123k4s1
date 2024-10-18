@@ -48,15 +48,17 @@ namespace Uchebka123k4s1.ViewModels
         public ObservableCollection<UserOperation> Operations { get; set; } = new ObservableCollection<UserOperation>();
         public ObservableCollection<UserPossibility> WorkerPossibilities { get; set; } = new ObservableCollection<UserPossibility>();
 
+        public ICommand LogoutCommand { get; }
         public ICommand GoBackCommand { get; }
         public ICommand AddWorkerCommand { get; }
         public ICommand AddOperationCommand { get; }
         public ICommand RemoveOperationCommand { get; }
 
-        public AddWorkerViewModel(INavService goBackNavService, DbService dbService)
+        public AddWorkerViewModel(INavService logout, INavService goBackNavService, DbService dbService)
         {
             this._dbService = dbService;
 
+            LogoutCommand = new NavigateAndDisposeCommand(logout);
             GoBackCommand = new GoBackCommand(goBackNavService);
             AddWorkerCommand = new RelayAsyncCommand(AddWorker);
             AddOperationCommand = new RelayCommand(AddOperation);

@@ -17,6 +17,7 @@
             <Border Background="{StaticResource Blue}"/>
             <TextBlock Text="Добавление работника" Foreground="White" HorizontalAlignment="Center"/>
             <Button Command="{Binding GoBackCommand}" Content="Назад" Style="{StaticResource TextButton}"/>
+            <Button Command="{Binding LogoutCommand}" Content="Выйти" HorizontalAlignment="Right" Style="{StaticResource TextButton}"/>
         </Grid>
 
         <ScrollViewer Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top"

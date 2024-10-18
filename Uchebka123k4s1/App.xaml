@@ -66,6 +66,7 @@
             <Setter Property="Background" Value="{StaticResource Blue}"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="8 4"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -74,7 +75,7 @@
                                        Text="{TemplateBinding Content}" 
                                        Foreground="{TemplateBinding Foreground}"
                                        FontSize="{TemplateBinding FontSize}"
-                                       Margin="8 4"/>
+                                       Margin="{TemplateBinding Margin}"/>
                         </Grid>
 
                         <ControlTemplate.Triggers>

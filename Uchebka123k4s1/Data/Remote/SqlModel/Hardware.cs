@@ -32,10 +32,10 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
     
         public virtual HardwareType HardwareType { get; set; }
         public virtual HardwareUnit HardwareUnit { get; set; }
-        public virtual Supplier Supplier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HardwareImage> HardwareImage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductHardware> ProductHardware { get; set; }
+        public virtual Supplier Supplier { get; set; }
     }
 }
