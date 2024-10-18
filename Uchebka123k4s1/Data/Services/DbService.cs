@@ -12,5 +12,11 @@ namespace Uchebka123k4s1.Data.Services
     public class DbService : IDbService
     {
         public HomeEntities db = new HomeEntities();
+
+        public event Action<User> WorkerAdded;
+        public void AddWorker(User worker)
+        {
+            WorkerAdded?.Invoke(worker);
+        }
     }
 }

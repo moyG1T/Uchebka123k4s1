@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Uchebka123k4s1.Data.Local.IServices;
 using Uchebka123k4s1.Data.Services;
 using Uchebka123k4s1.Domain.Commands;
+using Uchebka123k4s1.Domain.Contexts;
 using Uchebka123k4s1.Domain.IServices;
 using Uchebka123k4s1.Domain.Utilities;
 
@@ -15,6 +16,7 @@ namespace Uchebka123k4s1.ViewModels
         private readonly INavService _registraionNavService;
         private readonly INavService _workerRecordNavService;
         private readonly IEntryService _entryService;
+        private readonly UserContext _userContext;
         private readonly DbService _dbService;
 
         private string _loginText;
@@ -66,12 +68,16 @@ namespace Uchebka123k4s1.ViewModels
             INavService registraionNavService,
             INavService workerRecordNavService,
             IEntryService entryService,
+            UserContext userContext,
             DbService dbService)
         {
             _registraionNavService = registraionNavService;
             _workerRecordNavService = workerRecordNavService;
             _entryService = entryService;
+            _userContext = userContext;
             _dbService = dbService;
+
+            _entryService.Remove();
 
             LoginCommand = new RelayAsyncCommand(LoginAsync);
             GoToRegistrationCommand = new NavigateCommand(registraionNavService);
@@ -103,12 +109,14 @@ namespace Uchebka123k4s1.ViewModels
                     _entryService.Write(user.Id.ToString());
                 }
 
+                _userContext.User = user;
                 switch (user.RoleId)
                 {
-                    case 1:
+                    case 5:
                         _workerRecordNavService.NavigateAndDispose();
                         break;
                     default:
+                        Error = "Нет страниц для данной роли";
                         break;
                 }
             }

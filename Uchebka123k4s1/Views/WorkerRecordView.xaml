@@ -21,6 +21,7 @@
         </Style>
 
         <Style TargetType="ListBoxItem" x:Key="WorkerItemStyle">
+            <Setter Property="Visibility" Value="Collapsed"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
@@ -34,20 +35,34 @@
                                     <TextBlock Text="{Binding UserFullNameCopy.FirstName}" Foreground="White" Margin="0 0 3 0"/>
                                     <TextBlock Text="{Binding UserFullNameCopy.Patronymic}" Foreground="White" Margin="0 0 3 0"/>
                                 </StackPanel>
-                                <TextBlock Foreground="White" Text="{Binding UserFullNameCopy.Age, StringFormat={}Опыт работы: {0}}" Margin="0"/>
+                                <TextBlock Foreground="White" Text="{Binding UserFullNameCopy.Age, StringFormat={}Возраст: {0}}" Margin="0"/>
 
                                 <TextBlock Foreground="White" Text="Виды доступных работ:" Margin="0 10 0 0"/>
                                 <ListBox ItemsSource="{Binding UserPossibility}" DisplayMemberPath="UserOperation.Title"
-                                     Background="Transparent" Foreground="White" BorderThickness="0"
-                                     FocusVisualStyle="{x:Null}">
+                                         Background="Transparent" HorizontalAlignment="Left"
+                                         Foreground="White" BorderThickness="0">
                                     <ListBox.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <StackPanel Orientation="Horizontal"/>
                                         </ItemsPanelTemplate>
                                     </ListBox.ItemsPanel>
                                 </ListBox>
+
+                                <Button Command="{Binding DataContext.RemoveWorkerCommand,
+                                        RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        CommandParameter="{Binding}"
+                                        Content="Удалить" Style="{StaticResource ElevatedButton}"
+                                        HorizontalAlignment="Left" Margin="0 10 0 0"
+                                        Foreground="White" Background="{StaticResource Red}"/>
                             </StackPanel>
                         </Border>
+
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding RoleId}" Value="10">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                        
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -58,13 +73,31 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
         <Border Background="{StaticResource Blue}"/>
         <TextBlock Text="Учет работников" HorizontalAlignment="Center" Foreground="White"/>
+        <Button Command="{Binding LogoutCommand}"
+                Content="Выйти"
+                Background="{StaticResource Peach}"
+                Style="{StaticResource TextButton}"/>
 
-        <ListBox Grid.Row="1" ItemsSource="{Binding Workers, IsAsync=True}" ItemContainerStyle="{StaticResource WorkerItemStyle}"
-                 Background="Transparent" BorderThickness="0"/>
+        <ListBox x:Name="WorkerListBox" Grid.Row="1" ItemsSource="{Binding Workers, IsAsync=True}"
+                 ItemContainerStyle="{StaticResource WorkerItemStyle}"
+                 Background="Transparent" BorderThickness="0"
+                 VirtualizingPanel.IsVirtualizing="True"
+                 VirtualizingPanel.ScrollUnit="Pixel"/>
 
+        <Grid Grid.Row="2">
+            <Border Background="{StaticResource Blue}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Взаимодействие: " Foreground="White"/>
+                <Button Command="{Binding AddWorkerCommand}"
+                        Content="Добавить"
+                        Background="{StaticResource Peach}"
+                        Style="{StaticResource TextButton}"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

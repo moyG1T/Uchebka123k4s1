@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         Title="Uchebka"
         Height="500" Width="950"
-        MinHeight="550" MinWidth="900"
+        MinHeight="0" MinWidth="900"
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource Peach}">
 
@@ -27,6 +27,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:WorkerRecordViewModel}">
             <v:WorkerRecordView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AddWorkerViewModel}">
+            <v:AddWorkerView/>
         </DataTemplate>
     </Window.Resources>
     

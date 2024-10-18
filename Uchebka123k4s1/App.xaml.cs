@@ -27,10 +27,7 @@ namespace Uchebka123k4s1
 
             //services.AddSingleton<IDbService, DbService>();
             services.AddSingleton<DbService>();
-            services.AddSingleton<IEntryService>(p =>
-            {
-                return new EntryService(p.GetRequiredService<UserContext>());
-            });
+            services.AddSingleton<IEntryService, EntryService>();
 
             services.AddSingleton<MainViewModel>(p =>
             {
@@ -38,6 +35,7 @@ namespace Uchebka123k4s1
                     CreateLoginNavService(p),
                     CreateWorkerRecordNavService(p),
                     p.GetRequiredService<IEntryService>(),
+                    p.GetRequiredService<UserContext>(),
                     p.GetRequiredService<DbService>(),
                     p.GetRequiredService<MainNavContext>());
             });
@@ -55,6 +53,7 @@ namespace Uchebka123k4s1
                     CreateRegistrationNavService(p),
                     CreateWorkerRecordNavService(p),
                     p.GetRequiredService<IEntryService>(),
+                    p.GetRequiredService<UserContext>(),
                     p.GetRequiredService<DbService>());
             });
             services.AddTransient<RegistrationViewModel>(p =>
@@ -64,8 +63,23 @@ namespace Uchebka123k4s1
                     p.GetRequiredService<DbService>()
                     );
             });
-            services.AddTransient<WorkerRecordViewModel>();
+            services.AddTransient<WorkerRecordViewModel>(p =>
+            {
+                return new WorkerRecordViewModel(
+                    CreateLoginNavService(p), 
+                    CreateAddWorkerNavService(p), 
+                    p.GetRequiredService<UserContext>(),
+                    p.GetRequiredService<DbService>()
+                    );
+            });
             services.AddTransient<ClientViewModel>();
+            services.AddTransient<AddWorkerViewModel>(p =>
+            {
+                return new AddWorkerViewModel(
+                    CreateBackOnlyNavService(p), 
+                    p.GetRequiredService<DbService>()
+                    );
+            });
 
             _provider = services.BuildServiceProvider();
         }
@@ -100,5 +114,9 @@ namespace Uchebka123k4s1
                 p.GetRequiredService<MainNavContext>(),
                 p.GetRequiredService<ClientViewModel>
                 );
+        private INavService CreateAddWorkerNavService(IServiceProvider p) =>
+            new MainNavService(p.GetRequiredService<MainNavContext>(), p.GetRequiredService<AddWorkerViewModel>);
+        private INavService CreateBackOnlyNavService(IServiceProvider p) =>
+            new MainNavService(p.GetRequiredService<MainNavContext>());
     }
 }

@@ -12,5 +12,6 @@ namespace Uchebka123k4s1.Data.Local.IServices
         bool Read(out string id);
         void Write(string id);
         void Remove();
+        bool Exists();
     }
 }

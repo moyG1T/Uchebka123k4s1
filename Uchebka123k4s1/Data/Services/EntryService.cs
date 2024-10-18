@@ -12,14 +12,11 @@ namespace Uchebka123k4s1.Data.Services
     public class EntryService : IEntryService
     {
         private readonly string _filePath;
-        private readonly UserContext _userContext;
 
-        public EntryService(UserContext userContext)
+        public EntryService()
         {
             string docs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             _filePath = Path.Combine(docs, "Uchebka", "user.txt");
-
-            _userContext = userContext;
         }
 
         public string Read()
@@ -33,14 +30,20 @@ namespace Uchebka123k4s1.Data.Services
 
         public void Remove()
         {
-            File.Delete(_filePath);
+            if (Exists())
+            {
+                File.Delete(_filePath);
+            }
         }
 
         public void Write(string id)
         {
             File.WriteAllText(_filePath, id);
+        }
 
-            _userContext.UserId = int.Parse(id);
+        public bool Exists()
+        {
+            return File.Exists(_filePath);
         }
     }
 }

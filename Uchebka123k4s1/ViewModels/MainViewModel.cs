@@ -15,21 +15,24 @@ namespace Uchebka123k4s1.ViewModels
         private readonly INavService _loginNavService;
         private readonly INavService _workerNavService;
         private readonly IEntryService _entryService;
+        private readonly UserContext _userContext;
         private readonly DbService _dbService;
         private readonly MainNavContext _mainNavContext;
 
         public ViewModel CurrentViewModel => _mainNavContext.CurrentViewModel;
 
         public MainViewModel(
-            INavService loginNavService, 
+            INavService loginNavService,
             INavService workerNavService,
             IEntryService entryService,
+            UserContext userContext,
             DbService dbService,
             MainNavContext mainNavContext)
         {
             _loginNavService = loginNavService;
             _workerNavService = workerNavService;
             _entryService = entryService;
+            _userContext = userContext;
             _dbService = dbService;
             _mainNavContext = mainNavContext;
 
@@ -40,7 +43,7 @@ namespace Uchebka123k4s1.ViewModels
 
         private async Task AutoLoginAsync()
         {
-            try
+            if (_entryService.Exists())
             {
                 if (_entryService.Read(out string id))
                 {
@@ -56,6 +59,7 @@ namespace Uchebka123k4s1.ViewModels
                     }
                     else
                     {
+                        _userContext.User = user;
                         switch (user.RoleId)
                         {
                             case 1:
@@ -68,8 +72,12 @@ namespace Uchebka123k4s1.ViewModels
                         }
                     }
                 }
+                else
+                {
+                    _loginNavService.Navigate();
+                }
             }
-            catch
+            else
             {
                 _loginNavService.Navigate();
             }

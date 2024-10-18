@@ -9,6 +9,7 @@ namespace Uchebka123k4s1.Data.Remote.IServices
 {
     public interface IDbService
     {
-
+        event Action<User> WorkerAdded;
+        void AddWorker(User worker);
     }
 }

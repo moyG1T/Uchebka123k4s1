@@ -103,15 +103,25 @@
     </Compile>
     <Compile Include="Domain\Commands\CommandBase.cs" />
     <Compile Include="Domain\Commands\GoBackCommand.cs" />
+    <Compile Include="Domain\Commands\NavigateAndDisposeCommand.cs" />
     <Compile Include="Domain\Commands\NavigateCommand.cs" />
+    <Compile Include="Domain\Utilities\ObservableObject.cs" />
+    <Compile Include="ViewModels\AddWorkerViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
+    <Compile Include="Views\AddWorkerView.xaml.cs">
+      <DependentUpon>AddWorkerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RegistrationView.xaml.cs">
       <DependentUpon>RegistrationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WorkerRecordView.xaml.cs">
       <DependentUpon>WorkerRecordView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AddWorkerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
