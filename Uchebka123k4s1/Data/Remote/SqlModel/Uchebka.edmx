@@ -108,7 +108,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Value" Type="decimal" Precision="3" Scale="3" />
+          <Property Name="Value" Type="decimal" Precision="5" Scale="2" />
           <Property Name="MaterialId" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="MaterialType">
@@ -186,7 +186,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
           <Property Name="Address" Type="nvarchar" MaxLength="200" />
-          <Property Name="DeliveryTime" Type="datetime" />
+          <Property Name="DeliveryTime" Type="time" Precision="7" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -852,9 +852,9 @@
           <Property Name="Weight" Type="Int32" />
           <NavigationProperty Name="HardwareType" Relationship="Self.FK_Hardware_HardwareType" FromRole="Hardware" ToRole="HardwareType" />
           <NavigationProperty Name="HardwareUnit" Relationship="Self.FK_Hardware_HardwareUnit" FromRole="Hardware" ToRole="HardwareUnit" />
-          <NavigationProperty Name="Supplier" Relationship="Self.FK_Hardware_Supplier" FromRole="Hardware" ToRole="Supplier" />
           <NavigationProperty Name="HardwareImage" Relationship="Self.FK_HardwareImage_Hardware" FromRole="Hardware" ToRole="HardwareImage" />
           <NavigationProperty Name="ProductHardware" Relationship="Self.FK_ProductHardware_Hardware" FromRole="Hardware" ToRole="ProductHardware" />
+          <NavigationProperty Name="Supplier" Relationship="Uchebka123k4s1SQLModel.FK_Hardware_Supplier" FromRole="Hardware" ToRole="Supplier" />
         </EntityType>
         <EntityType Name="HardwareImage">
           <Key>
@@ -898,10 +898,10 @@
           <NavigationProperty Name="Gost" Relationship="Self.FK_Gost_Material" FromRole="Material" ToRole="Gost" />
           <NavigationProperty Name="MaterialType" Relationship="Self.FK_Material_MaterialType" FromRole="Material" ToRole="MaterialType" />
           <NavigationProperty Name="MaterialUnit" Relationship="Self.FK_Material_MaterialUnit" FromRole="Material" ToRole="MaterialUnit" />
-          <NavigationProperty Name="Supplier" Relationship="Self.FK_Material_Supplier" FromRole="Material" ToRole="Supplier" />
           <NavigationProperty Name="MaterialImage" Relationship="Self.FK_MaterialImage_Material" FromRole="Material" ToRole="MaterialImage" />
           <NavigationProperty Name="MaterialLength" Relationship="Self.FK_MaterialLength_Material" FromRole="Material" ToRole="MaterialLength" />
           <NavigationProperty Name="ProductMaterial" Relationship="Self.FK_ProductMaterial_Material" FromRole="Material" ToRole="ProductMaterial" />
+          <NavigationProperty Name="Supplier" Relationship="Uchebka123k4s1SQLModel.FK_Material_Supplier" FromRole="Material" ToRole="Supplier" />
         </EntityType>
         <EntityType Name="MaterialImage">
           <Key>
@@ -919,7 +919,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Value" Type="Decimal" Precision="3" Scale="3" />
+          <Property Name="Value" Type="Decimal" Precision="5" Scale="2" />
           <Property Name="MaterialId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Material" Relationship="Self.FK_MaterialLength_Material" FromRole="MaterialLength" ToRole="Material" />
         </EntityType>
@@ -1006,17 +1006,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="User" Relationship="Uchebka123k4s1SQLModel.FK_User_Role" FromRole="Role" ToRole="User" />
-        </EntityType>
-        <EntityType Name="Supplier">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="DeliveryTime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Hardware" Relationship="Self.FK_Hardware_Supplier" FromRole="Supplier" ToRole="Hardware" />
-          <NavigationProperty Name="Material" Relationship="Self.FK_Material_Supplier" FromRole="Supplier" ToRole="Material" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -1123,18 +1112,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Hardware_Supplier">
-          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
-          <End Role="Hardware" Type="Self.Hardware" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Supplier">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Hardware">
-              <PropertyRef Name="SupplierId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_HardwareImage_Hardware">
           <End Role="Hardware" Type="Self.Hardware" Multiplicity="0..1" />
           <End Role="HardwareImage" Type="Self.HardwareImage" Multiplicity="*" />
@@ -1180,18 +1157,6 @@
             </Principal>
             <Dependent Role="Material">
               <PropertyRef Name="UnitId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Material_Supplier">
-          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
-          <End Role="Material" Type="Self.Material" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Supplier">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Material">
-              <PropertyRef Name="SupplierId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1312,7 +1277,6 @@
           <EntitySet Name="ProductMaterial" EntityType="Self.ProductMaterial" />
           <EntitySet Name="ProductOperation" EntityType="Self.ProductOperation" />
           <EntitySet Name="Role" EntityType="Self.Role" />
-          <EntitySet Name="Supplier" EntityType="Self.Supplier" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="UserImage" EntityType="Self.UserImage" />
           <AssociationSet Name="FK_Description_Material" Association="Self.FK_Description_Material">
@@ -1343,10 +1307,6 @@
             <End Role="HardwareUnit" EntitySet="HardwareUnit" />
             <End Role="Hardware" EntitySet="Hardware" />
           </AssociationSet>
-          <AssociationSet Name="FK_Hardware_Supplier" Association="Self.FK_Hardware_Supplier">
-            <End Role="Supplier" EntitySet="Supplier" />
-            <End Role="Hardware" EntitySet="Hardware" />
-          </AssociationSet>
           <AssociationSet Name="FK_HardwareImage_Hardware" Association="Self.FK_HardwareImage_Hardware">
             <End Role="Hardware" EntitySet="Hardware" />
             <End Role="HardwareImage" EntitySet="HardwareImage" />
@@ -1361,10 +1321,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Material_MaterialUnit" Association="Self.FK_Material_MaterialUnit">
             <End Role="MaterialUnit" EntitySet="MaterialUnit" />
-            <End Role="Material" EntitySet="Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Material_Supplier" Association="Self.FK_Material_Supplier">
-            <End Role="Supplier" EntitySet="Supplier" />
             <End Role="Material" EntitySet="Material" />
           </AssociationSet>
           <AssociationSet Name="FK_MaterialImage_Material" Association="Self.FK_MaterialImage_Material">
@@ -1442,6 +1398,15 @@
           <AssociationSet Name="FK_UserSkill_User" Association="Uchebka123k4s1SQLModel.FK_UserSkill_User">
             <End Role="User" EntitySet="User" />
             <End Role="UserSkill" EntitySet="UserSkill" />
+          </AssociationSet>
+          <EntitySet Name="Supplier" EntityType="Uchebka123k4s1SQLModel.Supplier" />
+          <AssociationSet Name="FK_Hardware_Supplier" Association="Uchebka123k4s1SQLModel.FK_Hardware_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Hardware" EntitySet="Hardware" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Material_Supplier" Association="Uchebka123k4s1SQLModel.FK_Material_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Material" EntitySet="Material" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="UserAddress">
@@ -1632,6 +1597,41 @@
             </Principal>
             <Dependent Role="UserSkill">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryTime" Type="Time" Precision="7" />
+          <NavigationProperty Name="Hardware" Relationship="Uchebka123k4s1SQLModel.FK_Hardware_Supplier" FromRole="Supplier" ToRole="Hardware" />
+          <NavigationProperty Name="Material" Relationship="Uchebka123k4s1SQLModel.FK_Material_Supplier" FromRole="Supplier" ToRole="Material" />
+        </EntityType>
+        <Association Name="FK_Hardware_Supplier">
+          <End Type="Uchebka123k4s1SQLModel.Supplier" Role="Supplier" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.Hardware" Role="Hardware" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Hardware">
+              <PropertyRef Name="SupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Material_Supplier">
+          <End Type="Uchebka123k4s1SQLModel.Supplier" Role="Supplier" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.Material" Role="Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="SupplierId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1833,16 +1833,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Supplier">
-            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.Supplier">
-              <MappingFragment StoreEntitySet="Supplier">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -1936,6 +1926,16 @@
                 <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

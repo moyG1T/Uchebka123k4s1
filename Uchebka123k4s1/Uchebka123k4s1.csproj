@@ -80,6 +80,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\Remote\Partial\User.cs" />
+    <Compile Include="Data\Remote\SqlModel\Supplier.cs">
+      <DependentUpon>Uchebka.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Remote\SqlModel\User.cs">
       <DependentUpon>Uchebka.tt</DependentUpon>
     </Compile>
@@ -194,9 +197,6 @@
       <DependentUpon>Uchebka.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Remote\SqlModel\Role.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\Supplier.cs">
       <DependentUpon>Uchebka.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Remote\SqlModel\sysdiagrams.cs">
