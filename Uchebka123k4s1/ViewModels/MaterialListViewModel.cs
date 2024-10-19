@@ -18,7 +18,9 @@ namespace Uchebka123k4s1.ViewModels
 {
     public class MaterialListViewModel : ViewModel
     {
+        private readonly INavService _materialInteraction;
         private readonly UserContext _userContext;
+        private readonly MaterialContext _materialContext;
         private readonly DbService _dbService;
 
         private CancellationTokenSource _searchCancellationTokenSource = new CancellationTokenSource();
@@ -86,6 +88,16 @@ namespace Uchebka123k4s1.ViewModels
                 }, token);
             }
         }
+        private string _error;
+        public string Error
+        {
+            get => _error;
+            set
+            {
+                _error = value;
+                OnPropertyChanged();
+            }
+        }
 
         private Warehouse selectedWarehouse;
         public Warehouse SelectedWarehouse
@@ -118,28 +130,61 @@ namespace Uchebka123k4s1.ViewModels
 
         public bool IsWarehouseSelected => SelectedWarehouse != null;
         public int SearchCount => ResultMaterials.Count;
-        public bool CanDelete => _userContext.User.RoleId == 5;
+        public bool CanInteract => _userContext.User.RoleId == 4 || _userContext.User.RoleId == 5;
 
         public ICommand LogoutCommand { get; }
         public ICommand GoBackCommand { get; }
         public ICommand RemoveSelectedWarehouseCommand { get; }
+        public ICommand AddMaterialCommand { get; }
+        public ICommand EditMaterialCommand { get; }
         public ICommand RemoveMaterialCommand { get; }
 
         public MaterialListViewModel(
             INavService logout,
             INavService goBack,
+            INavService materialInteraction,
             UserContext userContext,
+            MaterialContext materialContext,
             DbService dbService)
         {
+            _materialInteraction = materialInteraction;
             _userContext = userContext;
+            _materialContext = materialContext;
             _dbService = dbService;
 
             LogoutCommand = new NavigateAndDisposeCommand(logout);
             GoBackCommand = new GoBackCommand(goBack);
+            AddMaterialCommand = new NavigateCommand(materialInteraction);
+
+            EditMaterialCommand = new RelayCommand(EditMaterial);
             RemoveSelectedWarehouseCommand = new RelayCommand(RemoveSelectedWarehouse);
             RemoveMaterialCommand = new RelayAsyncCommand(RemoveMaterial);
 
-            Task.Run(LoadMaterials);
+            if (_userContext.User.RoleId == 1)
+            {
+                Error = "Доступ запрещен";
+            }
+            else
+            {
+                Task.Run(LoadMaterials);
+            }
+
+            _materialContext.MaterialAdded += AddMaterial;
+        }
+
+        private void AddMaterial(Material material)
+        {
+            Materials.Insert(0, material);
+            OnPropertyChanged(nameof(ResultMaterials));
+        }
+
+        private void EditMaterial(object param)
+        {
+            if (param is Material material)
+            {
+                _materialContext.SelectedMaterial = material;
+                _materialInteraction.Navigate();
+            }
         }
 
         private async Task RemoveMaterial(object param)
@@ -148,10 +193,19 @@ namespace Uchebka123k4s1.ViewModels
             {
                 if (material.WarehouseContent.Count == 0)
                 {
+                    var result = MessageBox.Show("Удаление", "Вы точно хотите удалить?", MessageBoxButton.YesNo);
+
+                    if (result == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+
                     _dbService.db.Material.Remove(material);
                     await _dbService.db.SaveChangesAsync();
 
                     Materials.Remove(material);
+
+                    OnPropertyChanged(nameof(ResultMaterials));
                 }
                 else
                 {

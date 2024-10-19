@@ -37,6 +37,9 @@
         <DataTemplate DataType="{x:Type vm:MaterialListViewModel}">
             <v:MaterialListView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MaterialInteractionViewModel}">
+            <v:MaterialInteractionView/>
+        </DataTemplate>
     </Window.Resources>
     
     <Grid>

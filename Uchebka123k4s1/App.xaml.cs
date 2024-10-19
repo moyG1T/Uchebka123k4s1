@@ -21,6 +21,7 @@ namespace Uchebka123k4s1
 
             services.AddSingleton<MainNavContext>();
             services.AddSingleton<UserContext>();
+            services.AddSingleton<MaterialContext>();
 
             //services.AddSingleton<IDbService, DbService>();
             services.AddSingleton<DbService>();
@@ -93,7 +94,18 @@ namespace Uchebka123k4s1
                 return new MaterialListViewModel(
                     CreateLoginNavService(p),
                     CreateBackOnlyNavService(p),
+                    CreateMaterialInteractionNavService(p),
                     p.GetRequiredService<UserContext>(),
+                    p.GetRequiredService<MaterialContext>(),
+                    p.GetRequiredService<DbService>()
+                    );
+            });
+            services.AddTransient<MaterialInteractionViewModel>(p =>
+            {
+                return new MaterialInteractionViewModel(
+                    CreateLoginNavService(p),
+                    CreateBackOnlyNavService(p),
+                    p.GetRequiredService<MaterialContext>(),
                     p.GetRequiredService<DbService>()
                     );
             });
@@ -129,6 +141,11 @@ namespace Uchebka123k4s1
             new MainNavService(
                 p.GetRequiredService<MainNavContext>(),
                 p.GetRequiredService<WorkerRecordViewModel>
+                );
+        private INavService CreateMaterialInteractionNavService(IServiceProvider p) =>
+            new MainNavService(
+                p.GetRequiredService<MainNavContext>(),
+                p.GetRequiredService<MaterialInteractionViewModel>
                 );
         private INavService CreateMaterialListNavService(IServiceProvider p) =>
             new MainNavService(

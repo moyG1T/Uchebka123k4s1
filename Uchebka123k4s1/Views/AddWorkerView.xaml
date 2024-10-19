@@ -91,7 +91,7 @@
                                 <Grid Height="40" Margin="10 0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="70"/>
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="{Binding UserOperation.Title}"/>
@@ -99,6 +99,8 @@
                                             RelativeSource={RelativeSource AncestorType=ListBox}}"
                                             CommandParameter="{Binding}"
                                             Grid.Column="1" 
+                                            Margin="0"
+                                            HorizontalAlignment="Right"
                                             Style="{StaticResource TextButton}"
                                             Foreground="{StaticResource Red}" 
                                             Content="Убрать"/>

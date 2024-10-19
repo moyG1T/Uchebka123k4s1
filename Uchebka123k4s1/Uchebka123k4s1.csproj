@@ -114,10 +114,12 @@
     <Compile Include="Domain\Commands\GoBackCommand.cs" />
     <Compile Include="Domain\Commands\NavigateAndDisposeCommand.cs" />
     <Compile Include="Domain\Commands\NavigateCommand.cs" />
+    <Compile Include="Domain\Contexts\MaterialContext.cs" />
     <Compile Include="Domain\Utilities\ObservableObject.cs" />
     <Compile Include="ViewModels\AddWorkerViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\DirectorPanelViewModel.cs" />
+    <Compile Include="ViewModels\MaterialInteractionViewModel.cs" />
     <Compile Include="ViewModels\MaterialListViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="Views\AddWorkerView.xaml.cs">
@@ -125,6 +127,9 @@
     </Compile>
     <Compile Include="Views\DirectorPanelView.xaml.cs">
       <DependentUpon>DirectorPanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MaterialInteractionView.xaml.cs">
+      <DependentUpon>MaterialInteractionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MaterialListView.xaml.cs">
       <DependentUpon>MaterialListView.xaml</DependentUpon>
@@ -260,6 +265,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\MaterialInteractionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MaterialListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
