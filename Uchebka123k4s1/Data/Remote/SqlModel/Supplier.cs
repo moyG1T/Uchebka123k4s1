@@ -17,8 +17,8 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Supplier()
         {
-            this.Hardware = new HashSet<Hardware>();
             this.Material = new HashSet<Material>();
+            this.Hardware = new HashSet<Hardware>();
         }
     
         public int Id { get; set; }
@@ -27,8 +27,8 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public Nullable<System.TimeSpan> DeliveryTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Hardware> Hardware { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Material> Material { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Hardware> Hardware { get; set; }
     }
 }

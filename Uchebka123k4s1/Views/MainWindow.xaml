@@ -40,6 +40,12 @@
         <DataTemplate DataType="{x:Type vm:MaterialInteractionViewModel}">
             <v:MaterialInteractionView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:HardwareListViewModel}">
+            <v:HardwareListView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:HardwareInteractionViewModel}">
+            <v:HardwareInteractionView/>
+        </DataTemplate>
     </Window.Resources>
     
     <Grid>

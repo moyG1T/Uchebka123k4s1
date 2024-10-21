@@ -22,6 +22,7 @@ namespace Uchebka123k4s1
             services.AddSingleton<MainNavContext>();
             services.AddSingleton<UserContext>();
             services.AddSingleton<MaterialContext>();
+            services.AddSingleton<HardwareContext>();
 
             //services.AddSingleton<IDbService, DbService>();
             services.AddSingleton<DbService>();
@@ -78,7 +79,8 @@ namespace Uchebka123k4s1
                 return new DirectorPanelViewModel(
                     CreateLoginNavService(p),
                     CreateWorkerRecordNavService(p),
-                    CreateMaterialListNavService(p)
+                    CreateMaterialListNavService(p),
+                    CreateHardwareListNavService(p)
                     );
             });
             services.AddTransient<AddWorkerViewModel>(p =>
@@ -106,6 +108,26 @@ namespace Uchebka123k4s1
                     CreateLoginNavService(p),
                     CreateBackOnlyNavService(p),
                     p.GetRequiredService<MaterialContext>(),
+                    p.GetRequiredService<DbService>()
+                    );
+            });
+            services.AddTransient<HardwareListViewModel>(p =>
+            {
+                return new HardwareListViewModel(
+                    CreateLoginNavService(p),
+                    CreateBackOnlyNavService(p),
+                    CreateHardwareInteractionNavService(p),
+                    p.GetRequiredService<UserContext>(),
+                    p.GetRequiredService<HardwareContext>(),
+                    p.GetRequiredService<DbService>()
+                    );
+            });
+            services.AddTransient<HardwareInteractionViewModel>(p =>
+            {
+                return new HardwareInteractionViewModel(
+                    CreateLoginNavService(p),
+                    CreateBackOnlyNavService(p),
+                    p.GetRequiredService<HardwareContext>(),
                     p.GetRequiredService<DbService>()
                     );
             });
@@ -151,6 +173,16 @@ namespace Uchebka123k4s1
             new MainNavService(
                 p.GetRequiredService<MainNavContext>(),
                 p.GetRequiredService<MaterialListViewModel>
+                );
+        private INavService CreateHardwareListNavService(IServiceProvider p) =>
+            new MainNavService(
+                p.GetRequiredService<MainNavContext>(),
+                p.GetRequiredService<HardwareListViewModel>
+                );
+        private INavService CreateHardwareInteractionNavService(IServiceProvider p) =>
+            new MainNavService(
+                p.GetRequiredService<MainNavContext>(),
+                p.GetRequiredService<HardwareInteractionViewModel>
                 );
 
         private INavService CreateClientNavService(IServiceProvider p) =>

@@ -12,14 +12,13 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductHardware
+    public partial class WarehouseHardware
     {
-        public int Id { get; set; }
-        public Nullable<int> ProductId { get; set; }
+        public int WarehouseId { get; set; }
         public string HardwareId { get; set; }
-        public Nullable<int> Amount { get; set; }
+        public Nullable<int> Count { get; set; }
     
-        public virtual Product Product { get; set; }
         public virtual Hardware Hardware { get; set; }
+        public virtual Warehouse Warehouse { get; set; }
     }
 }

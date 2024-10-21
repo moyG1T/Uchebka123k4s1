@@ -110,15 +110,21 @@
     <Compile Include="Data\Remote\SqlModel\WarehouseContent.cs">
       <DependentUpon>Uchebka.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\Remote\SqlModel\WarehouseHardware.cs">
+      <DependentUpon>Uchebka.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\Commands\CommandBase.cs" />
     <Compile Include="Domain\Commands\GoBackCommand.cs" />
     <Compile Include="Domain\Commands\NavigateAndDisposeCommand.cs" />
     <Compile Include="Domain\Commands\NavigateCommand.cs" />
+    <Compile Include="Domain\Contexts\HardwareContext.cs" />
     <Compile Include="Domain\Contexts\MaterialContext.cs" />
     <Compile Include="Domain\Utilities\ObservableObject.cs" />
     <Compile Include="ViewModels\AddWorkerViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\DirectorPanelViewModel.cs" />
+    <Compile Include="ViewModels\HardwareInteractionViewModel.cs" />
+    <Compile Include="ViewModels\HardwareListViewModel.cs" />
     <Compile Include="ViewModels\MaterialInteractionViewModel.cs" />
     <Compile Include="ViewModels\MaterialListViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
@@ -127,6 +133,12 @@
     </Compile>
     <Compile Include="Views\DirectorPanelView.xaml.cs">
       <DependentUpon>DirectorPanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HardwareInteractionView.xaml.cs">
+      <DependentUpon>HardwareInteractionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HardwareListView.xaml.cs">
+      <DependentUpon>HardwareListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MaterialInteractionView.xaml.cs">
       <DependentUpon>MaterialInteractionView.xaml</DependentUpon>
@@ -145,6 +157,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DirectorPanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HardwareInteractionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HardwareListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

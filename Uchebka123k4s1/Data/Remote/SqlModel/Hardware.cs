@@ -11,20 +11,24 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Hardware
+    using System.Collections.ObjectModel;
+    using Uchebka123k4s1.Domain.Utilities;
+
+    public partial class Hardware : ObservableObject
     {
+        private ObservableCollection<WarehouseHardware> warehouseHardware;
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Hardware()
         {
             this.HardwareImage = new HashSet<HardwareImage>();
             this.ProductHardware = new HashSet<ProductHardware>();
+            this.WarehouseHardware = new ObservableCollection<WarehouseHardware>();
         }
     
         public string Id { get; set; }
         public string Title { get; set; }
         public Nullable<int> UnitId { get; set; }
-        public Nullable<int> Amount { get; set; }
         public Nullable<int> SupplierId { get; set; }
         public Nullable<int> TypeId { get; set; }
         public Nullable<int> Cost { get; set; }
@@ -32,10 +36,20 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
     
         public virtual HardwareType HardwareType { get; set; }
         public virtual HardwareUnit HardwareUnit { get; set; }
+        public virtual Supplier Supplier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HardwareImage> HardwareImage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductHardware> ProductHardware { get; set; }
-        public virtual Supplier Supplier { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ObservableCollection<WarehouseHardware> WarehouseHardware
+        {
+            get => warehouseHardware;
+            set
+            {
+                warehouseHardware = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

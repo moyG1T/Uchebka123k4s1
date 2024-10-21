@@ -30,7 +30,6 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public virtual DbSet<EquipmentDesc> EquipmentDesc { get; set; }
         public virtual DbSet<EquipmentType> EquipmentType { get; set; }
         public virtual DbSet<Gost> Gost { get; set; }
-        public virtual DbSet<Hardware> Hardware { get; set; }
         public virtual DbSet<HardwareImage> HardwareImage { get; set; }
         public virtual DbSet<HardwareType> HardwareType { get; set; }
         public virtual DbSet<HardwareUnit> HardwareUnit { get; set; }
@@ -58,5 +57,7 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public virtual DbSet<WarehouseContent> WarehouseContent { get; set; }
         public virtual DbSet<Material> Material { get; set; }
         public virtual DbSet<Warehouse> Warehouse { get; set; }
+        public virtual DbSet<Hardware> Hardware { get; set; }
+        public virtual DbSet<WarehouseHardware> WarehouseHardware { get; set; }
     }
 }

@@ -20,7 +20,8 @@
         
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Command="{Binding WorkersRecordCommand}" Content="Работники" Style="{StaticResource ElevatedButton}"/>
-            <Button Command="{Binding MaterialRecordCommand}" Content="Материалы" Style="{StaticResource ElevatedButton}" Margin="10 0 0 0"/>
+            <Button Command="{Binding MaterialRecordCommand}" Content="Материалы" Style="{StaticResource ElevatedButton}" Margin="10 0"/>
+            <Button Command="{Binding HardwareRecordCommand}" Content="Комплектующие" Style="{StaticResource ElevatedButton}"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -11,13 +11,15 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Collections.ObjectModel;
+
     public partial class Warehouse
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Warehouse()
         {
-            this.WarehouseContent = new HashSet<WarehouseContent>();
+            this.WarehouseContent = new ObservableCollection<WarehouseContent>();
+            this.WarehouseHardware = new ObservableCollection<WarehouseHardware>();
         }
     
         public int Id { get; set; }
@@ -25,6 +27,8 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public string Address { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WarehouseContent> WarehouseContent { get; set; }
+        public virtual ObservableCollection<WarehouseContent> WarehouseContent { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ObservableCollection<WarehouseHardware> WarehouseHardware { get; set; }
     }
 }
