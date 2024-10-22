@@ -52,6 +52,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
@@ -62,10 +63,19 @@
             <Button Command="{Binding GoBackCommand}" Content="Назад" HorizontalAlignment="Left" Style="{StaticResource TextButton}"/>
             <Button Command="{Binding LogoutCommand}" Content="Выйти" HorizontalAlignment="Right" Style="{StaticResource TextButton}"/>
         </Grid>
+        <Grid Grid.Row="1">
+            <Border Background="{StaticResource Blue}"/>
+            <StackPanel Margin="10 0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <ComboBox SelectedItem="{Binding SelectedState}" DisplayMemberPath="Title" ItemsSource="{Binding States}" IsEditable="True"/>
+                <Button Command="{Binding RemoveFilterCommand}" Content="x" Style="{StaticResource TextButton}"/>
+            </StackPanel>
+        </Grid>
 
-        <ListBox Grid.Row="1" 
-                 ItemsSource="{Binding Orders}" 
+        <ListBox Grid.Row="2" 
+                 ItemsSource="{Binding ResultOrders}" 
                  ItemContainerStyle="{StaticResource LocalOrderItem}"
+                 VirtualizingPanel.IsVirtualizing="True"
+                 VirtualizingPanel.ScrollUnit="Pixel"
                  ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -74,7 +84,7 @@
             </ListBox.ItemsPanel>
         </ListBox>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="3">
             <Border Background="{StaticResource Blue}"/>
 
             <Button Content="Добавить" 

@@ -139,6 +139,15 @@ namespace Uchebka123k4s1
                     p.GetRequiredService<UserContext>()
                     );
             });
+            services.AddTransient<OrderInteractionViewModel>(p =>
+            {
+                return new OrderInteractionViewModel(
+                    CreateLoginNavService(p),
+                    CreateBackOnlyNavService(p),
+                    p.GetRequiredService<DbService>(),
+                    p.GetRequiredService<UserContext>()
+                    );
+            });
 
             services.AddTransient<DirectorPanelViewModel>(p =>
             {

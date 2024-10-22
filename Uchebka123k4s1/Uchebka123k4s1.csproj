@@ -146,6 +146,7 @@
     <Compile Include="ViewModels\MasterPanelViewModel.cs" />
     <Compile Include="ViewModels\MaterialInteractionViewModel.cs" />
     <Compile Include="ViewModels\MaterialListViewModel.cs" />
+    <Compile Include="ViewModels\OrderInteractionViewModel.cs" />
     <Compile Include="ViewModels\OrderListViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="Views\AddWorkerView.xaml.cs">
@@ -177,6 +178,9 @@
     </Compile>
     <Compile Include="Views\MaterialListView.xaml.cs">
       <DependentUpon>MaterialListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderInteractionView.xaml.cs">
+      <DependentUpon>OrderInteractionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OrderListView.xaml.cs">
       <DependentUpon>OrderListView.xaml</DependentUpon>
@@ -341,6 +345,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MaterialListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderInteractionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
