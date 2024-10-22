@@ -59,5 +59,10 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public virtual DbSet<Warehouse> Warehouse { get; set; }
         public virtual DbSet<Hardware> Hardware { get; set; }
         public virtual DbSet<WarehouseHardware> WarehouseHardware { get; set; }
+        public virtual DbSet<Order> Order { get; set; }
+        public virtual DbSet<OrderImage> OrderImage { get; set; }
+        public virtual DbSet<OrderSize> OrderSize { get; set; }
+        public virtual DbSet<OrderState> OrderState { get; set; }
+        public virtual DbSet<SizeUnit> SizeUnit { get; set; }
     }
 }

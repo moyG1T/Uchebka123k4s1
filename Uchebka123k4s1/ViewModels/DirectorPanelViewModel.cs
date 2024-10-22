@@ -12,18 +12,21 @@ namespace Uchebka123k4s1.ViewModels
         public ICommand WorkersRecordCommand { get; }
         public ICommand MaterialRecordCommand { get; }
         public ICommand HardwareRecordCommand { get; }
+        public ICommand OrderListCommand { get; }
 
         public DirectorPanelViewModel(
             INavService logout, 
             INavService workersRecord, 
             INavService materialRecord,
-            INavService hardwareRecord
+            INavService hardwareRecord,
+            INavService orderList
             )
         {
             LogoutCommand = new NavigateAndDisposeCommand(logout);
             WorkersRecordCommand = new NavigateCommand(workersRecord);
             MaterialRecordCommand = new NavigateCommand(materialRecord);
             HardwareRecordCommand = new NavigateCommand(hardwareRecord);
+            OrderListCommand = new NavigateCommand(orderList);
         }
 
         public override void Dispose()

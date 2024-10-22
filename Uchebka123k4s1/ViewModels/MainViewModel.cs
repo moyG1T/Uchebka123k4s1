@@ -13,7 +13,11 @@ namespace Uchebka123k4s1.ViewModels
     public class MainViewModel : ViewModel
     {
         private readonly INavService _loginNavService;
-        private readonly INavService _workerNavService;
+        private readonly INavService _director;
+        private readonly INavService _client;
+        private readonly INavService _manager;
+        private readonly INavService _master;
+        private readonly INavService _ctor;
         private readonly IEntryService _entryService;
         private readonly UserContext _userContext;
         private readonly DbService _dbService;
@@ -23,14 +27,23 @@ namespace Uchebka123k4s1.ViewModels
 
         public MainViewModel(
             INavService loginNavService,
-            INavService workerNavService,
+            INavService director,
+            INavService client,
+            INavService manager,
+            INavService master,
+            INavService ctor,
             IEntryService entryService,
             UserContext userContext,
             DbService dbService,
             MainNavContext mainNavContext)
         {
+            _director = director;
+            _client = client;
+            _manager = manager;
+            _master = master;
+            _ctor = ctor;
+
             _loginNavService = loginNavService;
-            _workerNavService = workerNavService;
             _entryService = entryService;
             _userContext = userContext;
             _dbService = dbService;
@@ -63,11 +76,22 @@ namespace Uchebka123k4s1.ViewModels
                         switch (user.RoleId)
                         {
                             case 1:
+                                _director.NavigateAndDispose();
+                                break;
+                            case 2:
+                                _ctor.NavigateAndDispose();
+                                break;
+                            case 3:
+                                _manager.NavigateAndDispose();
+                                break;
+                            case 4:
+                                _master.NavigateAndDispose();
                                 break;
                             case 5:
-                                _workerNavService.Navigate();
+                                _client.NavigateAndDispose();
                                 break;
                             default:
+                                _loginNavService.NavigateAndDispose();
                                 break;
                         }
                     }

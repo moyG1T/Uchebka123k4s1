@@ -130,7 +130,7 @@ namespace Uchebka123k4s1.ViewModels
 
         public bool IsWarehouseSelected => SelectedWarehouse != null;
         public int SearchCount => ResultHardwareCollection.Count;
-        public bool CanInteract => _userContext.User.RoleId == 4 || _userContext.User.RoleId == 5;
+        public bool CanInteract => _userContext.User.RoleId == 1 || _userContext.User.RoleId == 3;
 
         public ICommand LogoutCommand { get; }
         public ICommand GoBackCommand { get; }
@@ -160,7 +160,7 @@ namespace Uchebka123k4s1.ViewModels
             RemoveSelectedWarehouseCommand = new RelayCommand(RemoveSelectedWarehouse);
             RemoveHardwareCommand = new RelayAsyncCommand(RemoveMaterial);
 
-            if (_userContext.User.RoleId == 1)
+            if (_userContext.User.RoleId == 5)
             {
                 Error = "Доступ запрещен";
             }

@@ -80,6 +80,21 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\Remote\Partial\User.cs" />
+    <Compile Include="Data\Remote\SqlModel\Order.cs">
+      <DependentUpon>Uchebka.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\OrderImage.cs">
+      <DependentUpon>Uchebka.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\OrderSize.cs">
+      <DependentUpon>Uchebka.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\OrderState.cs">
+      <DependentUpon>Uchebka.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\SizeUnit.cs">
+      <DependentUpon>Uchebka.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Remote\SqlModel\Supplier.cs">
       <DependentUpon>Uchebka.tt</DependentUpon>
     </Compile>
@@ -121,15 +136,26 @@
     <Compile Include="Domain\Contexts\MaterialContext.cs" />
     <Compile Include="Domain\Utilities\ObservableObject.cs" />
     <Compile Include="ViewModels\AddWorkerViewModel.cs" />
+    <Compile Include="ViewModels\ClientPanelViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
+    <Compile Include="ViewModels\ConstructorPanelViewModel.cs" />
     <Compile Include="ViewModels\DirectorPanelViewModel.cs" />
     <Compile Include="ViewModels\HardwareInteractionViewModel.cs" />
     <Compile Include="ViewModels\HardwareListViewModel.cs" />
+    <Compile Include="ViewModels\ManagerPanelViewModel.cs" />
+    <Compile Include="ViewModels\MasterPanelViewModel.cs" />
     <Compile Include="ViewModels\MaterialInteractionViewModel.cs" />
     <Compile Include="ViewModels\MaterialListViewModel.cs" />
+    <Compile Include="ViewModels\OrderListViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="Views\AddWorkerView.xaml.cs">
       <DependentUpon>AddWorkerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClientPanelView.xaml.cs">
+      <DependentUpon>ClientPanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConstructorPanelView.xaml.cs">
+      <DependentUpon>ConstructorPanelView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DirectorPanelView.xaml.cs">
       <DependentUpon>DirectorPanelView.xaml</DependentUpon>
@@ -140,11 +166,20 @@
     <Compile Include="Views\HardwareListView.xaml.cs">
       <DependentUpon>HardwareListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ManagerPanelView.xaml.cs">
+      <DependentUpon>ManagerPanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MasterPanelView.xaml.cs">
+      <DependentUpon>MasterPanelView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MaterialInteractionView.xaml.cs">
       <DependentUpon>MaterialInteractionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MaterialListView.xaml.cs">
       <DependentUpon>MaterialListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderListView.xaml.cs">
+      <DependentUpon>OrderListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RegistrationView.xaml.cs">
       <DependentUpon>RegistrationView.xaml</DependentUpon>
@@ -153,6 +188,14 @@
       <DependentUpon>WorkerRecordView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AddWorkerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ClientPanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConstructorPanelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -285,11 +328,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ManagerPanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MasterPanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MaterialInteractionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MaterialListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

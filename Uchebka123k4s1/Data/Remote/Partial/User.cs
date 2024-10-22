@@ -9,5 +9,6 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
     public partial class User
     {
         public UserFullName UserFullNameCopy { get => UserFullName.FirstOrDefault(); }
+        public string FIO { get => string.Concat(UserFullNameCopy.LastName, " ", UserFullNameCopy.FirstName, " ", UserFullNameCopy.Patronymic); }
     }
 }

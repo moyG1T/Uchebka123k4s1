@@ -46,6 +46,21 @@
         <DataTemplate DataType="{x:Type vm:HardwareInteractionViewModel}">
             <v:HardwareInteractionView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:OrderListViewModel}">
+            <v:OrderListView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ClientPanelViewModel}">
+            <v:ClientPanelView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ManagerPanelViewModel}">
+            <v:ManagerPanelView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MasterPanelViewModel}">
+            <v:MasterPanelView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ConstructorPanelViewModel}">
+            <v:ConstructorPanelView/>
+        </DataTemplate>
     </Window.Resources>
     
     <Grid>

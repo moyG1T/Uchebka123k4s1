@@ -73,6 +73,17 @@
         <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_ProductHardware_Hardware" />
         <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_WarehouseHardware_Hardware" />
         <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_WarehouseHardware_Warehouse" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.Order" Width="1.5" PointX="15.25" PointY="0.75" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.OrderImage" Width="1.5" PointX="17.5" PointY="13.625" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.OrderSize" Width="1.5" PointX="17.5" PointY="1.5" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.OrderState" Width="1.5" PointX="13" PointY="17.125" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLModel.SizeUnit" Width="1.5" PointX="15.25" PointY="24.625" />
+        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_Order_OrderState" />
+        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_Order_User" />
+        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_Order_User1" />
+        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_OrderImage_Order" />
+        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_OrderSize_Order" />
+        <AssociationConnector Association="Uchebka123k4s1SQLModel.FK_OrderSize_SizeUnit" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

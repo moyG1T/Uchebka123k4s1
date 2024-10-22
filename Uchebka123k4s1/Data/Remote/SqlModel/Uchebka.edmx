@@ -123,6 +123,45 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="StateId" Type="int" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="Cost" Type="int" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EstimatedDate" Type="datetime" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="ManagerId" Type="int" />
+        </EntityType>
+        <EntityType Name="OrderImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="100" />
+          <Property Name="ImageBin" Type="varbinary(max)" />
+          <Property Name="OrderId" Type="int" />
+        </EntityType>
+        <EntityType Name="OrderSize">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Size" Type="int" />
+          <Property Name="UnitId" Type="int" />
+          <Property Name="OrderId" Type="int" />
+        </EntityType>
+        <EntityType Name="OrderState">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="Id" />
@@ -175,6 +214,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SizeUnit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Supplier">
@@ -455,6 +501,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Order_OrderState">
+          <End Role="OrderState" Type="Self.OrderState" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderState">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ManagerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderImage_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="OrderImage" Type="Self.OrderImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderImage">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderSize_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="OrderSize" Type="Self.OrderSize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderSize">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderSize_SizeUnit">
+          <End Role="SizeUnit" Type="Self.SizeUnit" Multiplicity="0..1" />
+          <End Role="OrderSize" Type="Self.OrderSize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SizeUnit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderSize">
+              <PropertyRef Name="UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductContent_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="ProductContent" Type="Self.ProductContent" Multiplicity="*" />
@@ -722,12 +840,17 @@
           <EntitySet Name="MaterialLength" EntityType="Self.MaterialLength" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaterialType" EntityType="Self.MaterialType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaterialUnit" EntityType="Self.MaterialUnit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderImage" EntityType="Self.OrderImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderSize" EntityType="Self.OrderSize" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderState" EntityType="Self.OrderState" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductContent" EntityType="Self.ProductContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductHardware" EntityType="Self.ProductHardware" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductMaterial" EntityType="Self.ProductMaterial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductOperation" EntityType="Self.ProductOperation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SizeUnit" EntityType="Self.SizeUnit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -793,6 +916,30 @@
           <AssociationSet Name="FK_MaterialLength_Material" Association="Self.FK_MaterialLength_Material">
             <End Role="Material" EntitySet="Material" />
             <End Role="MaterialLength" EntitySet="MaterialLength" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_OrderState" Association="Self.FK_Order_OrderState">
+            <End Role="OrderState" EntitySet="OrderState" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User1" Association="Self.FK_Order_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderImage_Order" Association="Self.FK_OrderImage_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderImage" EntitySet="OrderImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderSize_Order" Association="Self.FK_OrderSize_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderSize" EntitySet="OrderSize" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderSize_SizeUnit" Association="Self.FK_OrderSize_SizeUnit">
+            <End Role="SizeUnit" EntitySet="SizeUnit" />
+            <End Role="OrderSize" EntitySet="OrderSize" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductContent_Product" Association="Self.FK_ProductContent_Product">
             <End Role="Product" EntitySet="Product" />
@@ -1348,6 +1495,35 @@
             <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="WarehouseHardware" EntitySet="WarehouseHardware" />
           </AssociationSet>
+          <EntitySet Name="Order" EntityType="Uchebka123k4s1SQLModel.Order" />
+          <EntitySet Name="OrderImage" EntityType="Uchebka123k4s1SQLModel.OrderImage" />
+          <EntitySet Name="OrderSize" EntityType="Uchebka123k4s1SQLModel.OrderSize" />
+          <EntitySet Name="OrderState" EntityType="Uchebka123k4s1SQLModel.OrderState" />
+          <EntitySet Name="SizeUnit" EntityType="Uchebka123k4s1SQLModel.SizeUnit" />
+          <AssociationSet Name="FK_Order_OrderState" Association="Uchebka123k4s1SQLModel.FK_Order_OrderState">
+            <End Role="OrderState" EntitySet="OrderState" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="Uchebka123k4s1SQLModel.FK_Order_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User1" Association="Uchebka123k4s1SQLModel.FK_Order_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderImage_Order" Association="Uchebka123k4s1SQLModel.FK_OrderImage_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderImage" EntitySet="OrderImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderSize_Order" Association="Uchebka123k4s1SQLModel.FK_OrderSize_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderSize" EntitySet="OrderSize" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderSize_SizeUnit" Association="Uchebka123k4s1SQLModel.FK_OrderSize_SizeUnit">
+            <End Role="SizeUnit" EntitySet="SizeUnit" />
+            <End Role="OrderSize" EntitySet="OrderSize" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="UserAddress">
           <Key>
@@ -1431,6 +1607,8 @@
           <NavigationProperty Name="UserPossibility" Relationship="Uchebka123k4s1SQLModel.FK_UserPossibility_User" FromRole="User" ToRole="UserPossibility" />
           <NavigationProperty Name="UserQualification" Relationship="Uchebka123k4s1SQLModel.FK_UserQualification_User" FromRole="User" ToRole="UserQualification" />
           <NavigationProperty Name="UserSkill" Relationship="Uchebka123k4s1SQLModel.FK_UserSkill_User" FromRole="User" ToRole="UserSkill" />
+          <NavigationProperty Name="Order" Relationship="Uchebka123k4s1SQLModel.FK_Order_User" FromRole="User" ToRole="Order" />
+          <NavigationProperty Name="Order1" Relationship="Uchebka123k4s1SQLModel.FK_Order_User1" FromRole="User" ToRole="Order" />
         </EntityType>
         <EntityType Name="UserFullName">
           <Key>
@@ -1825,6 +2003,134 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StateId" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="Cost" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EstimatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ManagerId" Type="Int32" />
+          <NavigationProperty Name="OrderState" Relationship="Uchebka123k4s1SQLModel.FK_Order_OrderState" FromRole="Order" ToRole="OrderState" />
+          <NavigationProperty Name="User" Relationship="Uchebka123k4s1SQLModel.FK_Order_User" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Uchebka123k4s1SQLModel.FK_Order_User1" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="OrderImage" Relationship="Uchebka123k4s1SQLModel.FK_OrderImage_Order" FromRole="Order" ToRole="OrderImage" />
+          <NavigationProperty Name="OrderSize" Relationship="Uchebka123k4s1SQLModel.FK_OrderSize_Order" FromRole="Order" ToRole="OrderSize" />
+        </EntityType>
+        <EntityType Name="OrderImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ImageBin" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="OrderId" Type="Int32" />
+          <NavigationProperty Name="Order" Relationship="Uchebka123k4s1SQLModel.FK_OrderImage_Order" FromRole="OrderImage" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="OrderSize">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Size" Type="Int32" />
+          <Property Name="UnitId" Type="Int32" />
+          <Property Name="OrderId" Type="Int32" />
+          <NavigationProperty Name="Order" Relationship="Uchebka123k4s1SQLModel.FK_OrderSize_Order" FromRole="OrderSize" ToRole="Order" />
+          <NavigationProperty Name="SizeUnit" Relationship="Uchebka123k4s1SQLModel.FK_OrderSize_SizeUnit" FromRole="OrderSize" ToRole="SizeUnit" />
+        </EntityType>
+        <EntityType Name="OrderState">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Order" Relationship="Uchebka123k4s1SQLModel.FK_Order_OrderState" FromRole="OrderState" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="SizeUnit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrderSize" Relationship="Uchebka123k4s1SQLModel.FK_OrderSize_SizeUnit" FromRole="SizeUnit" ToRole="OrderSize" />
+        </EntityType>
+        <Association Name="FK_Order_OrderState">
+          <End Type="Uchebka123k4s1SQLModel.OrderState" Role="OrderState" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderState">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User">
+          <End Type="Uchebka123k4s1SQLModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ManagerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User1">
+          <End Type="Uchebka123k4s1SQLModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderImage_Order">
+          <End Type="Uchebka123k4s1SQLModel.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.OrderImage" Role="OrderImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderImage">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderSize_Order">
+          <End Type="Uchebka123k4s1SQLModel.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.OrderSize" Role="OrderSize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderSize">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderSize_SizeUnit">
+          <End Type="Uchebka123k4s1SQLModel.SizeUnit" Role="SizeUnit" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.OrderSize" Role="OrderSize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SizeUnit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderSize">
+              <PropertyRef Name="UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2152,6 +2458,57 @@
                 <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="HardwareId" ColumnName="HardwareId" />
                 <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EstimatedDate" ColumnName="EstimatedDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderImage">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.OrderImage">
+              <MappingFragment StoreEntitySet="OrderImage">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="ImageBin" ColumnName="ImageBin" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderSize">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.OrderSize">
+              <MappingFragment StoreEntitySet="OrderSize">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderState">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.OrderState">
+              <MappingFragment StoreEntitySet="OrderState">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SizeUnit">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.SizeUnit">
+              <MappingFragment StoreEntitySet="SizeUnit">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,12 +1,13 @@
-﻿<UserControl x:Class="Uchebka123k4s1.Views.DirectorPanelView"
+﻿<UserControl x:Class="Uchebka123k4s1.Views.ClientPanelView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Uchebka123k4s1.Views" xmlns:viewmodels="clr-namespace:Uchebka123k4s1.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DirectorPanelViewModel}"
+             xmlns:local="clr-namespace:Uchebka123k4s1.Views" xmlns:viewmodels="clr-namespace:Uchebka123k4s1.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ClientPanelViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
@@ -14,14 +15,11 @@
 
         <Grid>
             <Border Background="{StaticResource Blue}"/>
-            <TextBlock Text="Панель директора" Foreground="White" HorizontalAlignment="Center"/>
+            <TextBlock Text="Панель заказчика" Foreground="White" HorizontalAlignment="Center"/>
             <Button Command="{Binding LogoutCommand}" Content="Выйти" HorizontalAlignment="Right" Style="{StaticResource TextButton}"/>
         </Grid>
-        
+
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Command="{Binding WorkersRecordCommand}" Content="Работники" Style="{StaticResource ElevatedButton}"/>
-            <Button Command="{Binding MaterialRecordCommand}" Content="Материалы" Style="{StaticResource ElevatedButton}" Margin="10 0"/>
-            <Button Command="{Binding HardwareRecordCommand}" Content="Комплектующие" Style="{StaticResource ElevatedButton}"/>
             <Button Command="{Binding OrderListCommand}" Content="Заказы" Style="{StaticResource ElevatedButton}" Margin="10 0"/>
         </StackPanel>
     </Grid>

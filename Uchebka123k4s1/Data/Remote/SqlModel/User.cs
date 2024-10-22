@@ -32,6 +32,8 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
             this.UserPossibility = new ObservableCollection<UserPossibility>();
             this.UserQualification = new ObservableCollection<UserQualification>();
             this.UserSkill = new ObservableCollection<UserSkill>();
+            this.Order = new HashSet<Order>();
+            this.Order1 = new HashSet<Order>();
         }
 
         public int Id
@@ -82,5 +84,10 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public virtual ObservableCollection<UserQualification> UserQualification { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ObservableCollection<UserSkill> UserSkill { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Order { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Order1 { get; set; }
+
     }
 }

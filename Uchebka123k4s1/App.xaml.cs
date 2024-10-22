@@ -33,6 +33,10 @@ namespace Uchebka123k4s1
                 return new MainViewModel(
                     CreateLoginNavService(p),
                     CreateDirectorPanelNavService(p),
+                    CreateClientPanelNavService(p),
+                    CreateManagerPanelNavService(p),
+                    CreateMasterPanelNavService(p),
+                    CreateCtorPanelNavService(p),
                     p.GetRequiredService<IEntryService>(),
                     p.GetRequiredService<UserContext>(),
                     p.GetRequiredService<DbService>(),
@@ -51,6 +55,10 @@ namespace Uchebka123k4s1
                 return new LoginViewModel(
                     CreateRegistrationNavService(p),
                     CreateDirectorPanelNavService(p),
+                    CreateClientPanelNavService(p),
+                    CreateManagerPanelNavService(p),
+                    CreateMasterPanelNavService(p),
+                    CreateCtorPanelNavService(p),
                     p.GetRequiredService<IEntryService>(),
                     p.GetRequiredService<UserContext>(),
                     p.GetRequiredService<DbService>());
@@ -72,15 +80,6 @@ namespace Uchebka123k4s1
                     CreateAddWorkerNavService(p), 
                     p.GetRequiredService<UserContext>(),
                     p.GetRequiredService<DbService>()
-                    );
-            });
-            services.AddTransient<DirectorPanelViewModel>(p =>
-            {
-                return new DirectorPanelViewModel(
-                    CreateLoginNavService(p),
-                    CreateWorkerRecordNavService(p),
-                    CreateMaterialListNavService(p),
-                    CreateHardwareListNavService(p)
                     );
             });
             services.AddTransient<AddWorkerViewModel>(p =>
@@ -131,6 +130,50 @@ namespace Uchebka123k4s1
                     p.GetRequiredService<DbService>()
                     );
             });
+            services.AddTransient<OrderListViewModel>(p =>
+            {
+                return new OrderListViewModel(
+                    CreateLoginNavService(p),
+                    CreateBackOnlyNavService(p),
+                    p.GetRequiredService<DbService>(),
+                    p.GetRequiredService<UserContext>()
+                    );
+            });
+
+            services.AddTransient<DirectorPanelViewModel>(p =>
+            {
+                return new DirectorPanelViewModel(
+                    CreateLoginNavService(p),
+                    CreateWorkerRecordNavService(p),
+                    CreateMaterialListNavService(p),
+                    CreateHardwareListNavService(p),
+                    CreateOrderListNavService(p)
+                    );
+            });
+            services.AddTransient<ClientPanelViewModel>(p =>
+            {
+                return new ClientPanelViewModel(
+                    CreateLoginNavService(p),
+                    CreateOrderListNavService(p));
+            });
+            services.AddTransient<ManagerPanelViewModel>(p =>
+            {
+                return new ManagerPanelViewModel(
+                    CreateLoginNavService(p),
+                    CreateOrderListNavService(p));
+            });
+            services.AddTransient<MasterPanelViewModel>(p =>
+            {
+                return new MasterPanelViewModel(
+                    CreateLoginNavService(p),
+                    CreateOrderListNavService(p));
+            });
+            services.AddTransient<ConstructorPanelViewModel>(p =>
+            {
+                return new ConstructorPanelViewModel(
+                    CreateLoginNavService(p),
+                    CreateOrderListNavService(p));
+            });
 
             _provider = services.BuildServiceProvider();
         }
@@ -159,6 +202,27 @@ namespace Uchebka123k4s1
                 p.GetRequiredService<MainNavContext>(),
                 p.GetRequiredService<DirectorPanelViewModel>
                 );
+        private INavService CreateClientPanelNavService(IServiceProvider p) =>
+            new MainNavService(
+                p.GetRequiredService<MainNavContext>(),
+                p.GetRequiredService<ClientPanelViewModel>
+                );
+        private INavService CreateManagerPanelNavService(IServiceProvider p) =>
+            new MainNavService(
+                p.GetRequiredService<MainNavContext>(),
+                p.GetRequiredService<ManagerPanelViewModel>
+                );
+        private INavService CreateMasterPanelNavService(IServiceProvider p) =>
+            new MainNavService(
+                p.GetRequiredService<MainNavContext>(),
+                p.GetRequiredService<MasterPanelViewModel>
+                );
+        private INavService CreateCtorPanelNavService(IServiceProvider p) =>
+            new MainNavService(
+                p.GetRequiredService<MainNavContext>(),
+                p.GetRequiredService<ConstructorPanelViewModel>
+                );
+
         private INavService CreateWorkerRecordNavService(IServiceProvider p) =>
             new MainNavService(
                 p.GetRequiredService<MainNavContext>(),
@@ -194,5 +258,8 @@ namespace Uchebka123k4s1
             new MainNavService(p.GetRequiredService<MainNavContext>(), p.GetRequiredService<AddWorkerViewModel>);
         private INavService CreateBackOnlyNavService(IServiceProvider p) =>
             new MainNavService(p.GetRequiredService<MainNavContext>());
+
+        private INavService CreateOrderListNavService(IServiceProvider p) =>
+            new MainNavService(p.GetRequiredService<MainNavContext>(), p.GetRequiredService<OrderListViewModel>);
     }
 }

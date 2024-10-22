@@ -13,8 +13,11 @@ namespace Uchebka123k4s1.ViewModels
 {
     public class LoginViewModel : ViewModel
     {
-        private readonly INavService _registraionNavService;
-        private readonly INavService _workerRecordNavService;
+        private readonly INavService _director;
+        private readonly INavService _client;
+        private readonly INavService _manager;
+        private readonly INavService _master;
+        private readonly INavService _ctor;
         private readonly IEntryService _entryService;
         private readonly UserContext _userContext;
         private readonly DbService _dbService;
@@ -66,13 +69,21 @@ namespace Uchebka123k4s1.ViewModels
 
         public LoginViewModel(
             INavService registraionNavService,
-            INavService workerRecordNavService,
+            INavService director,
+            INavService client,
+            INavService manager,
+            INavService master,
+            INavService ctor,
             IEntryService entryService,
             UserContext userContext,
             DbService dbService)
         {
-            _registraionNavService = registraionNavService;
-            _workerRecordNavService = workerRecordNavService;
+            _director = director;
+            _client = client;
+            _manager = manager;
+            _master = master;
+            _ctor = ctor;
+
             _entryService = entryService;
             _userContext = userContext;
             _dbService = dbService;
@@ -112,8 +123,21 @@ namespace Uchebka123k4s1.ViewModels
                 _userContext.User = user;
                 switch (user.RoleId)
                 {
+
+                    case 1:
+                        _director.NavigateAndDispose();
+                        break;
+                    case 2:
+                        _ctor.NavigateAndDispose();
+                        break;
+                    case 3:
+                        _manager.NavigateAndDispose();
+                        break;
+                    case 4:
+                        _master.NavigateAndDispose();
+                        break;
                     case 5:
-                        _workerRecordNavService.NavigateAndDispose();
+                        _client.NavigateAndDispose();
                         break;
                     default:
                         Error = "Нет страниц для данной роли";
