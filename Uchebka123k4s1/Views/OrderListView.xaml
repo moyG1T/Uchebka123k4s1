@@ -12,7 +12,7 @@
         <BooleanToVisibilityConverter x:Key="CanInteractConverter"/>
 
         <Style x:Key="LocalOrderItem" TargetType="ListBoxItem">
-            <Setter Property="Width" Value="400"/>
+            <Setter Property="Width" Value="800"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
@@ -29,9 +29,62 @@
                                            TextTrimming="CharacterEllipsis" Foreground="White"/>
 
                                 <TextBlock Text="{Binding Cost, StringFormat={}Стоимость: {0:N0} руб., ConverterCulture=ru}" Foreground="White"/>
-                                <TextBlock Text="{Binding User.FIO, StringFormat={}Заказчик: {0}}" Foreground="White"/>
+                                <TextBlock Text="{Binding User1.FIO, StringFormat={}Заказчик: {0}}" Foreground="White"/>
                                 <TextBlock x:Name="DateBlock" Text="{Binding EstimatedDate, StringFormat={}Ожидаемая дата: {0:dd MMMM yyyy}, ConverterCulture=ru}" Foreground="White"/>
-                                <TextBlock x:Name="Manager" Text="{Binding User1.FIO, StringFormat={}Менеджер: {0}}" Foreground="White"/>
+                                <TextBlock x:Name="Manager" Text="{Binding User.FIO, StringFormat={}Менеджер: {0}}" Foreground="White"/>
+
+                                <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                                    <Button Command="{Binding DataContext.SetManagerCommand,
+                                            RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                                            CommandParameter="{Binding}"
+                                            Content="Стать менеджером" 
+                                            Name="SetManager" 
+                                            Visibility="Collapsed"
+                                            Style="{StaticResource TextButton}"
+                                            Margin="0 0 5 0"/>
+                                    <Button Command="{Binding DataContext.RemoveNewOrderCommand,
+                                            RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                                            CommandParameter="{Binding}"
+                                            Content="Удалить"
+                                            Foreground="{StaticResource Red}"
+                                            Name="RemoveNewOrder" 
+                                            Visibility="Collapsed"
+                                            Style="{StaticResource TextButton}"
+                                            Margin="0 0 5 0"/>
+                                    <Button Command="{Binding DataContext.AcceptOrderCommand,
+                                            RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                                            CommandParameter="{Binding}"
+                                            Content="Принять/"
+                                            Name="AcceptOrder" 
+                                            Visibility="Collapsed"
+                                            Style="{StaticResource TextButton}"
+                                            Margin="0"/>
+                                    <Button Command="{Binding DataContext.DeclineOrderCommand,
+                                            RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                                            CommandParameter="{Binding}"
+                                            Content="Отклонить"
+                                            Foreground="{StaticResource Red}"
+                                            Name="DeclineOrder" 
+                                            Visibility="Collapsed"
+                                            Style="{StaticResource TextButton}"
+                                            Margin="0 0 5 0"/>
+                                    <Button Command="{Binding DataContext.SetOrderReadyCommand,
+                                            RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                                            CommandParameter="{Binding}"
+                                            Content="На производство"
+                                            Name="SetOrderReady" 
+                                            Visibility="Collapsed"
+                                            Style="{StaticResource TextButton}"
+                                            Margin="0 0 5 0"/>
+                                    <Button Command="{Binding DataContext.CloseOrderCommand,
+                                            RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                                            CommandParameter="{Binding}"
+                                            Content="Закрыть"
+                                            Name="CloseOrder" 
+                                            Visibility="Collapsed"
+                                            Style="{StaticResource TextButton}"
+                                            Margin="0 0 5 0"/>
+                                </StackPanel>
                             </StackPanel>
                         </Grid>
 
@@ -42,6 +95,52 @@
                             <DataTrigger Binding="{Binding User1}" Value="{x:Null}">
                                 <Setter TargetName="Manager" Property="Visibility" Value="Hidden"/>
                             </DataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding DataContext.IsManager,
+                                        RelativeSource={RelativeSource AncestorType=ListBox}}" Value="True"/>
+                                    <Condition Binding="{Binding StateId}" Value="1"/>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter TargetName="SetManager" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="RemoveNewOrder" Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding DataContext.IsManager,
+                                        RelativeSource={RelativeSource AncestorType=ListBox}}" Value="True"/>
+                                    <Condition Binding="{Binding StateId}" Value="4"/>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter TargetName="DeclineOrder" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="AcceptOrder" Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding DataContext.IsManager,
+                                        RelativeSource={RelativeSource AncestorType=ListBox}}" Value="True"/>
+                                    <Condition Binding="{Binding StateId}" Value="5"/>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter TargetName="SetOrderReady" Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding DataContext.IsManager,
+                                        RelativeSource={RelativeSource AncestorType=ListBox}}" Value="True"/>
+                                    <Condition Binding="{Binding StateId}" Value="8"/>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter TargetName="CloseOrder" Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -88,8 +187,9 @@
             <Border Background="{StaticResource Blue}"/>
 
             <Button Content="Добавить" 
+                    Command="{Binding AddOrderCommand}"
                     Style="{StaticResource TextButton}" 
-                    Visibility="{Binding CanInteract, Converter={StaticResource CanInteractConverter}}" 
+                    Visibility="{Binding IsManager, Converter={StaticResource CanInteractConverter}}" 
                     HorizontalAlignment="Center"/>
         </Grid>
     </Grid>

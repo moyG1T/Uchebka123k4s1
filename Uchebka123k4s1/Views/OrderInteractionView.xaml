@@ -19,5 +19,68 @@
             <Button Command="{Binding GoBackCommand}" Content="Назад" HorizontalAlignment="Left" Style="{StaticResource TextButton}"/>
             <Button Command="{Binding LogoutCommand}" Content="Выйти" HorizontalAlignment="Right" Style="{StaticResource TextButton}"/>
         </Grid>
+
+        <ScrollViewer Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top"
+                      VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.IsVirtualizing="True"
+                      HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 50">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="Номер"/>
+                    <TextBox Text="{Binding Order.Id}" IsEnabled="False"/>
+                </StackPanel>
+                <StackPanel Margin="0 10" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="Наименование"/>
+                    <TextBox Text="{Binding Order.Title}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="Клиент"/>
+                    <ComboBox SelectedItem="{Binding SelectedClient}"
+                              ItemsSource="{Binding Clients}"
+                              DisplayMemberPath="FIO"
+                              IsEnabled="{Binding IsManager}"
+                              IsEditable="True"/>
+                </StackPanel>
+                <StackPanel Margin="0 10" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="Стоимость"/>
+                    <TextBox Text="{Binding Order.Cost}" PreviewTextInput="TextBox_PreviewTextInput"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="Плановая дата"/>
+                    <DatePicker SelectedDate="{Binding Order.EstimatedDate}" FontSize="18" FontFamily="Century Gothic" Width="200" Height="30"/>
+                </StackPanel>
+                <StackPanel Margin="0 10" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="Описание"/>
+                    <TextBox Text="{Binding Order.Description}" TextWrapping="Wrap" Height="Auto" MinHeight="30"/>
+                </StackPanel>
+                <Button Command="{Binding OpenFileDialogCommand}"
+                        Content="Загрузить чертежи" 
+                        HorizontalAlignment="Center" 
+                        Style="{StaticResource ElevatedButton}"/>
+                <ItemsControl Margin="0 10" ItemsSource="{Binding SchemasList}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" MaxWidth="300"/>
+                                    <ColumnDefinition Width="10"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding ImagePath}" TextTrimming="CharacterEllipsis"/>
+                                <Button Command="{Binding DataContext.RemoveSchemaCommand,
+                                        RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        CommandParameter="{Binding}"
+                                        Grid.Column="1"
+                                        Content="x" 
+                                        Margin="0"
+                                        Style="{StaticResource TextButton}" 
+                                        Foreground="{StaticResource Red}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Button Content="Сохранить" Command="" Style="{StaticResource ElevatedButton}" Grid.Row="2"
+                HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>

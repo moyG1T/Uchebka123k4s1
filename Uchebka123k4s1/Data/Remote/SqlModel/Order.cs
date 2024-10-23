@@ -11,29 +11,64 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Order
+    using Uchebka123k4s1.Domain.Utilities;
+
+    public partial class Order : ObservableObject
     {
+        private OrderState orderState;
+        private User user1;
+        private User user;
+        private int? stateId;
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
             this.OrderImage = new HashSet<OrderImage>();
             this.OrderSize = new HashSet<OrderSize>();
         }
-    
+
         public int Id { get; set; }
         public string Title { get; set; }
-        public Nullable<int> StateId { get; set; }
+        public Nullable<int> StateId
+        {
+            get => stateId; set
+            {
+                stateId = value;
+                OnPropertyChanged();
+            }
+        }
         public Nullable<int> ClientId { get; set; }
         public Nullable<int> Cost { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> EstimatedDate { get; set; }
         public string Description { get; set; }
         public Nullable<int> ManagerId { get; set; }
-    
-        public virtual OrderState OrderState { get; set; }
-        public virtual User User { get; set; }
-        public virtual User User1 { get; set; }
+
+        public virtual OrderState OrderState
+        {
+            get => orderState; 
+            set
+            {
+                orderState = value;
+                OnPropertyChanged();
+            }
+        }
+        public virtual User User
+        {
+            get => user; set
+            {
+                user = value;
+                OnPropertyChanged();
+            }
+        }
+        public virtual User User1
+        {
+            get => user1; set
+            {
+                user1 = value;
+                OnPropertyChanged();
+            }
+        }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderImage> OrderImage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

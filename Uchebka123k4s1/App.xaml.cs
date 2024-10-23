@@ -135,6 +135,7 @@ namespace Uchebka123k4s1
                 return new OrderListViewModel(
                     CreateLoginNavService(p),
                     CreateBackOnlyNavService(p),
+                    CreateOrderInteractionNavService(p),
                     p.GetRequiredService<DbService>(),
                     p.GetRequiredService<UserContext>()
                     );
@@ -270,5 +271,7 @@ namespace Uchebka123k4s1
 
         private INavService CreateOrderListNavService(IServiceProvider p) =>
             new MainNavService(p.GetRequiredService<MainNavContext>(), p.GetRequiredService<OrderListViewModel>);
+        private INavService CreateOrderInteractionNavService(IServiceProvider p) =>
+            new MainNavService(p.GetRequiredService<MainNavContext>(), p.GetRequiredService<OrderInteractionViewModel>);
     }
 }

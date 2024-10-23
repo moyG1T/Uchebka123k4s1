@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,9 +21,15 @@ namespace Uchebka123k4s1.Views
     /// </summary>
     public partial class OrderInteractionView : UserControl
     {
+        private readonly Regex _onlyDigits = new Regex("[^0-9]+");
         public OrderInteractionView()
         {
             InitializeComponent();
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = _onlyDigits.IsMatch(e.Text);
         }
     }
 }
