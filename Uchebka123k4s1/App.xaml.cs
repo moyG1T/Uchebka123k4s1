@@ -254,6 +254,7 @@ namespace Uchebka123k4s1
                 p.GetRequiredService<HardwareListViewModel>
                 );
         private INavService CreateHardwareInteractionNavService(IServiceProvider p) =>
+            // :)
             new MainNavService(
                 p.GetRequiredService<MainNavContext>(),
                 p.GetRequiredService<HardwareInteractionViewModel>
