@@ -200,8 +200,8 @@ namespace Uchebka123k4s1.ViewModels
                         return;
                     }
 
-                    _dbService.db.Material.Remove(material);
-                    await _dbService.db.SaveChangesAsync();
+                    _dbService.Material.Remove(material);
+                    await _dbService.SaveChangesAsync();
 
                     Materials.Remove(material);
 
@@ -221,11 +221,11 @@ namespace Uchebka123k4s1.ViewModels
 
         private async Task LoadMaterials()
         {
-            Materials = new ObservableCollection<Material>(await _dbService.db.Material.ToListAsync());
+            Materials = new ObservableCollection<Material>(await _dbService.Material.ToListAsync());
             OnPropertyChanged(nameof(ResultMaterials));
             OnPropertyChanged(nameof(SearchCount));
 
-            Warehouses = await _dbService.db.Warehouse.ToListAsync();
+            Warehouses = await _dbService.Warehouse.ToListAsync();
             OnPropertyChanged(nameof(Warehouses));
         }
 

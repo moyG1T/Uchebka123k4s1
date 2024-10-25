@@ -131,10 +131,10 @@ namespace Uchebka123k4s1.ViewModels
                 RoleId = 5,
             };
 
-            if (await _dbService.db.User.FirstOrDefaultAsync(u => u.Login == user.Login) is null)
+            if (await _dbService.User.FirstOrDefaultAsync(u => u.Login == user.Login) is null)
             {
-                _dbService.db.User.Add(user);
-                await _dbService.db.SaveChangesAsync();
+                _dbService.User.Add(user);
+                await _dbService.SaveChangesAsync();
 
                 if (RememberMe)
                 {

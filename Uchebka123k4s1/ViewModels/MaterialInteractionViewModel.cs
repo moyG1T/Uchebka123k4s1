@@ -119,27 +119,27 @@ namespace Uchebka123k4s1.ViewModels
 
         private async Task LoadContent()
         {
-            Suppliers = await _dbService.db.Supplier.ToListAsync();
+            Suppliers = await _dbService.Supplier.ToListAsync();
             OnPropertyChanged(nameof(Suppliers));
-            Units = await _dbService.db.MaterialUnit.ToListAsync();
+            Units = await _dbService.MaterialUnit.ToListAsync();
             OnPropertyChanged(nameof(Units));
 
             if (Material.Id == string.Empty)
             {
-                var allWarehouses = await _dbService.db.Warehouse.ToListAsync();
+                var allWarehouses = await _dbService.Warehouse.ToListAsync();
 
                 AvailableWarehouses = new ObservableCollection<Warehouse>(allWarehouses);
                 OnPropertyChanged(nameof(AvailableWarehouses));
             }
             else
             {
-                var contentOfWarehouses = await _dbService.db.WarehouseContent
+                var contentOfWarehouses = await _dbService.WarehouseContent
                     .Where(c => c.MaterialId == Material.Id)
                     .ToListAsync();
 
                 var whIds = contentOfWarehouses.Select(it => it.WarehouseId);
 
-                var availableWarehouses = await _dbService.db.Warehouse
+                var availableWarehouses = await _dbService.Warehouse
                     .Where(w => !whIds.Contains(w.Id))
                     .ToListAsync();
 
@@ -162,8 +162,8 @@ namespace Uchebka123k4s1.ViewModels
                         Cost = Material.Cost,
                     };
 
-                    _dbService.db.Material.Add(material);
-                    await _dbService.db.SaveChangesAsync();
+                    _dbService.Material.Add(material);
+                    await _dbService.SaveChangesAsync();
 
                     _materialContext.SelectedMaterial = material;
                     Material.WarehouseContent = new ObservableCollection<WarehouseContent>();
@@ -171,6 +171,9 @@ namespace Uchebka123k4s1.ViewModels
                     OnPropertyChanged(nameof(IsAdditionalEnabled));
 
                     _materialContext.AddMaterial(material);
+
+                    GoBackCommand.Execute(null);
+                    MessageBox.Show("Добавлено");
                 }
                 catch (Exception ex)
                 {
@@ -181,7 +184,7 @@ namespace Uchebka123k4s1.ViewModels
             {
                 try
                 {
-                    var material = await _dbService.db.Material.FirstOrDefaultAsync(m => m.Id == Material.Id);
+                    var material = await _dbService.Material.FirstOrDefaultAsync(m => m.Id == Material.Id);
 
                     material.Title = Material.Title;
                     material.MaterialUnit = Material.MaterialUnit;
@@ -189,7 +192,10 @@ namespace Uchebka123k4s1.ViewModels
                     material.Supplier = Material.Supplier;
                     material.WarehouseContent = Material.WarehouseContent;
 
-                    await _dbService.db.SaveChangesAsync();
+                    await _dbService.SaveChangesAsync();
+
+                    GoBackCommand.Execute(null);
+                    MessageBox.Show("Сохранено");
                 }
                 catch (Exception ex)
                 {

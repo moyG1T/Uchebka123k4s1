@@ -9,10 +9,8 @@ using Uchebka123k4s1.Data.Remote.SqlModel;
 
 namespace Uchebka123k4s1.Data.Services
 {
-    public class DbService : IDbService
+    public class DbService : HomeEntities
     {
-        public HomeEntities db = new HomeEntities();
-
         public event Action<User> WorkerAdded;
         public void AddWorker(User worker)
         {

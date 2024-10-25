@@ -126,41 +126,38 @@ namespace Uchebka123k4s1.ViewModels
         private async Task LoadManagerOrders()
         {
             var orders = await _dbService
-                .db
                 .Order
                 .Where(it => it.ManagerId == _userContext.User.Id || it.StateId == 1)
                 .ToListAsync();
 
             Orders = new ObservableCollection<Order>(orders);
 
-            var states = await _dbService.db.OrderState.ToListAsync();
+            var states = await _dbService.OrderState.ToListAsync();
             States = states;
             OnPropertyChanged(nameof(States));
         }
         private async Task LoadDirectorOrders()
         {
             var orders = await _dbService
-                .db
                 .Order
                 .ToListAsync();
 
             Orders = new ObservableCollection<Order>(orders);
 
-            var states = await _dbService.db.OrderState.ToListAsync();
+            var states = await _dbService.OrderState.ToListAsync();
             States = states;
             OnPropertyChanged(nameof(States));
         }
         private async Task LoadClientOrders()
         {
             var orders = await _dbService
-                .db
                 .Order
                 .Where(it => it.ClientId == _userContext.User.Id)
                 .ToListAsync();
 
             Orders = new ObservableCollection<Order>(orders);
 
-            var states = await _dbService.db.OrderState.ToListAsync();
+            var states = await _dbService.OrderState.ToListAsync();
             States = states;
             OnPropertyChanged(nameof(States));
         }
@@ -172,14 +169,14 @@ namespace Uchebka123k4s1.ViewModels
             order.OrderState = States.FirstOrDefault(it => it.Id == 3);
             order.User = _userContext.User;
 
-            await _dbService.db.SaveChangesAsync();
+            await _dbService.SaveChangesAsync();
         }
         private async Task RemoveNewOrder(object param)
         {
             var order = param as Order;
 
-            _dbService.db.Order.Remove(order);
-            await _dbService.db.SaveChangesAsync();
+            _dbService.Order.Remove(order);
+            await _dbService.SaveChangesAsync();
 
             Orders.Remove(order);
             OnPropertyChanged(nameof(ResultOrders));
@@ -189,28 +186,28 @@ namespace Uchebka123k4s1.ViewModels
             var order = param as Order;
 
             order.OrderState = States.FirstOrDefault(it => it.Id == 5);
-            await _dbService.db.SaveChangesAsync();
+            await _dbService.SaveChangesAsync();
         }
         private async Task DeclineOrder(object param)
         {
             var order = param as Order;
 
             order.OrderState = States.FirstOrDefault(it => it.Id == 2);
-            await _dbService.db.SaveChangesAsync();
+            await _dbService.SaveChangesAsync();
         }
         private async Task SetOrderReady(object param)
         {
             var order = param as Order;
 
             order.OrderState = States.FirstOrDefault(it => it.Id == 6);
-            await _dbService.db.SaveChangesAsync();
+            await _dbService.SaveChangesAsync();
         }
         private async Task CloseOrder(object param)
         {
             var order = param as Order;
 
             order.OrderState = States.FirstOrDefault(it => it.Id == 9);
-            await _dbService.db.SaveChangesAsync();
+            await _dbService.SaveChangesAsync();
         }
 
         private void EditOrder(object param)

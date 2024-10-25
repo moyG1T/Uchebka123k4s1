@@ -200,8 +200,8 @@ namespace Uchebka123k4s1.ViewModels
                         return;
                     }
 
-                    _dbService.db.Hardware.Remove(hardware);
-                    await _dbService.db.SaveChangesAsync();
+                    _dbService.Hardware.Remove(hardware);
+                    await _dbService.SaveChangesAsync();
 
                     HardwareCollection.Remove(hardware);
 
@@ -221,11 +221,11 @@ namespace Uchebka123k4s1.ViewModels
 
         private async Task LoadMaterials()
         {
-            HardwareCollection = new ObservableCollection<Hardware>(await _dbService.db.Hardware.ToListAsync());
+            HardwareCollection = new ObservableCollection<Hardware>(await _dbService.Hardware.ToListAsync());
             OnPropertyChanged(nameof(ResultHardwareCollection));
             OnPropertyChanged(nameof(SearchCount));
 
-            Warehouses = await _dbService.db.Warehouse.ToListAsync();
+            Warehouses = await _dbService.Warehouse.ToListAsync();
             OnPropertyChanged(nameof(Warehouses));
         }
 

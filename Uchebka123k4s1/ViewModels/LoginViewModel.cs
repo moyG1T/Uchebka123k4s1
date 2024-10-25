@@ -105,7 +105,6 @@ namespace Uchebka123k4s1.ViewModels
             IsLoading = true;
 
             var user = await _dbService
-                .db
                 .User
                 .FirstOrDefaultAsync(u => u.Login == LoginText && u.Password == _passwordText);
 

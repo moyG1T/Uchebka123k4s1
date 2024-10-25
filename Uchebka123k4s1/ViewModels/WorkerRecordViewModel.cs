@@ -69,10 +69,10 @@ namespace Uchebka123k4s1.ViewModels
             {
                 try
                 {
-                    var remoteUser = await _dbService.db.User.FirstOrDefaultAsync(it => it.Id == user.Id);
+                    var remoteUser = await _dbService.User.FirstOrDefaultAsync(it => it.Id == user.Id);
                     remoteUser.RoleId = 11;
 
-                    await _dbService.db.SaveChangesAsync();
+                    await _dbService.SaveChangesAsync();
 
                     Workers.FirstOrDefault(u => u.Id == user.Id).RoleId = 11;
                 }
@@ -87,7 +87,7 @@ namespace Uchebka123k4s1.ViewModels
         {
             if (_userContext.User.RoleId == 5)
             {
-                var users = await _dbService.db.User.Where(u => u.RoleId == 10).ToListAsync();
+                var users = await _dbService.User.Where(u => u.RoleId == 10).ToListAsync();
 
                 Workers = new ObservableCollection<User>(users);
             }

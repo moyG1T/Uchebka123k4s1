@@ -118,27 +118,27 @@ namespace Uchebka123k4s1.ViewModels
 
         private async Task LoadContent()
         {
-            Suppliers = await _dbService.db.Supplier.ToListAsync();
+            Suppliers = await _dbService.Supplier.ToListAsync();
             OnPropertyChanged(nameof(Suppliers));
-            Units = await _dbService.db.HardwareUnit.ToListAsync();
+            Units = await _dbService.HardwareUnit.ToListAsync();
             OnPropertyChanged(nameof(Units));
 
             if (Hardware.Id == string.Empty)
             {
-                var allWarehouses = await _dbService.db.Warehouse.ToListAsync();
+                var allWarehouses = await _dbService.Warehouse.ToListAsync();
 
                 AvailableWarehouses = new ObservableCollection<Warehouse>(allWarehouses);
                 OnPropertyChanged(nameof(AvailableWarehouses));
             }
             else
             {
-                var contentOfWarehouses = await _dbService.db.WarehouseContent
+                var contentOfWarehouses = await _dbService.WarehouseContent
                     .Where(c => c.MaterialId == Hardware.Id)
                     .ToListAsync();
 
                 var whIds = contentOfWarehouses.Select(it => it.WarehouseId);
 
-                var availableWarehouses = await _dbService.db.Warehouse
+                var availableWarehouses = await _dbService.Warehouse
                     .Where(w => !whIds.Contains(w.Id))
                     .ToListAsync();
 
@@ -161,8 +161,8 @@ namespace Uchebka123k4s1.ViewModels
                         Cost = Hardware.Cost,
                     };
 
-                    _dbService.db.Hardware.Add(material);
-                    await _dbService.db.SaveChangesAsync();
+                    _dbService.Hardware.Add(material);
+                    await _dbService.SaveChangesAsync();
 
                     _hardwareContext.SelectedHardware = material;
                     Hardware.WarehouseHardware = new ObservableCollection<WarehouseHardware>();
@@ -170,6 +170,9 @@ namespace Uchebka123k4s1.ViewModels
                     OnPropertyChanged(nameof(IsAdditionalEnabled));
 
                     _hardwareContext.AddMaterial(material);
+
+                    GoBackCommand.Execute(null);
+                    MessageBox.Show("Добавлено");
                 }
                 catch (Exception ex)
                 {
@@ -180,7 +183,7 @@ namespace Uchebka123k4s1.ViewModels
             {
                 try
                 {
-                    var hardware = await _dbService.db.Hardware.FirstOrDefaultAsync(m => m.Id == Hardware.Id);
+                    var hardware = await _dbService.Hardware.FirstOrDefaultAsync(m => m.Id == Hardware.Id);
 
                     hardware.Title = Hardware.Title;
                     hardware.HardwareUnit = Hardware.HardwareUnit;
@@ -188,7 +191,10 @@ namespace Uchebka123k4s1.ViewModels
                     hardware.Supplier = Hardware.Supplier;
                     hardware.WarehouseHardware = Hardware.WarehouseHardware;
 
-                    await _dbService.db.SaveChangesAsync();
+                    await _dbService.SaveChangesAsync();
+
+                    GoBackCommand.Execute(null);
+                    MessageBox.Show("Сохранено");
                 }
                 catch (Exception ex)
                 {

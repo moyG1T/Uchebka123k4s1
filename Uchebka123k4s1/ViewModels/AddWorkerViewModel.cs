@@ -69,7 +69,7 @@ namespace Uchebka123k4s1.ViewModels
 
         private async Task LoadPossibilities()
         {
-            var operations = await _dbService.db.UserOperation.ToListAsync();
+            var operations = await _dbService.UserOperation.ToListAsync();
 
             Operations = new ObservableCollection<UserOperation>(operations);
         }
@@ -89,8 +89,8 @@ namespace Uchebka123k4s1.ViewModels
                 return;
             }
 
-            _dbService.db.User.Add(Worker);
-            await _dbService.db.SaveChangesAsync();
+            _dbService.User.Add(Worker);
+            await _dbService.SaveChangesAsync();
 
             var fullName = new UserFullName()
             {
@@ -101,12 +101,12 @@ namespace Uchebka123k4s1.ViewModels
                 UserId = Worker.Id
             };
 
-            _dbService.db.UserFullName.Add(fullName);
+            _dbService.UserFullName.Add(fullName);
 
             if (!string.IsNullOrEmpty(WorkerAddress.Address))
             {
                 var address = new UserAddress { Address = WorkerAddress.Address, UserId = Worker.Id };
-                _dbService.db.UserAddress.Add(address);
+                _dbService.UserAddress.Add(address);
 
                 Worker.UserAddress.Add(address);
             }
@@ -114,7 +114,7 @@ namespace Uchebka123k4s1.ViewModels
             if (!string.IsNullOrEmpty(WorkerDegree.Title))
             {
                 var degree = new UserDegree { Title = WorkerAddress.Address, UserId = Worker.Id };
-                _dbService.db.UserDegree.Add(degree);
+                _dbService.UserDegree.Add(degree);
 
                 Worker.UserDegree.Add(degree);
             }
@@ -122,7 +122,7 @@ namespace Uchebka123k4s1.ViewModels
             if (!string.IsNullOrEmpty(WorkerQualification.Title))
             {
                 var qual = new UserQualification { Title = WorkerQualification.Title, UserId = Worker.Id };
-                _dbService.db.UserQualification.Add(qual);
+                _dbService.UserQualification.Add(qual);
 
                 Worker.UserQualification.Add(qual);
             }
@@ -133,12 +133,12 @@ namespace Uchebka123k4s1.ViewModels
 
                 possies.ForEach(it => it.UserId = Worker.Id);
 
-                _dbService.db.UserPossibility.AddRange(possies);
+                _dbService.UserPossibility.AddRange(possies);
 
                 Worker.UserPossibility = new ObservableCollection<UserPossibility>(possies);
             }
 
-            await _dbService.db.SaveChangesAsync();
+            await _dbService.SaveChangesAsync();
             _dbService.AddWorker(Worker);
 
             GoBackCommand.Execute(null);

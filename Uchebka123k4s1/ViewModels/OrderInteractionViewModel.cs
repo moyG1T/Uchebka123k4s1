@@ -58,6 +58,7 @@ namespace Uchebka123k4s1.ViewModels
             if (_orderContext.SelectedOrder != null)
             {
                 Order = _orderContext.SelectedOrder;
+                SelectedClient = Order.User1;
                 _isEditForm = true;
             }
 
@@ -76,15 +77,18 @@ namespace Uchebka123k4s1.ViewModels
 
         private async Task LoadManagerContent()
         {
-            var clients = await _dbService.db.User.Where(it => it.RoleId == 5 && it.UserFullName.Count > 0).ToListAsync();
+            var clients = await _dbService.User.Where(it => it.RoleId == 5 && it.UserFullName.Count > 0).ToListAsync();
 
             Clients = clients;
             OnPropertyChanged(nameof(Clients));
 
             if (_isEditForm)
             {
-                var schemas = await _dbService.db.OrderImage.Where(it => it.OrderId == Order.Id).ToListAsync();
+                var schemas = await _dbService.OrderImage
+                    .Where(it => it.OrderId == Order.Id)
+                    .ToListAsync();
                 SchemasList = new ObservableCollection<OrderImage>(schemas);
+                OnPropertyChanged(nameof(SchemasList));
             }
         }
 
@@ -97,7 +101,7 @@ namespace Uchebka123k4s1.ViewModels
                     MessageBox.Show("Пустые поля");
                     return;
                 }
-                await _dbService.db.SaveChangesAsync();
+                await _dbService.SaveChangesAsync();
             }
             else
             {
@@ -117,8 +121,8 @@ namespace Uchebka123k4s1.ViewModels
                     Order.User = _userContext.User;
                     Order.StateId = 3;
 
-                    _dbService.db.Order.Add(Order);
-                    await _dbService.db.SaveChangesAsync();
+                    _dbService.Order.Add(Order);
+                    await _dbService.SaveChangesAsync();
 
                     if (SchemasList.Count > 0)
                     {
@@ -126,9 +130,9 @@ namespace Uchebka123k4s1.ViewModels
                         {
                             item.OrderId = Order.Id;
                         }
-                        _dbService.db.OrderImage.AddRange(SchemasList);
+                        _dbService.OrderImage.AddRange(SchemasList);
 
-                        await _dbService.db.SaveChangesAsync();
+                        await _dbService.SaveChangesAsync();
                     }
 
                     _orderContext.NotifyOrderAdded(Order);
@@ -145,18 +149,18 @@ namespace Uchebka123k4s1.ViewModels
 
                     Order.User1 = _userContext.User;
 
-                    _dbService.db.Order.Add(Order);
-                    await _dbService.db.SaveChangesAsync();
+                    _dbService.Order.Add(Order);
+                    await _dbService.SaveChangesAsync();
 
                     if (SchemasList.Count > 0)
                     {
                         foreach (var item in SchemasList)
                         {
-                            item.Order = Order;
+                            item.OrderId = Order.Id;
                         }
-                        _dbService.db.OrderImage.AddRange(SchemasList);
+                        _dbService.OrderImage.AddRange(SchemasList);
 
-                        await _dbService.db.SaveChangesAsync();
+                        await _dbService.SaveChangesAsync();
                     }
 
                     _orderContext.NotifyOrderAdded(Order);

@@ -62,7 +62,6 @@ namespace Uchebka123k4s1.ViewModels
                 {
                     var userId = int.Parse(id);
                     var user = await _dbService
-                        .db
                         .User
                         .FirstOrDefaultAsync(u => u.Id == userId);
 

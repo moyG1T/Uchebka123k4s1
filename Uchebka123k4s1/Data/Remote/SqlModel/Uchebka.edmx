@@ -141,7 +141,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ImagePath" Type="nvarchar" MaxLength="100" />
           <Property Name="ImageBin" Type="varbinary(max)" />
           <Property Name="OrderId" Type="int" />
@@ -1496,7 +1496,6 @@
             <End Role="WarehouseHardware" EntitySet="WarehouseHardware" />
           </AssociationSet>
           <EntitySet Name="Order" EntityType="Uchebka123k4s1SQLModel.Order" />
-          <EntitySet Name="OrderImage" EntityType="Uchebka123k4s1SQLModel.OrderImage" />
           <EntitySet Name="OrderSize" EntityType="Uchebka123k4s1SQLModel.OrderSize" />
           <EntitySet Name="OrderState" EntityType="Uchebka123k4s1SQLModel.OrderState" />
           <EntitySet Name="SizeUnit" EntityType="Uchebka123k4s1SQLModel.SizeUnit" />
@@ -1512,10 +1511,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderImage_Order" Association="Uchebka123k4s1SQLModel.FK_OrderImage_Order">
-            <End Role="Order" EntitySet="Order" />
-            <End Role="OrderImage" EntitySet="OrderImage" />
-          </AssociationSet>
           <AssociationSet Name="FK_OrderSize_Order" Association="Uchebka123k4s1SQLModel.FK_OrderSize_Order">
             <End Role="Order" EntitySet="Order" />
             <End Role="OrderSize" EntitySet="OrderSize" />
@@ -1523,6 +1518,11 @@
           <AssociationSet Name="FK_OrderSize_SizeUnit" Association="Uchebka123k4s1SQLModel.FK_OrderSize_SizeUnit">
             <End Role="SizeUnit" EntitySet="SizeUnit" />
             <End Role="OrderSize" EntitySet="OrderSize" />
+          </AssociationSet>
+          <EntitySet Name="OrderImage" EntityType="Uchebka123k4s1SQLModel.OrderImage" />
+          <AssociationSet Name="FK_OrderImage_Order" Association="Uchebka123k4s1SQLModel.FK_OrderImage_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderImage" EntitySet="OrderImage" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="UserAddress">
@@ -2019,18 +2019,8 @@
           <NavigationProperty Name="OrderState" Relationship="Uchebka123k4s1SQLModel.FK_Order_OrderState" FromRole="Order" ToRole="OrderState" />
           <NavigationProperty Name="User" Relationship="Uchebka123k4s1SQLModel.FK_Order_User" FromRole="Order" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="Uchebka123k4s1SQLModel.FK_Order_User1" FromRole="Order" ToRole="User" />
-          <NavigationProperty Name="OrderImage" Relationship="Uchebka123k4s1SQLModel.FK_OrderImage_Order" FromRole="Order" ToRole="OrderImage" />
           <NavigationProperty Name="OrderSize" Relationship="Uchebka123k4s1SQLModel.FK_OrderSize_Order" FromRole="Order" ToRole="OrderSize" />
-        </EntityType>
-        <EntityType Name="OrderImage">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="ImagePath" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ImageBin" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="OrderId" Type="Int32" />
-          <NavigationProperty Name="Order" Relationship="Uchebka123k4s1SQLModel.FK_OrderImage_Order" FromRole="OrderImage" ToRole="Order" />
+          <NavigationProperty Name="OrderImage" Relationship="Uchebka123k4s1SQLModel.FK_OrderImage_Order" FromRole="Order" ToRole="OrderImage" />
         </EntityType>
         <EntityType Name="OrderSize">
           <Key>
@@ -2095,18 +2085,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderImage_Order">
-          <End Type="Uchebka123k4s1SQLModel.Order" Role="Order" Multiplicity="0..1" />
-          <End Type="Uchebka123k4s1SQLModel.OrderImage" Role="OrderImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="OrderImage">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OrderSize_Order">
           <End Type="Uchebka123k4s1SQLModel.Order" Role="Order" Multiplicity="0..1" />
           <End Type="Uchebka123k4s1SQLModel.OrderSize" Role="OrderSize" Multiplicity="*" />
@@ -2128,6 +2106,28 @@
             </Principal>
             <Dependent Role="OrderSize">
               <PropertyRef Name="UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="OrderImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImagePath" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ImageBin" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="OrderId" Type="Int32" />
+          <NavigationProperty Name="Order" Relationship="Uchebka123k4s1SQLModel.FK_OrderImage_Order" FromRole="OrderImage" ToRole="Order" />
+        </EntityType>
+        <Association Name="FK_OrderImage_Order">
+          <End Type="Uchebka123k4s1SQLModel.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1SQLModel.OrderImage" Role="OrderImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderImage">
+              <PropertyRef Name="OrderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2476,16 +2476,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OrderImage">
-            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.OrderImage">
-              <MappingFragment StoreEntitySet="OrderImage">
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="ImageBin" ColumnName="ImageBin" />
-                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="OrderSize">
             <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.OrderSize">
               <MappingFragment StoreEntitySet="OrderSize">
@@ -2508,6 +2498,16 @@
             <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.SizeUnit">
               <MappingFragment StoreEntitySet="SizeUnit">
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderImage">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLModel.OrderImage">
+              <MappingFragment StoreEntitySet="OrderImage">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="ImageBin" ColumnName="ImageBin" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
