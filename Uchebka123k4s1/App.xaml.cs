@@ -23,6 +23,7 @@ namespace Uchebka123k4s1
             services.AddSingleton<UserContext>();
             services.AddSingleton<MaterialContext>();
             services.AddSingleton<HardwareContext>();
+            services.AddSingleton<OrderContext>();
 
             //services.AddSingleton<IDbService, DbService>();
             services.AddSingleton<DbService>();
@@ -136,6 +137,7 @@ namespace Uchebka123k4s1
                     CreateLoginNavService(p),
                     CreateBackOnlyNavService(p),
                     CreateOrderInteractionNavService(p),
+                    p.GetRequiredService<OrderContext>(),
                     p.GetRequiredService<DbService>(),
                     p.GetRequiredService<UserContext>()
                     );
@@ -145,6 +147,7 @@ namespace Uchebka123k4s1
                 return new OrderInteractionViewModel(
                     CreateLoginNavService(p),
                     CreateBackOnlyNavService(p),
+                    p.GetRequiredService<OrderContext>(),
                     p.GetRequiredService<DbService>(),
                     p.GetRequiredService<UserContext>()
                     );

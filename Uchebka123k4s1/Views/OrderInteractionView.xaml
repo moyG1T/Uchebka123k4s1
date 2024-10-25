@@ -6,6 +6,12 @@
              xmlns:local="clr-namespace:Uchebka123k4s1.Views" xmlns:viewmodels="clr-namespace:Uchebka123k4s1.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:OrderInteractionViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="IsManagerConverter"/>
+        <BooleanToVisibilityConverter x:Key="IsOrderIdFormedConverter"/>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -24,31 +30,33 @@
                       VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.IsVirtualizing="True"
                       HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 50">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel Margin="0 0 0 10" Orientation="Horizontal" HorizontalAlignment="Right"
+                            Visibility="{Binding IsOrderIdFormed, Converter={StaticResource IsOrderIdFormedConverter}}">
                     <TextBlock Text="Номер"/>
                     <TextBox Text="{Binding Order.Id}" IsEnabled="False"/>
                 </StackPanel>
-                <StackPanel Margin="0 10" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="Наименование"/>
-                    <TextBox Text="{Binding Order.Title}"/>
+                <StackPanel Margin="0 0 0 10" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="Наименование*"/>
+                    <TextBox Text="{Binding Order.Title}" IsEnabled="{Binding IsCreationForm}"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="Клиент"/>
+                <StackPanel Margin="0 0 0 10" Orientation="Horizontal" HorizontalAlignment="Right"
+                            Visibility="{Binding IsManager, Converter={StaticResource IsManagerConverter}}">
+                    <TextBlock Text="Клиент*"/>
                     <ComboBox SelectedItem="{Binding SelectedClient}"
                               ItemsSource="{Binding Clients}"
                               DisplayMemberPath="FIO"
-                              IsEnabled="{Binding IsManager}"
+                              IsEnabled="{Binding IsClientNotFormed}"
                               IsEditable="True"/>
                 </StackPanel>
-                <StackPanel Margin="0 10" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="Стоимость"/>
-                    <TextBox Text="{Binding Order.Cost}" PreviewTextInput="TextBox_PreviewTextInput"/>
+                <StackPanel Margin="0 0 0 10" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="Стоимость*"/>
+                    <TextBox Text="{Binding Order.Cost}" IsEnabled="{Binding IsCreationForm}" PreviewTextInput="TextBox_PreviewTextInput"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="Плановая дата"/>
-                    <DatePicker SelectedDate="{Binding Order.EstimatedDate}" FontSize="18" FontFamily="Century Gothic" Width="200" Height="30"/>
+                <StackPanel Margin="0 0 0 10" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="Плановая дата*"/>
+                    <DatePicker SelectedDate="{Binding Order.EstimatedDate}" IsEnabled="{Binding IsCreationForm}" FontSize="18" FontFamily="Century Gothic" Width="200" Height="30"/>
                 </StackPanel>
-                <StackPanel Margin="0 10" Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel Margin="0 0 0 10" Orientation="Horizontal" HorizontalAlignment="Right">
                     <TextBlock Text="Описание"/>
                     <TextBox Text="{Binding Order.Description}" TextWrapping="Wrap" Height="Auto" MinHeight="30"/>
                 </StackPanel>
@@ -56,7 +64,7 @@
                         Content="Загрузить чертежи" 
                         HorizontalAlignment="Center" 
                         Style="{StaticResource ElevatedButton}"/>
-                <ItemsControl Margin="0 10" ItemsSource="{Binding SchemasList}">
+                <ItemsControl Margin="0 0 0 10" ItemsSource="{Binding SchemasList}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -80,7 +88,8 @@
             </StackPanel>
         </ScrollViewer>
 
-        <Button Content="Сохранить" Command="" Style="{StaticResource ElevatedButton}" Grid.Row="2"
+        <Button Command="{Binding SaveChangesCommand}"
+                Content="Сохранить" Style="{StaticResource ElevatedButton}" Grid.Row="2"
                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>

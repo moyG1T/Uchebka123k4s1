@@ -9,7 +9,7 @@
 
     <UserControl.Resources>
 
-        <BooleanToVisibilityConverter x:Key="CanInteractConverter"/>
+        <BooleanToVisibilityConverter x:Key="CanAddOrderConverter"/>
 
         <Style x:Key="LocalOrderItem" TargetType="ListBoxItem">
             <Setter Property="Width" Value="800"/>
@@ -39,6 +39,14 @@
                                             CommandParameter="{Binding}"
                                             Content="Стать менеджером" 
                                             Name="SetManager" 
+                                            Visibility="Collapsed"
+                                            Style="{StaticResource TextButton}"
+                                            Margin="0 0 5 0"/>
+                                    <Button Command="{Binding DataContext.EditOrderCommand,
+                                            RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                                            CommandParameter="{Binding}"
+                                            Content="Редактировать" 
+                                            Name="EditOrder" 
                                             Visibility="Collapsed"
                                             Style="{StaticResource TextButton}"
                                             Margin="0 0 5 0"/>
@@ -98,16 +106,28 @@
 
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding DataContext.IsClient,
+                                        RelativeSource={RelativeSource AncestorType=ListBox}}" Value="True"/>
+                                    <Condition Binding="{Binding StateId}" Value="1"/>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter TargetName="RemoveNewOrder" Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                            
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
                                     <Condition Binding="{Binding DataContext.IsManager,
                                         RelativeSource={RelativeSource AncestorType=ListBox}}" Value="True"/>
                                     <Condition Binding="{Binding StateId}" Value="1"/>
                                 </MultiDataTrigger.Conditions>
                                 <MultiDataTrigger.Setters>
                                     <Setter TargetName="SetManager" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="EditOrder" Property="Visibility" Value="Visible"/>
                                     <Setter TargetName="RemoveNewOrder" Property="Visibility" Value="Visible"/>
                                 </MultiDataTrigger.Setters>
                             </MultiDataTrigger>
-
+                            
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
                                     <Condition Binding="{Binding DataContext.IsManager,
@@ -189,7 +209,7 @@
             <Button Content="Добавить" 
                     Command="{Binding AddOrderCommand}"
                     Style="{StaticResource TextButton}" 
-                    Visibility="{Binding IsManager, Converter={StaticResource CanInteractConverter}}" 
+                    Visibility="{Binding CanAddOrder, Converter={StaticResource CanAddOrderConverter}}" 
                     HorizontalAlignment="Center"/>
         </Grid>
     </Grid>

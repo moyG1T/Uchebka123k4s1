@@ -47,16 +47,22 @@ namespace Uchebka123k4s1.ViewModels
             }
         }
 
+        private readonly INavService _interactOrder;
+        private readonly OrderContext _orderContext;
         private readonly DbService _dbService;
         private readonly UserContext _userContext;
 
         public bool IsManager => _userContext.User.RoleId == 3;
+        public bool IsClient => _userContext.User.RoleId == 5;
+
+        public bool CanAddOrder => IsManager || IsClient;
 
         public ICommand LogoutCommand { get; }
         public ICommand GoBackCommand { get; }
         public ICommand RemoveFilterCommand { get; }
 
         public ICommand AddOrderCommand { get; }
+        public ICommand EditOrderCommand { get; }
 
         public ICommand SetManagerCommand { get; }
         public ICommand RemoveNewOrderCommand { get; }
@@ -68,23 +74,32 @@ namespace Uchebka123k4s1.ViewModels
         public OrderListViewModel(
             INavService logout,
             INavService goBack,
-            INavService addOrder,
+            INavService interactOrder,
+            OrderContext orderContext,
             DbService dbService,
             UserContext userContext
             )
         {
+            _interactOrder = interactOrder;
+
+            _orderContext = orderContext;
             _dbService = dbService;
             _userContext = userContext;
+
+            _orderContext.OrderAdded += AddOrder;
 
             LogoutCommand = new NavigateAndDisposeCommand(logout);
             GoBackCommand = new GoBackCommand(goBack);
             RemoveFilterCommand = new RelayCommand(RemoveFilter);
 
+            AddOrderCommand = new NavigateCommand(interactOrder);
+            EditOrderCommand = new RelayCommand(EditOrder);
+
             switch (_userContext.User.RoleId)
             {
                 case 1:
                     Task.Run(LoadDirectorOrders);
-                    break; 
+                    break;
                 case 3:
                     SetManagerCommand = new RelayAsyncCommand(SetManagerToOrder);
                     RemoveNewOrderCommand = new RelayAsyncCommand(RemoveNewOrder);
@@ -93,10 +108,16 @@ namespace Uchebka123k4s1.ViewModels
                     SetOrderReadyCommand = new RelayAsyncCommand(SetOrderReady);
                     CloseOrderCommand = new RelayAsyncCommand(CloseOrder);
 
-                    AddOrderCommand = new NavigateCommand(addOrder);
+                    AddOrderCommand = new NavigateCommand(interactOrder);
 
                     Task.Run(LoadManagerOrders);
-                    break; // манагер
+                    break;
+                case 5:
+                    AddOrderCommand = new NavigateCommand(interactOrder);
+                    RemoveNewOrderCommand = new RelayAsyncCommand(RemoveNewOrder);
+
+                    Task.Run(LoadClientOrders);
+                    break;
                 default:
                     break;
             }
@@ -116,12 +137,25 @@ namespace Uchebka123k4s1.ViewModels
             States = states;
             OnPropertyChanged(nameof(States));
         }
-
         private async Task LoadDirectorOrders()
         {
             var orders = await _dbService
                 .db
                 .Order
+                .ToListAsync();
+
+            Orders = new ObservableCollection<Order>(orders);
+
+            var states = await _dbService.db.OrderState.ToListAsync();
+            States = states;
+            OnPropertyChanged(nameof(States));
+        }
+        private async Task LoadClientOrders()
+        {
+            var orders = await _dbService
+                .db
+                .Order
+                .Where(it => it.ClientId == _userContext.User.Id)
                 .ToListAsync();
 
             Orders = new ObservableCollection<Order>(orders);
@@ -179,6 +213,21 @@ namespace Uchebka123k4s1.ViewModels
             await _dbService.db.SaveChangesAsync();
         }
 
+        private void EditOrder(object param)
+        {
+            if (param is Order order)
+            {
+                _orderContext.SelectedOrder = order;
+                _interactOrder.Navigate();
+            }
+        }
+
+        private void AddOrder(Order order)
+        {
+            Orders.Add(order);
+            OnPropertyChanged(nameof(ResultOrders));
+        }
+
         private void RemoveFilter()
         {
             SelectedState = null;
@@ -186,6 +235,8 @@ namespace Uchebka123k4s1.ViewModels
 
         public override void Dispose()
         {
+            _orderContext.OrderAdded -= AddOrder;
+
             GC.SuppressFinalize(this);
         }
     }

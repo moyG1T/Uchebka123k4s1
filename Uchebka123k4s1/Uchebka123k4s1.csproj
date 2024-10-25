@@ -134,6 +134,7 @@
     <Compile Include="Domain\Commands\NavigateCommand.cs" />
     <Compile Include="Domain\Contexts\HardwareContext.cs" />
     <Compile Include="Domain\Contexts\MaterialContext.cs" />
+    <Compile Include="Domain\Contexts\OrderContext.cs" />
     <Compile Include="Domain\Utilities\ObservableObject.cs" />
     <Compile Include="ViewModels\AddWorkerViewModel.cs" />
     <Compile Include="ViewModels\ClientPanelViewModel.cs" />
