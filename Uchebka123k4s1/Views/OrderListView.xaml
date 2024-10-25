@@ -76,11 +76,11 @@
                                             Visibility="Collapsed"
                                             Style="{StaticResource TextButton}"
                                             Margin="0 0 5 0"/>
-                                    <Button Command="{Binding DataContext.SetOrderReadyCommand,
+                                    <Button Command="{Binding DataContext.SetOrderToProdCommand,
                                             RelativeSource={RelativeSource AncestorType=ListBox}}" 
                                             CommandParameter="{Binding}"
                                             Content="На производство"
-                                            Name="SetOrderReady" 
+                                            Name="SetOrderToProd" 
                                             Visibility="Collapsed"
                                             Style="{StaticResource TextButton}"
                                             Margin="0 0 5 0"/>
@@ -89,6 +89,30 @@
                                             CommandParameter="{Binding}"
                                             Content="Закрыть"
                                             Name="CloseOrder" 
+                                            Visibility="Collapsed"
+                                            Style="{StaticResource TextButton}"
+                                            Margin="0 0 5 0"/>
+                                    <Button Command="{Binding DataContext.ConfirmOrderCommand,
+                                            RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                                            CommandParameter="{Binding}"
+                                            Content="Утвердить"
+                                            Name="ConfirmOrder" 
+                                            Visibility="Collapsed"
+                                            Style="{StaticResource TextButton}"
+                                            Margin="0 0 5 0"/>
+                                    <Button Command="{Binding DataContext.ControlOrderCommand,
+                                            RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                                            CommandParameter="{Binding}"
+                                            Content="На контроль"
+                                            Name="ControlOrder" 
+                                            Visibility="Collapsed"
+                                            Style="{StaticResource TextButton}"
+                                            Margin="0 0 5 0"/>
+                                    <Button Command="{Binding DataContext.SetOrderReadyCommand,
+                                            RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                                            CommandParameter="{Binding}"
+                                            Content="Готово"
+                                            Name="SetOrderReady" 
                                             Visibility="Collapsed"
                                             Style="{StaticResource TextButton}"
                                             Margin="0 0 5 0"/>
@@ -147,7 +171,7 @@
                                     <Condition Binding="{Binding StateId}" Value="5"/>
                                 </MultiDataTrigger.Conditions>
                                 <MultiDataTrigger.Setters>
-                                    <Setter TargetName="SetOrderReady" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="SetOrderToProd" Property="Visibility" Value="Visible"/>
                                 </MultiDataTrigger.Setters>
                             </MultiDataTrigger>
 
@@ -159,6 +183,38 @@
                                 </MultiDataTrigger.Conditions>
                                 <MultiDataTrigger.Setters>
                                     <Setter TargetName="CloseOrder" Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding DataContext.IsCtor,
+                                        RelativeSource={RelativeSource AncestorType=ListBox}}" Value="True"/>
+                                    <Condition Binding="{Binding StateId}" Value="3"/>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter TargetName="ConfirmOrder" Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding DataContext.IsDungeonMaster,
+                                        RelativeSource={RelativeSource AncestorType=ListBox}}" Value="True"/>
+                                    <Condition Binding="{Binding StateId}" Value="6"/>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter TargetName="ControlOrder" Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding DataContext.IsDungeonMaster,
+                                        RelativeSource={RelativeSource AncestorType=ListBox}}" Value="True"/>
+                                    <Condition Binding="{Binding StateId}" Value="7"/>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter TargetName="SetOrderReady" Property="Visibility" Value="Visible"/>
                                 </MultiDataTrigger.Setters>
                             </MultiDataTrigger>
                         </ControlTemplate.Triggers>

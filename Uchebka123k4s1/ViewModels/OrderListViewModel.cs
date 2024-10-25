@@ -52,7 +52,9 @@ namespace Uchebka123k4s1.ViewModels
         private readonly DbService _dbService;
         private readonly UserContext _userContext;
 
+        public bool IsCtor => _userContext.User.RoleId == 2;
         public bool IsManager => _userContext.User.RoleId == 3;
+        public bool IsDungeonMaster => _userContext.User.RoleId == 4;
         public bool IsClient => _userContext.User.RoleId == 5;
 
         public bool CanAddOrder => IsManager || IsClient;
@@ -68,8 +70,13 @@ namespace Uchebka123k4s1.ViewModels
         public ICommand RemoveNewOrderCommand { get; }
         public ICommand AcceptOrderCommand { get; }
         public ICommand DeclineOrderCommand { get; }
-        public ICommand SetOrderReadyCommand { get; }
+        public ICommand SetOrderToProdCommand { get; }
         public ICommand CloseOrderCommand { get; }
+
+        public ICommand ConfirmOrderCommand { get; }
+
+        public ICommand ControlOrderCommand { get; }
+        public ICommand SetOrderReadyCommand { get; }
 
         public OrderListViewModel(
             INavService logout,
@@ -100,17 +107,28 @@ namespace Uchebka123k4s1.ViewModels
                 case 1:
                     Task.Run(LoadDirectorOrders);
                     break;
+                case 2:
+                    ConfirmOrderCommand = new RelayAsyncCommand(ConfirmOrder);
+
+                    Task.Run(LoadCtorOrders);
+                    break;
                 case 3:
                     SetManagerCommand = new RelayAsyncCommand(SetManagerToOrder);
                     RemoveNewOrderCommand = new RelayAsyncCommand(RemoveNewOrder);
                     AcceptOrderCommand = new RelayAsyncCommand(AcceptOrder);
                     DeclineOrderCommand = new RelayAsyncCommand(DeclineOrder);
-                    SetOrderReadyCommand = new RelayAsyncCommand(SetOrderReady);
+                    SetOrderToProdCommand = new RelayAsyncCommand(SetOrderToProd);
                     CloseOrderCommand = new RelayAsyncCommand(CloseOrder);
 
                     AddOrderCommand = new NavigateCommand(interactOrder);
 
                     Task.Run(LoadManagerOrders);
+                    break;
+                case 4:
+                    ControlOrderCommand = new RelayAsyncCommand(ControlOrder);
+                    SetOrderReadyCommand = new RelayAsyncCommand(SetOrderReady);
+
+                    Task.Run(LoadDungeonMasterOrders);
                     break;
                 case 5:
                     AddOrderCommand = new NavigateCommand(interactOrder);
@@ -161,6 +179,32 @@ namespace Uchebka123k4s1.ViewModels
             States = states;
             OnPropertyChanged(nameof(States));
         }
+        private async Task LoadDungeonMasterOrders()
+        {
+            var orders = await _dbService
+                .Order
+                .Where(it => it.StateId == 6 || it.StateId == 7)
+                .ToListAsync();
+
+            Orders = new ObservableCollection<Order>(orders);
+
+            var states = await _dbService.OrderState.ToListAsync();
+            States = states;
+            OnPropertyChanged(nameof(States));
+        }
+        private async Task LoadCtorOrders()
+        {
+            var orders = await _dbService
+                .Order
+                .Where(it => it.StateId == 3)
+                .ToListAsync();
+
+            Orders = new ObservableCollection<Order>(orders);
+
+            var states = await _dbService.OrderState.ToListAsync();
+            States = states;
+            OnPropertyChanged(nameof(States));
+        }
 
         private async Task SetManagerToOrder(object param)
         {
@@ -195,7 +239,7 @@ namespace Uchebka123k4s1.ViewModels
             order.OrderState = States.FirstOrDefault(it => it.Id == 2);
             await _dbService.SaveChangesAsync();
         }
-        private async Task SetOrderReady(object param)
+        private async Task SetOrderToProd(object param)
         {
             var order = param as Order;
 
@@ -207,6 +251,27 @@ namespace Uchebka123k4s1.ViewModels
             var order = param as Order;
 
             order.OrderState = States.FirstOrDefault(it => it.Id == 9);
+            await _dbService.SaveChangesAsync();
+        }
+        private async Task ConfirmOrder(object param)
+        {
+            var order = param as Order;
+
+            order.OrderState = States.FirstOrDefault(it => it.Id == 4);
+            await _dbService.SaveChangesAsync();
+        }
+        private async Task ControlOrder(object param)
+        {
+            var order = param as Order;
+
+            order.OrderState = States.FirstOrDefault(it => it.Id == 7);
+            await _dbService.SaveChangesAsync();
+        }
+        private async Task SetOrderReady(object param)
+        {
+            var order = param as Order;
+
+            order.OrderState = States.FirstOrDefault(it => it.Id == 8);
             await _dbService.SaveChangesAsync();
         }
 
