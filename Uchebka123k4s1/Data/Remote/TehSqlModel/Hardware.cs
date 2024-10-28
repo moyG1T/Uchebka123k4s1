@@ -23,6 +23,7 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
             this.HardwareImage = new HashSet<HardwareImage>();
             this.ProductHardware = new HashSet<ProductHardware>();
             this.WarehouseHardware = new ObservableCollection<WarehouseHardware>();
+            this.HardwareFailure = new ObservableCollection<HardwareFailure>();
         }
     
         public string Id { get; set; }
@@ -41,14 +42,8 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductHardware> ProductHardware { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ObservableCollection<WarehouseHardware> WarehouseHardware
-        {
-            get => warehouseHardware;
-            set
-            {
-                warehouseHardware = value;
-                OnPropertyChanged();
-            }
-        }
+        public virtual ObservableCollection<WarehouseHardware> WarehouseHardware { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ObservableCollection<HardwareFailure> HardwareFailure { get; set; }
     }
 }

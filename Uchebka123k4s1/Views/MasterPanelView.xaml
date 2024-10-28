@@ -20,6 +20,7 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Command="{Binding OrderListCommand}" Content="Заказы" Style="{StaticResource ElevatedButton}" Margin="10 0"/>
+            <Button Command="{Binding SetFailureCommand}" Content="Указать сбой оборудования" Style="{StaticResource ElevatedButton}" Margin="10 0"/>
         </StackPanel>
     </Grid>
 </UserControl>

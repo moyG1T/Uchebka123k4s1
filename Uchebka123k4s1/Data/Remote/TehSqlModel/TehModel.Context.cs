@@ -12,7 +12,7 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-
+    
     public partial class TehEntities : DbContext
     {
         public TehEntities()
@@ -64,5 +64,6 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public virtual DbSet<Warehouse> Warehouse { get; set; }
         public virtual DbSet<WarehouseContent> WarehouseContent { get; set; }
         public virtual DbSet<WarehouseHardware> WarehouseHardware { get; set; }
+        public virtual DbSet<HardwareFailure> HardwareFailure { get; set; }
     }
 }

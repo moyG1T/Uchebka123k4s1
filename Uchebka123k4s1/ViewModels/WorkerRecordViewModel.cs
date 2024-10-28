@@ -85,7 +85,7 @@ namespace Uchebka123k4s1.ViewModels
 
         private async Task LoadWorkers()
         {
-            if (_userContext.User.RoleId == 5)
+            if (_userContext.User.RoleId == 1)
             {
                 var users = await _dbService.User.Where(u => u.RoleId == 10).ToListAsync();
 

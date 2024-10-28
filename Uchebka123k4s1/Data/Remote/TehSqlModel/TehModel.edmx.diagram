@@ -84,6 +84,8 @@
         <AssociationConnector Association="Uchebka123k4s1TehSQLModel.FK_UserPossibility_UserOperation" ManuallyRouted="false" />
         <AssociationConnector Association="Uchebka123k4s1TehSQLModel.FK_WarehouseContent_Warehouse" ManuallyRouted="false" />
         <AssociationConnector Association="Uchebka123k4s1TehSQLModel.FK_WarehouseHardware_Warehouse" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Uchebka123k4s1TehSQLModel.HardwareFailure" Width="1.5" PointX="17.25" PointY="23.875" />
+        <AssociationConnector Association="Uchebka123k4s1TehSQLModel.FK_HardwareFailure_Hardware" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

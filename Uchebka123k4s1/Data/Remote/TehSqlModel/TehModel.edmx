@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище Uchebka123k4s1TehSQLModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище Uchebka123k4s1TehSQLModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Description">
           <Key>
             <PropertyRef Name="Id" />
@@ -55,6 +55,17 @@
           <Property Name="TypeId" Type="int" />
           <Property Name="Cost" Type="int" />
           <Property Name="Weight" Type="int" />
+        </EntityType>
+        <EntityType Name="HardwareFailure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Subtitle" Type="nvarchar" MaxLength="200" />
+          <Property Name="HardwareId" Type="nvarchar" MaxLength="50" />
+          <Property Name="Timestamp" Type="datetime" />
+          <Property Name="FixTimestamp" Type="datetime" />
         </EntityType>
         <EntityType Name="HardwareImage">
           <Key>
@@ -426,6 +437,18 @@
             </Principal>
             <Dependent Role="Hardware">
               <PropertyRef Name="SupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HardwareFailure_Hardware">
+          <End Role="Hardware" Type="Self.Hardware" Multiplicity="0..1" />
+          <End Role="HardwareFailure" Type="Self.HardwareFailure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hardware">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HardwareFailure">
+              <PropertyRef Name="HardwareId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -832,6 +855,7 @@
           <EntitySet Name="EquipmentType" EntityType="Self.EquipmentType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gost" EntityType="Self.Gost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Hardware" EntityType="Self.Hardware" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HardwareFailure" EntityType="Self.HardwareFailure" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HardwareImage" EntityType="Self.HardwareImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HardwareType" EntityType="Self.HardwareType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HardwareUnit" EntityType="Self.HardwareUnit" Schema="dbo" store:Type="Tables" />
@@ -892,6 +916,10 @@
           <AssociationSet Name="FK_Hardware_Supplier" Association="Self.FK_Hardware_Supplier">
             <End Role="Supplier" EntitySet="Supplier" />
             <End Role="Hardware" EntitySet="Hardware" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HardwareFailure_Hardware" Association="Self.FK_HardwareFailure_Hardware">
+            <End Role="Hardware" EntitySet="Hardware" />
+            <End Role="HardwareFailure" EntitySet="HardwareFailure" />
           </AssociationSet>
           <AssociationSet Name="FK_HardwareImage_Hardware" Association="Self.FK_HardwareImage_Hardware">
             <End Role="Hardware" EntitySet="Hardware" />
@@ -1026,8 +1054,7 @@
             <End Role="WarehouseHardware" EntitySet="WarehouseHardware" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Uchebka123k4s1TehSQLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1094,6 +1121,7 @@
           <NavigationProperty Name="HardwareImage" Relationship="Self.FK_HardwareImage_Hardware" FromRole="Hardware" ToRole="HardwareImage" />
           <NavigationProperty Name="ProductHardware" Relationship="Self.FK_ProductHardware_Hardware" FromRole="Hardware" ToRole="ProductHardware" />
           <NavigationProperty Name="WarehouseHardware" Relationship="Self.FK_WarehouseHardware_Hardware" FromRole="Hardware" ToRole="WarehouseHardware" />
+          <NavigationProperty Name="HardwareFailure" Relationship="Uchebka123k4s1TehSQLModel.FK_HardwareFailure_Hardware" FromRole="Hardware" ToRole="HardwareFailure" />
         </EntityType>
         <EntityType Name="HardwareImage">
           <Key>
@@ -2131,7 +2159,36 @@
             <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="WarehouseHardware" EntitySet="WarehouseHardware" />
           </AssociationSet>
+          <EntitySet Name="HardwareFailure" EntityType="Uchebka123k4s1TehSQLModel.HardwareFailure" />
+          <AssociationSet Name="FK_HardwareFailure_Hardware" Association="Uchebka123k4s1TehSQLModel.FK_HardwareFailure_Hardware">
+            <End Role="Hardware" EntitySet="Hardware" />
+            <End Role="HardwareFailure" EntitySet="HardwareFailure" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="HardwareFailure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Subtitle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HardwareId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Timestamp" Type="DateTime" Precision="3" />
+          <Property Name="FixTimestamp" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Hardware" Relationship="Uchebka123k4s1TehSQLModel.FK_HardwareFailure_Hardware" FromRole="HardwareFailure" ToRole="Hardware" />
+        </EntityType>
+        <Association Name="FK_HardwareFailure_Hardware">
+          <End Type="Uchebka123k4s1TehSQLModel.Hardware" Role="Hardware" Multiplicity="0..1" />
+          <End Type="Uchebka123k4s1TehSQLModel.HardwareFailure" Role="HardwareFailure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hardware">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HardwareFailure">
+              <PropertyRef Name="HardwareId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2510,6 +2567,18 @@
                 <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
                 <ScalarProperty Name="HardwareId" ColumnName="HardwareId" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HardwareFailure">
+            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.HardwareFailure">
+              <MappingFragment StoreEntitySet="HardwareFailure">
+                <ScalarProperty Name="FixTimestamp" ColumnName="FixTimestamp" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="HardwareId" ColumnName="HardwareId" />
+                <ScalarProperty Name="Subtitle" ColumnName="Subtitle" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

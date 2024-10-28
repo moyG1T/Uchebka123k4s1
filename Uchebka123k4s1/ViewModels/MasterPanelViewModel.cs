@@ -10,6 +10,7 @@ namespace Uchebka123k4s1.ViewModels
     {
         public ICommand LogoutCommand { get; }
         public ICommand OrderListCommand { get; }
+        public ICommand SetFailureCommand { get; }
 
         public MasterPanelViewModel(
             INavService logout,

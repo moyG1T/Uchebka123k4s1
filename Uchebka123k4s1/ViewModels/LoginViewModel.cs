@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Uchebka123k4s1.Data.Local.IServices;
 using Uchebka123k4s1.Data.Services;
@@ -146,6 +147,10 @@ namespace Uchebka123k4s1.ViewModels
                     }
                 }
             }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
             finally
             {
                 IsLoading = false;
@@ -154,7 +159,7 @@ namespace Uchebka123k4s1.ViewModels
 
         public override void Dispose()
         {
-
+            GC.SuppressFinalize(this);
         }
     }
 }
