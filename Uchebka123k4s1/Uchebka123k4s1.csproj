@@ -80,53 +80,137 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\Remote\Partial\User.cs" />
-    <Compile Include="Data\Remote\SqlModel\Order.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
+    <Compile Include="Data\Remote\TehSqlModel\Description.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\SqlModel\OrderImage.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
+    <Compile Include="Data\Remote\TehSqlModel\Equipment.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\SqlModel\OrderSize.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
+    <Compile Include="Data\Remote\TehSqlModel\EquipmentDesc.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\SqlModel\OrderState.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
+    <Compile Include="Data\Remote\TehSqlModel\EquipmentType.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\SqlModel\SizeUnit.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
+    <Compile Include="Data\Remote\TehSqlModel\Gost.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\SqlModel\Supplier.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
+    <Compile Include="Data\Remote\TehSqlModel\Hardware.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\SqlModel\User.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
+    <Compile Include="Data\Remote\TehSqlModel\HardwareImage.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\SqlModel\UserAddress.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
+    <Compile Include="Data\Remote\TehSqlModel\HardwareType.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\SqlModel\UserDegree.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
+    <Compile Include="Data\Remote\TehSqlModel\HardwareUnit.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\SqlModel\UserOperation.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
+    <Compile Include="Data\Remote\TehSqlModel\Material.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\SqlModel\UserPossibility.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
+    <Compile Include="Data\Remote\TehSqlModel\MaterialImage.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\SqlModel\UserQualification.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
+    <Compile Include="Data\Remote\TehSqlModel\MaterialLength.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\SqlModel\UserSkill.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
+    <Compile Include="Data\Remote\TehSqlModel\MaterialType.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\SqlModel\Warehouse.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
+    <Compile Include="Data\Remote\TehSqlModel\MaterialUnit.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\SqlModel\WarehouseContent.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
+    <Compile Include="Data\Remote\TehSqlModel\Order.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\SqlModel\WarehouseHardware.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
+    <Compile Include="Data\Remote\TehSqlModel\OrderImage.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\OrderSize.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\OrderState.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\Product.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\ProductContent.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\ProductHardware.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\ProductMaterial.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\ProductOperation.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\Role.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\SizeUnit.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\Supplier.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\sysdiagrams.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\TehModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TehModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\TehModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\TehModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TehModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\User.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\UserAddress.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\UserDegree.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\UserFullName.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\UserImage.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\UserOperation.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\UserPossibility.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\UserQualification.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\UserSkill.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\Warehouse.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\WarehouseContent.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\TehSqlModel\WarehouseHardware.cs">
+      <DependentUpon>TehModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\Commands\CommandBase.cs" />
     <Compile Include="Domain\Commands\GoBackCommand.cs" />
@@ -230,90 +314,6 @@
     </Compile>
     <Compile Include="Data\Local\IServices\IEntryService.cs" />
     <Compile Include="Data\Remote\IServices\IDbService.cs" />
-    <Compile Include="Data\Remote\SqlModel\Description.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\Equipment.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\EquipmentDesc.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\EquipmentType.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\Gost.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\Hardware.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\HardwareImage.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\HardwareType.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\HardwareUnit.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\Material.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\MaterialImage.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\MaterialLength.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\MaterialType.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\MaterialUnit.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\Product.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\ProductContent.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\ProductHardware.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\ProductMaterial.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\ProductOperation.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\Role.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\sysdiagrams.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\Uchebka.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Uchebka.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\Uchebka.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\Uchebka.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Uchebka.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\UserFullName.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\SqlModel\UserImage.cs">
-      <DependentUpon>Uchebka.tt</DependentUpon>
-    </Compile>
     <Compile Include="Data\Services\DbService.cs" />
     <Compile Include="Data\Services\EntryService.cs" />
     <Compile Include="Domain\Contexts\MainNavContext.cs" />
@@ -384,12 +384,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Data\Remote\SqlModel\Uchebka.edmx">
+    <EntityDeploy Include="Data\Remote\TehSqlModel\TehModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Uchebka.Designer.cs</LastGenOutput>
+      <LastGenOutput>TehModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Data\Remote\SqlModel\Uchebka.edmx.diagram">
-      <DependentUpon>Uchebka.edmx</DependentUpon>
+    <None Include="Data\Remote\TehSqlModel\TehModel.edmx.diagram">
+      <DependentUpon>TehModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -404,15 +404,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\Remote\SqlModel\Uchebka.Context.tt">
+    <Content Include="Data\Remote\TehSqlModel\TehModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Uchebka.edmx</DependentUpon>
-      <LastGenOutput>Uchebka.Context.cs</LastGenOutput>
+      <DependentUpon>TehModel.edmx</DependentUpon>
+      <LastGenOutput>TehModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Data\Remote\SqlModel\Uchebka.tt">
+    <Content Include="Data\Remote\TehSqlModel\TehModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Uchebka.edmx</DependentUpon>
-      <LastGenOutput>Uchebka.cs</LastGenOutput>
+      <DependentUpon>TehModel.edmx</DependentUpon>
+      <LastGenOutput>TehModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

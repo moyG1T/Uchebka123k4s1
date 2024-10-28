@@ -102,49 +102,54 @@ namespace Uchebka123k4s1.ViewModels
 
         private async Task LoginAsync()
         {
-            IsLoading = true;
-
-            var user = await _dbService
-                .User
-                .FirstOrDefaultAsync(u => u.Login == LoginText && u.Password == _passwordText);
-
-            if (user is null)
+            try
             {
-                Error = "Неверные данные";
+                IsLoading = true;
+
+                var user = await _dbService
+                    .User
+                    .FirstOrDefaultAsync(u => u.Login == LoginText && u.Password == _passwordText);
+
+                if (user is null)
+                {
+                    Error = "Неверные данные";
+                }
+                else
+                {
+                    if (RememberMe)
+                    {
+                        _entryService.Write(user.Id.ToString());
+                    }
+
+                    _userContext.User = user;
+                    switch (user.RoleId)
+                    {
+
+                        case 1:
+                            _director.NavigateAndDispose();
+                            break;
+                        case 2:
+                            _ctor.NavigateAndDispose();
+                            break;
+                        case 3:
+                            _manager.NavigateAndDispose();
+                            break;
+                        case 4:
+                            _master.NavigateAndDispose();
+                            break;
+                        case 5:
+                            _client.NavigateAndDispose();
+                            break;
+                        default:
+                            Error = "Нет страниц для данной роли";
+                            break;
+                    }
+                }
             }
-            else
+            finally
             {
-                if (RememberMe)
-                {
-                    _entryService.Write(user.Id.ToString());
-                }
-
-                _userContext.User = user;
-                switch (user.RoleId)
-                {
-
-                    case 1:
-                        _director.NavigateAndDispose();
-                        break;
-                    case 2:
-                        _ctor.NavigateAndDispose();
-                        break;
-                    case 3:
-                        _manager.NavigateAndDispose();
-                        break;
-                    case 4:
-                        _master.NavigateAndDispose();
-                        break;
-                    case 5:
-                        _client.NavigateAndDispose();
-                        break;
-                    default:
-                        Error = "Нет страниц для данной роли";
-                        break;
-                }
+                IsLoading = false;
             }
-
-            IsLoading = false;
         }
 
         public override void Dispose()
