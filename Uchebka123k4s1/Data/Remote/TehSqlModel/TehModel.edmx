@@ -310,7 +310,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OperId" Type="int" />
           <Property Name="UserId" Type="int" />
         </EntityType>
