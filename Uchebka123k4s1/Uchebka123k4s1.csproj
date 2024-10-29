@@ -243,6 +243,7 @@
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\ConstructorPanelViewModel.cs" />
     <Compile Include="ViewModels\DirectorPanelViewModel.cs" />
+    <Compile Include="ViewModels\FailureViewModel.cs" />
     <Compile Include="ViewModels\HardwareInteractionViewModel.cs" />
     <Compile Include="ViewModels\HardwareListViewModel.cs" />
     <Compile Include="ViewModels\ManagerPanelViewModel.cs" />
@@ -263,6 +264,9 @@
     </Compile>
     <Compile Include="Views\DirectorPanelView.xaml.cs">
       <DependentUpon>DirectorPanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FailureView.xaml.cs">
+      <DependentUpon>FailureView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HardwareInteractionView.xaml.cs">
       <DependentUpon>HardwareInteractionView.xaml</DependentUpon>
@@ -307,6 +311,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DirectorPanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FailureView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -14,11 +14,13 @@ namespace Uchebka123k4s1.ViewModels
 
         public MasterPanelViewModel(
             INavService logout,
-            INavService orderList
+            INavService orderList,
+            INavService failure
             )
         {
             LogoutCommand = new NavigateAndDisposeCommand(logout);
             OrderListCommand = new NavigateCommand(orderList);
+            SetFailureCommand = new NavigateCommand(failure);
         }
         public override void Dispose()
         {

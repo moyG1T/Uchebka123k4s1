@@ -64,6 +64,9 @@
         <DataTemplate DataType="{x:Type vm:ConstructorPanelViewModel}">
             <v:ConstructorPanelView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:FailureViewModel}">
+            <v:FailureView/>
+        </DataTemplate>
     </Window.Resources>
     
     <Grid>
