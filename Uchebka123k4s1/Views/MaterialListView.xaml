@@ -21,7 +21,7 @@
                                 <TextBlock DockPanel.Dock="Top" x:Name="CostText" Text="{Binding Cost, StringFormat={}Цена - {0}}" Foreground="White"/>
                                 <TextBlock DockPanel.Dock="Top" Text="{Binding Title}" Foreground="White"/>
                                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Supplier.Title}" Foreground="White"/>
+                                    <TextBlock Text="{Binding Supplier.Title}" Foreground="White" Margin="0 0 4 0"/>
                                     <TextBlock Text="{Binding Supplier.DeliveryTime, StringFormat=доставит за \{0:h\\:mm\} ч.}" Foreground="White"/>
                                 </StackPanel>
 
@@ -48,7 +48,7 @@
                                         Visibility="Collapsed"
                                         Margin="0 0 10 0"
                                         Style="{StaticResource TextButton}"/>
-                                    
+
                                     <Button Content="Удалить"
                                         Command="{Binding DataContext.RemoveMaterialCommand, 
                                         RelativeSource={RelativeSource AncestorType=ListBox}}"
