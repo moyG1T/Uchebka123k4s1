@@ -19,7 +19,7 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public string HardwareId { get; set; }
         public Nullable<int> Amount { get; set; }
     
-        public virtual Product Product { get; set; }
         public virtual Hardware Hardware { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

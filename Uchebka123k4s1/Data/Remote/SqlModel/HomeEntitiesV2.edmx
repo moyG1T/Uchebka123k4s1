@@ -4,7 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище Uchebka123k4s1TehSQLModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище Uchebka123k4s1SQLV2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Controller">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="Description">
           <Key>
             <PropertyRef Name="Id" />
@@ -148,6 +155,15 @@
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
           <Property Name="ManagerId" Type="int" />
         </EntityType>
+        <EntityType Name="OrderController">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ControllerId" Type="int" />
+          <Property Name="OrderId" Type="int" />
+          <Property Name="IsFine" Type="bit" />
+        </EntityType>
         <EntityType Name="OrderImage">
           <Key>
             <PropertyRef Name="Id" />
@@ -242,16 +258,6 @@
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
           <Property Name="Address" Type="nvarchar" MaxLength="200" />
           <Property Name="DeliveryTime" Type="time" Precision="7" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -560,6 +566,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OrderController_Controller">
+          <End Role="Controller" Type="Self.Controller" Multiplicity="0..1" />
+          <End Role="OrderController" Type="Self.OrderController" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Controller">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderController">
+              <PropertyRef Name="ControllerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderController_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="OrderController" Type="Self.OrderController" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderController">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OrderImage_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
           <End Role="OrderImage" Type="Self.OrderImage" Multiplicity="*" />
@@ -848,7 +878,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Хранилище Uchebka123k4s1TehSQLModelContainer">
+        <EntityContainer Name="Хранилище Uchebka123k4s1SQLV2ModelContainer">
+          <EntitySet Name="Controller" EntityType="Self.Controller" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Description" EntityType="Self.Description" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Equipment" EntityType="Self.Equipment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EquipmentDesc" EntityType="Self.EquipmentDesc" Schema="dbo" store:Type="Tables" />
@@ -865,6 +896,7 @@
           <EntitySet Name="MaterialType" EntityType="Self.MaterialType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaterialUnit" EntityType="Self.MaterialUnit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderController" EntityType="Self.OrderController" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderImage" EntityType="Self.OrderImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderSize" EntityType="Self.OrderSize" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderState" EntityType="Self.OrderState" Schema="dbo" store:Type="Tables" />
@@ -876,7 +908,6 @@
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SizeUnit" EntityType="Self.SizeUnit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAddress" EntityType="Self.UserAddress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDegree" EntityType="Self.UserDegree" Schema="dbo" store:Type="Tables" />
@@ -956,6 +987,14 @@
           <AssociationSet Name="FK_Order_User1" Association="Self.FK_Order_User1">
             <End Role="User" EntitySet="User" />
             <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderController_Controller" Association="Self.FK_OrderController_Controller">
+            <End Role="Controller" EntitySet="Controller" />
+            <End Role="OrderController" EntitySet="OrderController" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderController_Order" Association="Self.FK_OrderController_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderController" EntitySet="OrderController" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderImage_Order" Association="Self.FK_OrderImage_Order">
             <End Role="Order" EntitySet="Order" />
@@ -1054,10 +1093,19 @@
             <End Role="WarehouseHardware" EntitySet="WarehouseHardware" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Uchebka123k4s1TehSQLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Uchebka123k4s1SQLV2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Controller">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrderController" Relationship="Self.FK_OrderController_Controller" FromRole="Controller" ToRole="OrderController" />
+        </EntityType>
         <EntityType Name="Description">
           <Key>
             <PropertyRef Name="Id" />
@@ -1118,10 +1166,22 @@
           <NavigationProperty Name="HardwareType" Relationship="Self.FK_Hardware_HardwareType" FromRole="Hardware" ToRole="HardwareType" />
           <NavigationProperty Name="HardwareUnit" Relationship="Self.FK_Hardware_HardwareUnit" FromRole="Hardware" ToRole="HardwareUnit" />
           <NavigationProperty Name="Supplier" Relationship="Self.FK_Hardware_Supplier" FromRole="Hardware" ToRole="Supplier" />
+          <NavigationProperty Name="HardwareFailure" Relationship="Self.FK_HardwareFailure_Hardware" FromRole="Hardware" ToRole="HardwareFailure" />
           <NavigationProperty Name="HardwareImage" Relationship="Self.FK_HardwareImage_Hardware" FromRole="Hardware" ToRole="HardwareImage" />
           <NavigationProperty Name="ProductHardware" Relationship="Self.FK_ProductHardware_Hardware" FromRole="Hardware" ToRole="ProductHardware" />
           <NavigationProperty Name="WarehouseHardware" Relationship="Self.FK_WarehouseHardware_Hardware" FromRole="Hardware" ToRole="WarehouseHardware" />
-          <NavigationProperty Name="HardwareFailure" Relationship="Uchebka123k4s1TehSQLModel.FK_HardwareFailure_Hardware" FromRole="Hardware" ToRole="HardwareFailure" />
+        </EntityType>
+        <EntityType Name="HardwareFailure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Subtitle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HardwareId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Timestamp" Type="DateTime" Precision="3" />
+          <Property Name="FixTimestamp" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Hardware" Relationship="Self.FK_HardwareFailure_Hardware" FromRole="HardwareFailure" ToRole="Hardware" />
         </EntityType>
         <EntityType Name="HardwareImage">
           <Key>
@@ -1222,8 +1282,20 @@
           <NavigationProperty Name="OrderState" Relationship="Self.FK_Order_OrderState" FromRole="Order" ToRole="OrderState" />
           <NavigationProperty Name="User" Relationship="Self.FK_Order_User" FromRole="Order" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="Self.FK_Order_User1" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="OrderController" Relationship="Self.FK_OrderController_Order" FromRole="Order" ToRole="OrderController" />
           <NavigationProperty Name="OrderImage" Relationship="Self.FK_OrderImage_Order" FromRole="Order" ToRole="OrderImage" />
           <NavigationProperty Name="OrderSize" Relationship="Self.FK_OrderSize_Order" FromRole="Order" ToRole="OrderSize" />
+        </EntityType>
+        <EntityType Name="OrderController">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ControllerId" Type="Int32" />
+          <Property Name="OrderId" Type="Int32" />
+          <Property Name="IsFine" Type="Boolean" />
+          <NavigationProperty Name="Controller" Relationship="Self.FK_OrderController_Controller" FromRole="OrderController" ToRole="Controller" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_OrderController_Order" FromRole="OrderController" ToRole="Order" />
         </EntityType>
         <EntityType Name="OrderImage">
           <Key>
@@ -1341,16 +1413,6 @@
           <NavigationProperty Name="Hardware" Relationship="Self.FK_Hardware_Supplier" FromRole="Supplier" ToRole="Hardware" />
           <NavigationProperty Name="Material" Relationship="Self.FK_Material_Supplier" FromRole="Supplier" ToRole="Material" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -1423,7 +1485,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OperId" Type="Int32" />
           <Property Name="UserId" Type="Int32" />
           <NavigationProperty Name="User" Relationship="Self.FK_UserPossibility_User" FromRole="UserPossibility" ToRole="User" />
@@ -1479,6 +1541,18 @@
           <NavigationProperty Name="Hardware" Relationship="Self.FK_WarehouseHardware_Hardware" FromRole="WarehouseHardware" ToRole="Hardware" />
           <NavigationProperty Name="Warehouse" Relationship="Self.FK_WarehouseHardware_Warehouse" FromRole="WarehouseHardware" ToRole="Warehouse" />
         </EntityType>
+        <Association Name="FK_OrderController_Controller">
+          <End Role="Controller" Type="Self.Controller" Multiplicity="0..1" />
+          <End Role="OrderController" Type="Self.OrderController" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Controller">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderController">
+              <PropertyRef Name="ControllerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Description_Material">
           <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
           <End Role="Description" Type="Self.Description" Multiplicity="*" />
@@ -1572,6 +1646,18 @@
             </Principal>
             <Dependent Role="Hardware">
               <PropertyRef Name="SupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HardwareFailure_Hardware">
+          <End Role="Hardware" Type="Self.Hardware" Multiplicity="0..1" />
+          <End Role="HardwareFailure" Type="Self.HardwareFailure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hardware">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HardwareFailure">
+              <PropertyRef Name="HardwareId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1731,6 +1817,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OrderController_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="OrderController" Type="Self.OrderController" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderController">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OrderImage_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
           <End Role="OrderImage" Type="Self.OrderImage" Multiplicity="*" />
@@ -1959,13 +2057,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TehEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="UchebkaV2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Controller" EntityType="Self.Controller" />
           <EntitySet Name="Description" EntityType="Self.Description" />
           <EntitySet Name="Equipment" EntityType="Self.Equipment" />
           <EntitySet Name="EquipmentDesc" EntityType="Self.EquipmentDesc" />
           <EntitySet Name="EquipmentType" EntityType="Self.EquipmentType" />
           <EntitySet Name="Gost" EntityType="Self.Gost" />
           <EntitySet Name="Hardware" EntityType="Self.Hardware" />
+          <EntitySet Name="HardwareFailure" EntityType="Self.HardwareFailure" />
           <EntitySet Name="HardwareImage" EntityType="Self.HardwareImage" />
           <EntitySet Name="HardwareType" EntityType="Self.HardwareType" />
           <EntitySet Name="HardwareUnit" EntityType="Self.HardwareUnit" />
@@ -1975,6 +2075,7 @@
           <EntitySet Name="MaterialType" EntityType="Self.MaterialType" />
           <EntitySet Name="MaterialUnit" EntityType="Self.MaterialUnit" />
           <EntitySet Name="Order" EntityType="Self.Order" />
+          <EntitySet Name="OrderController" EntityType="Self.OrderController" />
           <EntitySet Name="OrderImage" EntityType="Self.OrderImage" />
           <EntitySet Name="OrderSize" EntityType="Self.OrderSize" />
           <EntitySet Name="OrderState" EntityType="Self.OrderState" />
@@ -1986,7 +2087,6 @@
           <EntitySet Name="Role" EntityType="Self.Role" />
           <EntitySet Name="SizeUnit" EntityType="Self.SizeUnit" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="User" EntityType="Self.User" />
           <EntitySet Name="UserAddress" EntityType="Self.UserAddress" />
           <EntitySet Name="UserDegree" EntityType="Self.UserDegree" />
@@ -1999,6 +2099,10 @@
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" />
           <EntitySet Name="WarehouseContent" EntityType="Self.WarehouseContent" />
           <EntitySet Name="WarehouseHardware" EntityType="Self.WarehouseHardware" />
+          <AssociationSet Name="FK_OrderController_Controller" Association="Self.FK_OrderController_Controller">
+            <End Role="Controller" EntitySet="Controller" />
+            <End Role="OrderController" EntitySet="OrderController" />
+          </AssociationSet>
           <AssociationSet Name="FK_Description_Material" Association="Self.FK_Description_Material">
             <End Role="Material" EntitySet="Material" />
             <End Role="Description" EntitySet="Description" />
@@ -2030,6 +2134,10 @@
           <AssociationSet Name="FK_Hardware_Supplier" Association="Self.FK_Hardware_Supplier">
             <End Role="Supplier" EntitySet="Supplier" />
             <End Role="Hardware" EntitySet="Hardware" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HardwareFailure_Hardware" Association="Self.FK_HardwareFailure_Hardware">
+            <End Role="Hardware" EntitySet="Hardware" />
+            <End Role="HardwareFailure" EntitySet="HardwareFailure" />
           </AssociationSet>
           <AssociationSet Name="FK_HardwareImage_Hardware" Association="Self.FK_HardwareImage_Hardware">
             <End Role="Hardware" EntitySet="Hardware" />
@@ -2082,6 +2190,10 @@
           <AssociationSet Name="FK_Order_User1" Association="Self.FK_Order_User1">
             <End Role="User" EntitySet="User" />
             <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderController_Order" Association="Self.FK_OrderController_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderController" EntitySet="OrderController" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderImage_Order" Association="Self.FK_OrderImage_Order">
             <End Role="Order" EntitySet="Order" />
@@ -2159,44 +2271,23 @@
             <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="WarehouseHardware" EntitySet="WarehouseHardware" />
           </AssociationSet>
-          <EntitySet Name="HardwareFailure" EntityType="Uchebka123k4s1TehSQLModel.HardwareFailure" />
-          <AssociationSet Name="FK_HardwareFailure_Hardware" Association="Uchebka123k4s1TehSQLModel.FK_HardwareFailure_Hardware">
-            <End Role="Hardware" EntitySet="Hardware" />
-            <End Role="HardwareFailure" EntitySet="HardwareFailure" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="HardwareFailure">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Subtitle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="HardwareId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Timestamp" Type="DateTime" Precision="3" />
-          <Property Name="FixTimestamp" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Hardware" Relationship="Uchebka123k4s1TehSQLModel.FK_HardwareFailure_Hardware" FromRole="HardwareFailure" ToRole="Hardware" />
-        </EntityType>
-        <Association Name="FK_HardwareFailure_Hardware">
-          <End Type="Uchebka123k4s1TehSQLModel.Hardware" Role="Hardware" Multiplicity="0..1" />
-          <End Type="Uchebka123k4s1TehSQLModel.HardwareFailure" Role="HardwareFailure" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Hardware">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="HardwareFailure">
-              <PropertyRef Name="HardwareId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище Uchebka123k4s1TehSQLModelContainer" CdmEntityContainer="TehEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Uchebka123k4s1SQLV2ModelContainer" CdmEntityContainer="UchebkaV2Entities">
+          <EntitySetMapping Name="Controller">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.Controller">
+              <MappingFragment StoreEntitySet="Controller">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Description">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.Description">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.Description">
               <MappingFragment StoreEntitySet="Description">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Subtitle" ColumnName="Subtitle" />
@@ -2205,7 +2296,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Equipment">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.Equipment">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.Equipment">
               <MappingFragment StoreEntitySet="Equipment">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2214,7 +2305,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EquipmentDesc">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.EquipmentDesc">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.EquipmentDesc">
               <MappingFragment StoreEntitySet="EquipmentDesc">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Subtitle" ColumnName="Subtitle" />
@@ -2223,7 +2314,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EquipmentType">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.EquipmentType">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.EquipmentType">
               <MappingFragment StoreEntitySet="EquipmentType">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2231,7 +2322,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Gost">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.Gost">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.Gost">
               <MappingFragment StoreEntitySet="Gost">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2240,7 +2331,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Hardware">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.Hardware">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.Hardware">
               <MappingFragment StoreEntitySet="Hardware">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2252,8 +2343,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="HardwareFailure">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.HardwareFailure">
+              <MappingFragment StoreEntitySet="HardwareFailure">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Subtitle" ColumnName="Subtitle" />
+                <ScalarProperty Name="HardwareId" ColumnName="HardwareId" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="FixTimestamp" ColumnName="FixTimestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="HardwareImage">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.HardwareImage">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.HardwareImage">
               <MappingFragment StoreEntitySet="HardwareImage">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
@@ -2264,7 +2367,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HardwareType">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.HardwareType">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.HardwareType">
               <MappingFragment StoreEntitySet="HardwareType">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2272,7 +2375,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HardwareUnit">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.HardwareUnit">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.HardwareUnit">
               <MappingFragment StoreEntitySet="HardwareUnit">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2280,7 +2383,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Material">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.Material">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.Material">
               <MappingFragment StoreEntitySet="Material">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2292,7 +2395,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MaterialImage">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.MaterialImage">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.MaterialImage">
               <MappingFragment StoreEntitySet="MaterialImage">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
@@ -2303,7 +2406,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MaterialLength">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.MaterialLength">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.MaterialLength">
               <MappingFragment StoreEntitySet="MaterialLength">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
@@ -2312,7 +2415,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MaterialType">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.MaterialType">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.MaterialType">
               <MappingFragment StoreEntitySet="MaterialType">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2320,7 +2423,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MaterialUnit">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.MaterialUnit">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.MaterialUnit">
               <MappingFragment StoreEntitySet="MaterialUnit">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2328,7 +2431,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Order">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.Order">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.Order">
               <MappingFragment StoreEntitySet="Order">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2342,8 +2445,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="OrderController">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.OrderController">
+              <MappingFragment StoreEntitySet="OrderController">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ControllerId" ColumnName="ControllerId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="IsFine" ColumnName="IsFine" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="OrderImage">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.OrderImage">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.OrderImage">
               <MappingFragment StoreEntitySet="OrderImage">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
@@ -2353,7 +2466,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderSize">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.OrderSize">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.OrderSize">
               <MappingFragment StoreEntitySet="OrderSize">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Size" ColumnName="Size" />
@@ -2363,7 +2476,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderState">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.OrderState">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.OrderState">
               <MappingFragment StoreEntitySet="OrderState">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2371,7 +2484,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Product">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.Product">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2380,7 +2493,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductContent">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.ProductContent">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.ProductContent">
               <MappingFragment StoreEntitySet="ProductContent">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
@@ -2390,7 +2503,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductHardware">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.ProductHardware">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.ProductHardware">
               <MappingFragment StoreEntitySet="ProductHardware">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
@@ -2400,7 +2513,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductMaterial">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.ProductMaterial">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.ProductMaterial">
               <MappingFragment StoreEntitySet="ProductMaterial">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
@@ -2410,7 +2523,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductOperation">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.ProductOperation">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.ProductOperation">
               <MappingFragment StoreEntitySet="ProductOperation">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -2421,7 +2534,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Role">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.Role">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.Role">
               <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2429,7 +2542,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SizeUnit">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.SizeUnit">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.SizeUnit">
               <MappingFragment StoreEntitySet="SizeUnit">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2437,7 +2550,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Supplier">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.Supplier">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.Supplier">
               <MappingFragment StoreEntitySet="Supplier">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2446,19 +2559,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.User">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
@@ -2468,7 +2570,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserAddress">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.UserAddress">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.UserAddress">
               <MappingFragment StoreEntitySet="UserAddress">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
@@ -2477,7 +2579,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserDegree">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.UserDegree">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.UserDegree">
               <MappingFragment StoreEntitySet="UserDegree">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2486,7 +2588,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserFullName">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.UserFullName">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.UserFullName">
               <MappingFragment StoreEntitySet="UserFullName">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -2498,7 +2600,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserImage">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.UserImage">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.UserImage">
               <MappingFragment StoreEntitySet="UserImage">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
@@ -2509,7 +2611,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserOperation">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.UserOperation">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.UserOperation">
               <MappingFragment StoreEntitySet="UserOperation">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2517,7 +2619,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserPossibility">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.UserPossibility">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.UserPossibility">
               <MappingFragment StoreEntitySet="UserPossibility">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="OperId" ColumnName="OperId" />
@@ -2526,7 +2628,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserQualification">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.UserQualification">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.UserQualification">
               <MappingFragment StoreEntitySet="UserQualification">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2535,7 +2637,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserSkill">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.UserSkill">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.UserSkill">
               <MappingFragment StoreEntitySet="UserSkill">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2544,7 +2646,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Warehouse">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.Warehouse">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.Warehouse">
               <MappingFragment StoreEntitySet="Warehouse">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -2553,7 +2655,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WarehouseContent">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.WarehouseContent">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.WarehouseContent">
               <MappingFragment StoreEntitySet="WarehouseContent">
                 <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
                 <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
@@ -2562,23 +2664,11 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WarehouseHardware">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.WarehouseHardware">
+            <EntityTypeMapping TypeName="Uchebka123k4s1SQLV2Model.WarehouseHardware">
               <MappingFragment StoreEntitySet="WarehouseHardware">
                 <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
                 <ScalarProperty Name="HardwareId" ColumnName="HardwareId" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HardwareFailure">
-            <EntityTypeMapping TypeName="Uchebka123k4s1TehSQLModel.HardwareFailure">
-              <MappingFragment StoreEntitySet="HardwareFailure">
-                <ScalarProperty Name="FixTimestamp" ColumnName="FixTimestamp" />
-                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-                <ScalarProperty Name="HardwareId" ColumnName="HardwareId" />
-                <ScalarProperty Name="Subtitle" ColumnName="Subtitle" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

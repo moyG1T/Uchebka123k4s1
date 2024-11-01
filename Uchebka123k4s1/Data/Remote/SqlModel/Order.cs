@@ -12,7 +12,7 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
     using System;
     using System.Collections.Generic;
     using Uchebka123k4s1.Domain.Utilities;
-
+    
     public partial class Order : ObservableObject
     {
         private OrderState orderState;
@@ -23,10 +23,11 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
+            this.OrderController = new HashSet<OrderController>();
             this.OrderImage = new HashSet<OrderImage>();
             this.OrderSize = new HashSet<OrderSize>();
         }
-
+    
         public int Id { get; set; }
         public string Title { get; set; }
         public Nullable<int> StateId
@@ -43,7 +44,7 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public Nullable<System.DateTime> EstimatedDate { get; set; }
         public string Description { get; set; }
         public Nullable<int> ManagerId { get; set; }
-
+    
         public virtual OrderState OrderState
         {
             get => orderState; 
@@ -69,6 +70,10 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
                 OnPropertyChanged();
             }
         }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderController> OrderController { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderImage> OrderImage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

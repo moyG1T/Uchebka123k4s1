@@ -11,12 +11,9 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
 {
     using System;
     using System.Collections.Generic;
-    using Uchebka123k4s1.Domain.Utilities;
-
-    public partial class Material : ObservableObject
+    
+    public partial class Material
     {
-        private ICollection<WarehouseContent> warehouseContent;
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Material()
         {
@@ -49,13 +46,6 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductMaterial> ProductMaterial { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WarehouseContent> WarehouseContent
-        {
-            get => warehouseContent; set
-            {
-                warehouseContent = value;
-                OnPropertyChanged();
-            }
-        }
+        public virtual ICollection<WarehouseContent> WarehouseContent { get; set; }
     }
 }

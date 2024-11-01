@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dc4a0abfa4724bf988ffcbc4c21feb14" Name="Diagram1">
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.Controller" Width="1.5" PointX="8.25" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.Description" Width="1.5" PointX="20.25" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.Equipment" Width="1.5" PointX="23.25" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.EquipmentDesc" Width="1.5" PointX="25.5" PointY="27.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.EquipmentType" Width="1.5" PointX="21" PointY="24.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.Gost" Width="1.5" PointX="20.25" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.Hardware" Width="1.5" PointX="15" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.HardwareFailure" Width="1.5" PointX="17.25" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.HardwareImage" Width="1.5" PointX="17.25" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.HardwareType" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.HardwareUnit" Width="1.5" PointX="12.75" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.Material" Width="1.5" PointX="18" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.MaterialImage" Width="1.5" PointX="20.25" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.MaterialLength" Width="1.5" PointX="20.25" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.MaterialType" Width="1.5" PointX="15.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.MaterialUnit" Width="1.5" PointX="15.75" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.Order" Width="1.5" PointX="8.25" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.OrderController" Width="1.5" PointX="10.5" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.OrderImage" Width="1.5" PointX="10.5" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.OrderSize" Width="1.5" PointX="10.5" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.OrderState" Width="1.5" PointX="6" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.Product" Width="1.5" PointX="21" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.ProductContent" Width="1.5" PointX="23.25" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.ProductHardware" Width="1.5" PointX="23.25" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.ProductMaterial" Width="1.5" PointX="23.25" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.ProductOperation" Width="1.5" PointX="23.25" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.Role" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.SizeUnit" Width="1.5" PointX="8.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.Supplier" Width="1.5" PointX="12.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.User" Width="1.5" PointX="3" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.UserAddress" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.UserDegree" Width="1.5" PointX="5.25" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.UserFullName" Width="1.5" PointX="5.25" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.UserImage" Width="1.5" PointX="5.25" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.UserOperation" Width="1.5" PointX="6" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.UserPossibility" Width="1.5" PointX="8.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.UserQualification" Width="1.5" PointX="5.25" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.UserSkill" Width="1.5" PointX="5.25" PointY="28.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.Warehouse" Width="1.5" PointX="21" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.WarehouseContent" Width="1.5" PointX="26.25" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.WarehouseHardware" Width="1.5" PointX="23.25" PointY="11.75" IsExpanded="true" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_OrderController_Controller" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Description_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Equipment_EquipmentType" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_EquipmentDesc_Equipment" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_ProductOperation_EquipmentType" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Gost_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Hardware_HardwareType" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Hardware_HardwareUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Hardware_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_HardwareFailure_Hardware" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_HardwareImage_Hardware" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_ProductHardware_Hardware" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_WarehouseHardware_Hardware" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Material_MaterialType" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Material_MaterialUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Material_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_MaterialImage_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_MaterialLength_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_ProductMaterial_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_WarehouseContent_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Order_OrderState" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Order_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Order_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_OrderController_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_OrderImage_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_OrderSize_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_OrderSize_SizeUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_ProductContent_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_ProductContent_Product1" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_ProductHardware_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_ProductMaterial_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_ProductOperation_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_User_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_UserAddress_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_UserDegree_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_UserFullName_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_UserImage_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_UserPossibility_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_UserQualification_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_UserSkill_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_UserPossibility_UserOperation" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_WarehouseContent_Warehouse" ManuallyRouted="false" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_WarehouseHardware_Warehouse" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

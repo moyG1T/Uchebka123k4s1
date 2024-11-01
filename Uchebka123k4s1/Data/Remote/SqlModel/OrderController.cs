@@ -12,12 +12,14 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
     using System;
     using System.Collections.Generic;
     
-    public partial class UserSkill
+    public partial class OrderController
     {
         public int Id { get; set; }
-        public string Title { get; set; }
-        public Nullable<int> UserId { get; set; }
+        public Nullable<int> ControllerId { get; set; }
+        public Nullable<int> OrderId { get; set; }
+        public Nullable<bool> IsFine { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual Controller Controller { get; set; }
+        public virtual Order Order { get; set; }
     }
 }

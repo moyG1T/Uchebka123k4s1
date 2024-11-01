@@ -95,140 +95,143 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\Remote\Partial\User.cs" />
-    <Compile Include="Data\Remote\TehSqlModel\Description.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\Controller.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\Equipment.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\Description.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\EquipmentDesc.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\Equipment.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\EquipmentType.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\EquipmentDesc.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\Gost.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\EquipmentType.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\Hardware.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\Gost.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\HardwareFailure.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\Hardware.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\HardwareImage.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\HardwareFailure.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\HardwareType.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\HardwareImage.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\HardwareUnit.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\HardwareType.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\Material.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\HardwareUnit.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\MaterialImage.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\MaterialLength.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\MaterialType.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\MaterialUnit.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\Order.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\OrderImage.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\OrderSize.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\OrderState.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\Product.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\ProductContent.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\ProductHardware.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\ProductMaterial.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\ProductOperation.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\Role.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\SizeUnit.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\Supplier.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\sysdiagrams.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\TehModel.Context.cs">
+    <Compile Include="Data\Remote\SqlModel\HomeEntitiesV2.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TehModel.Context.tt</DependentUpon>
+      <DependentUpon>HomeEntitiesV2.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\TehModel.cs">
+    <Compile Include="Data\Remote\SqlModel\HomeEntitiesV2.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TehModel.tt</DependentUpon>
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\TehModel.Designer.cs">
+    <Compile Include="Data\Remote\SqlModel\HomeEntitiesV2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TehModel.edmx</DependentUpon>
+      <DependentUpon>HomeEntitiesV2.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\User.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\Material.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\UserAddress.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\MaterialImage.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\UserDegree.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\MaterialLength.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\UserFullName.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\MaterialType.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\UserImage.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\MaterialUnit.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\UserOperation.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\Order.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\UserPossibility.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\OrderController.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\UserQualification.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\OrderImage.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\UserSkill.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\OrderSize.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\Warehouse.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\OrderState.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\WarehouseContent.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\Product.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Remote\TehSqlModel\WarehouseHardware.cs">
-      <DependentUpon>TehModel.tt</DependentUpon>
+    <Compile Include="Data\Remote\SqlModel\ProductContent.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\ProductHardware.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\ProductMaterial.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\ProductOperation.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\Role.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\SizeUnit.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\Supplier.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\User.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\UserAddress.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\UserDegree.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\UserFullName.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\UserImage.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\UserOperation.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\UserPossibility.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\UserQualification.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\UserSkill.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\Warehouse.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\WarehouseContent.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Remote\SqlModel\WarehouseHardware.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\Commands\CommandBase.cs" />
     <Compile Include="Domain\Commands\GoBackCommand.cs" />
@@ -250,6 +253,7 @@
     <Compile Include="ViewModels\MasterPanelViewModel.cs" />
     <Compile Include="ViewModels\MaterialInteractionViewModel.cs" />
     <Compile Include="ViewModels\MaterialListViewModel.cs" />
+    <Compile Include="ViewModels\OrderControlViewModel.cs" />
     <Compile Include="ViewModels\OrderInteractionViewModel.cs" />
     <Compile Include="ViewModels\OrderListViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
@@ -285,6 +289,9 @@
     </Compile>
     <Compile Include="Views\MaterialListView.xaml.cs">
       <DependentUpon>MaterialListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderControllerView.xaml.cs">
+      <DependentUpon>OrderControllerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OrderInteractionView.xaml.cs">
       <DependentUpon>OrderInteractionView.xaml</DependentUpon>
@@ -375,6 +382,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\OrderControllerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\OrderInteractionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -410,12 +421,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Data\Remote\TehSqlModel\TehModel.edmx">
+    <EntityDeploy Include="Data\Remote\SqlModel\HomeEntitiesV2.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TehModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>HomeEntitiesV2.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Data\Remote\TehSqlModel\TehModel.edmx.diagram">
-      <DependentUpon>TehModel.edmx</DependentUpon>
+    <None Include="Data\Remote\SqlModel\HomeEntitiesV2.edmx.diagram">
+      <DependentUpon>HomeEntitiesV2.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -430,18 +441,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\Remote\TehSqlModel\TehModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TehModel.edmx</DependentUpon>
-      <LastGenOutput>TehModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Data\Remote\TehSqlModel\TehModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TehModel.edmx</DependentUpon>
-      <LastGenOutput>TehModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.8 %28x86 и x64%29</ProductName>
@@ -452,6 +451,18 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\Remote\SqlModel\HomeEntitiesV2.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HomeEntitiesV2.edmx</DependentUpon>
+      <LastGenOutput>HomeEntitiesV2.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\Remote\SqlModel\HomeEntitiesV2.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HomeEntitiesV2.edmx</DependentUpon>
+      <LastGenOutput>HomeEntitiesV2.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

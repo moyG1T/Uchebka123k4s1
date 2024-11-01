@@ -13,10 +13,10 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TehEntities : DbContext
+    public partial class UchebkaV2Entities : DbContext
     {
-        public TehEntities()
-            : base("name=TehEntities")
+        public UchebkaV2Entities()
+            : base("name=UchebkaV2Entities")
         {
         }
     
@@ -25,12 +25,14 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Controller> Controller { get; set; }
         public virtual DbSet<Description> Description { get; set; }
         public virtual DbSet<Equipment> Equipment { get; set; }
         public virtual DbSet<EquipmentDesc> EquipmentDesc { get; set; }
         public virtual DbSet<EquipmentType> EquipmentType { get; set; }
         public virtual DbSet<Gost> Gost { get; set; }
         public virtual DbSet<Hardware> Hardware { get; set; }
+        public virtual DbSet<HardwareFailure> HardwareFailure { get; set; }
         public virtual DbSet<HardwareImage> HardwareImage { get; set; }
         public virtual DbSet<HardwareType> HardwareType { get; set; }
         public virtual DbSet<HardwareUnit> HardwareUnit { get; set; }
@@ -40,6 +42,7 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public virtual DbSet<MaterialType> MaterialType { get; set; }
         public virtual DbSet<MaterialUnit> MaterialUnit { get; set; }
         public virtual DbSet<Order> Order { get; set; }
+        public virtual DbSet<OrderController> OrderController { get; set; }
         public virtual DbSet<OrderImage> OrderImage { get; set; }
         public virtual DbSet<OrderSize> OrderSize { get; set; }
         public virtual DbSet<OrderState> OrderState { get; set; }
@@ -51,7 +54,6 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<SizeUnit> SizeUnit { get; set; }
         public virtual DbSet<Supplier> Supplier { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserAddress> UserAddress { get; set; }
         public virtual DbSet<UserDegree> UserDegree { get; set; }
@@ -64,6 +66,5 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public virtual DbSet<Warehouse> Warehouse { get; set; }
         public virtual DbSet<WarehouseContent> WarehouseContent { get; set; }
         public virtual DbSet<WarehouseHardware> WarehouseHardware { get; set; }
-        public virtual DbSet<HardwareFailure> HardwareFailure { get; set; }
     }
 }

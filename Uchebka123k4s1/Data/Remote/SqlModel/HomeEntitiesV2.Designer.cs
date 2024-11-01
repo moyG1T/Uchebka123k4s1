@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "C:\Users\Welcome\source\repos\Uchebka123k4s1\Uchebka123k4s1\Data\Remote\SqlModel\Uchebka.edmx" включено. 
+﻿// Создание кода T4 для модели "C:\Users\Welcome\Source\Repos\Uchebka123k4s1V2\Uchebka123k4s1\Data\Remote\SqlModel\HomeEntitiesV2.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.

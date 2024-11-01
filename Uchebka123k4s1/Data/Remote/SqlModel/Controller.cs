@@ -12,18 +12,18 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
     using System;
     using System.Collections.Generic;
     
-    public partial class HardwareType
+    public partial class Controller
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HardwareType()
+        public Controller()
         {
-            this.Hardware = new HashSet<Hardware>();
+            this.OrderController = new HashSet<OrderController>();
         }
     
         public int Id { get; set; }
         public string Title { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Hardware> Hardware { get; set; }
+        public virtual ICollection<OrderController> OrderController { get; set; }
     }
 }
