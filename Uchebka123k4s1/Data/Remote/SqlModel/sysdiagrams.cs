@@ -12,15 +12,12 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderController
+    public partial class sysdiagrams
     {
-        public int Id { get; set; }
-        public Nullable<int> ControllerId { get; set; }
-        public Nullable<int> OrderId { get; set; }
-        public string Comm { get; set; }
-        public Nullable<bool> IsFine { get; set; }
-    
-        public virtual Controller Controller { get; set; }
-        public virtual Order Order { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

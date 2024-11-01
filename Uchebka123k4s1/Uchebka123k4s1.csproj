@@ -197,6 +197,9 @@
     <Compile Include="Data\Remote\SqlModel\Supplier.cs">
       <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\Remote\SqlModel\sysdiagrams.cs">
+      <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Remote\SqlModel\User.cs">
       <DependentUpon>HomeEntitiesV2.tt</DependentUpon>
     </Compile>

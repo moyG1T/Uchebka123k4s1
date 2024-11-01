@@ -48,6 +48,7 @@ namespace Uchebka123k4s1.ViewModels
         }
 
         private readonly INavService _interactOrder;
+        private readonly INavService _controlOrder;
         private readonly OrderContext _orderContext;
         private readonly DbService _dbService;
         private readonly UserContext _userContext;
@@ -82,13 +83,14 @@ namespace Uchebka123k4s1.ViewModels
             INavService logout,
             INavService goBack,
             INavService interactOrder,
+            INavService controlOrder,
             OrderContext orderContext,
             DbService dbService,
             UserContext userContext
             )
         {
             _interactOrder = interactOrder;
-
+            _controlOrder = controlOrder;
             _orderContext = orderContext;
             _dbService = dbService;
             _userContext = userContext;
@@ -125,7 +127,7 @@ namespace Uchebka123k4s1.ViewModels
                     Task.Run(LoadManagerOrders);
                     break;
                 case 4:
-                    ControlOrderCommand = new RelayAsyncCommand(ControlOrder);
+                    ControlOrderCommand = new RelayCommand(ControlOrder);
                     SetOrderReadyCommand = new RelayAsyncCommand(SetOrderReady);
 
                     Task.Run(LoadDungeonMasterOrders);
@@ -260,12 +262,16 @@ namespace Uchebka123k4s1.ViewModels
             order.OrderState = States.FirstOrDefault(it => it.Id == 4);
             await _dbService.SaveChangesAsync();
         }
-        private async Task ControlOrder(object param)
+        private void ControlOrder(object param)
         {
             var order = param as Order;
 
-            order.OrderState = States.FirstOrDefault(it => it.Id == 7);
-            await _dbService.SaveChangesAsync();
+            //order.OrderState = States.FirstOrDefault(it => it.Id == 7);
+            //await _dbService.SaveChangesAsync();
+
+            _orderContext.SelectedOrder = order;
+
+            _controlOrder.Navigate();
         }
         private async Task SetOrderReady(object param)
         {

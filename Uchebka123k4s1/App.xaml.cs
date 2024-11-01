@@ -137,6 +137,7 @@ namespace Uchebka123k4s1
                     CreateLoginNavService(p),
                     CreateBackOnlyNavService(p),
                     CreateOrderInteractionNavService(p),
+                    CreateOrderControlNavService(p),
                     p.GetRequiredService<OrderContext>(),
                     p.GetRequiredService<DbService>(),
                     p.GetRequiredService<UserContext>()
@@ -195,6 +196,15 @@ namespace Uchebka123k4s1
                 return new FailureViewModel(
                     CreateLoginNavService(p),
                     CreateBackOnlyNavService(p),
+                    p.GetRequiredService<DbService>()
+                    );
+            });
+            services.AddTransient<OrderControlViewModel>(p =>
+            {
+                return new OrderControlViewModel(
+                    CreateLoginNavService(p),
+                    CreateBackOnlyNavService(p),
+                    p.GetRequiredService<OrderContext>(),
                     p.GetRequiredService<DbService>()
                     );
             });
@@ -291,5 +301,7 @@ namespace Uchebka123k4s1
 
         private INavService CreateFailureNavService(IServiceProvider p) =>
             new MainNavService(p.GetRequiredService<MainNavContext>(), p.GetRequiredService<FailureViewModel>);
+        private INavService CreateOrderControlNavService(IServiceProvider p) =>
+            new MainNavService(p.GetRequiredService<MainNavContext>(), p.GetRequiredService<OrderControlViewModel>);
     }
 }

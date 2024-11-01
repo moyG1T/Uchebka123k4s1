@@ -22,7 +22,6 @@
         <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.MaterialType" Width="1.5" PointX="15.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.MaterialUnit" Width="1.5" PointX="15.75" PointY="23.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.Order" Width="1.5" PointX="8.25" PointY="13.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.OrderController" Width="1.5" PointX="10.5" PointY="14.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.OrderImage" Width="1.5" PointX="10.5" PointY="17.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.OrderSize" Width="1.5" PointX="10.5" PointY="11.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.OrderState" Width="1.5" PointX="6" PointY="6.75" IsExpanded="true" />
@@ -46,7 +45,6 @@
         <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.Warehouse" Width="1.5" PointX="21" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.WarehouseContent" Width="1.5" PointX="26.25" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.WarehouseHardware" Width="1.5" PointX="23.25" PointY="11.75" IsExpanded="true" />
-        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_OrderController_Controller" ManuallyRouted="false" />
         <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Description_Material" ManuallyRouted="false" />
         <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Equipment_EquipmentType" ManuallyRouted="false" />
         <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_EquipmentDesc_Equipment" ManuallyRouted="false" />
@@ -69,7 +67,6 @@
         <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Order_OrderState" ManuallyRouted="false" />
         <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Order_User" ManuallyRouted="false" />
         <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_Order_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_OrderController_Order" ManuallyRouted="false" />
         <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_OrderImage_Order" ManuallyRouted="false" />
         <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_OrderSize_Order" ManuallyRouted="false" />
         <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_OrderSize_SizeUnit" ManuallyRouted="false" />
@@ -89,6 +86,10 @@
         <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_UserPossibility_UserOperation" ManuallyRouted="false" />
         <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_WarehouseContent_Warehouse" ManuallyRouted="false" />
         <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_WarehouseHardware_Warehouse" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.OrderController" Width="1.5" PointX="10.875" PointY="20.75" />
+        <EntityTypeShape EntityType="Uchebka123k4s1SQLV2Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_OrderController_Controller" />
+        <AssociationConnector Association="Uchebka123k4s1SQLV2Model.FK_OrderController_Order" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -16,6 +16,9 @@
         Background="{StaticResource Peach}">
 
     <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:OrderControlViewModel}">
+            <v:OrderControllerView/>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:LoginViewModel}">
             <v:LoginView/>
         </DataTemplate>

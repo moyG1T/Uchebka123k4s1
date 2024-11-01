@@ -103,8 +103,16 @@
                                     <Button Command="{Binding DataContext.ControlOrderCommand,
                                             RelativeSource={RelativeSource AncestorType=ListBox}}" 
                                             CommandParameter="{Binding}"
-                                            Content="На контроль"
-                                            Name="ControlOrder" 
+                                            Content="Начать контроль"
+                                            Name="BeginControlOrder" 
+                                            Visibility="Collapsed"
+                                            Style="{StaticResource TextButton}"
+                                            Margin="0 0 5 0"/>
+                                    <Button Command="{Binding DataContext.ControlOrderCommand,
+                                            RelativeSource={RelativeSource AncestorType=ListBox}}" 
+                                            CommandParameter="{Binding}"
+                                            Content="Продолжить контроль"
+                                            Name="ContinueControlOrder" 
                                             Visibility="Collapsed"
                                             Style="{StaticResource TextButton}"
                                             Margin="0 0 5 0"/>
@@ -204,7 +212,7 @@
                                     <Condition Binding="{Binding StateId}" Value="6"/>
                                 </MultiDataTrigger.Conditions>
                                 <MultiDataTrigger.Setters>
-                                    <Setter TargetName="ControlOrder" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="BeginControlOrder" Property="Visibility" Value="Visible"/>
                                 </MultiDataTrigger.Setters>
                             </MultiDataTrigger>
                             <MultiDataTrigger>
@@ -214,7 +222,7 @@
                                     <Condition Binding="{Binding StateId}" Value="7"/>
                                 </MultiDataTrigger.Conditions>
                                 <MultiDataTrigger.Setters>
-                                    <Setter TargetName="SetOrderReady" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="ContinueControlOrder" Property="Visibility" Value="Visible"/>
                                 </MultiDataTrigger.Setters>
                             </MultiDataTrigger>
                         </ControlTemplate.Triggers>

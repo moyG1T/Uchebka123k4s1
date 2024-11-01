@@ -42,7 +42,6 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public virtual DbSet<MaterialType> MaterialType { get; set; }
         public virtual DbSet<MaterialUnit> MaterialUnit { get; set; }
         public virtual DbSet<Order> Order { get; set; }
-        public virtual DbSet<OrderController> OrderController { get; set; }
         public virtual DbSet<OrderImage> OrderImage { get; set; }
         public virtual DbSet<OrderSize> OrderSize { get; set; }
         public virtual DbSet<OrderState> OrderState { get; set; }
@@ -66,5 +65,7 @@ namespace Uchebka123k4s1.Data.Remote.SqlModel
         public virtual DbSet<Warehouse> Warehouse { get; set; }
         public virtual DbSet<WarehouseContent> WarehouseContent { get; set; }
         public virtual DbSet<WarehouseHardware> WarehouseHardware { get; set; }
+        public virtual DbSet<OrderController> OrderController { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }
